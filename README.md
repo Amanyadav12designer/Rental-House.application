@@ -20,8 +20,10 @@ React • JavaScript • CSS • LocalStorage • Git
 - PropertyList.jsx — Display properties
 - PropertyCard.jsx — Individual property UI
 
+
 ## Live Demo
-(Coming soon)
+https://rental-house-application.vercel.app/
+
 
 
 
