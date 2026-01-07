@@ -22,7 +22,8 @@ export default function AddPropertyForm({onAdd}){
             id: Date.now(),
             title,
             location,
-            rent,image
+            rent,image,
+            favorite: false
         }
         onAdd(newProperty);
 

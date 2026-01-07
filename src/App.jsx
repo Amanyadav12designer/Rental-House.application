@@ -77,6 +77,12 @@ useEffect(()=>{
       setProperties(properties.filter(p=>p.id!==id));
     }
     
+    function toggleFavorite(id){
+      setProperties(properties.map(p=>
+        p.id===id?{...p,favorite:!p.favorite}:p
+      ));
+    }
+      
 
 return(
 
@@ -90,7 +96,7 @@ return(
 
 
 <AddPropertyForm onAdd={addProperty}/> 
-<PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty}/>
+<PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
 
 
 <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px"}}/>

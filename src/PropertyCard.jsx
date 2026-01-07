@@ -1,4 +1,4 @@
-export default function PropertyCard({property,onToggle,onDelete}){
+export default function PropertyCard({property,onToggle,onDelete,onFavorite}){
 
 return(
 
@@ -16,6 +16,10 @@ return(
 <button onClick={()=>onToggle(property.id)}>Toggle Availability</button>
 <button onClick={()=>onDelete(property.id)}style={{marginLeft:"10px",color:"red"}}
 >Delete Property</button>
+
+<span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>onFavorite(property.id)}>
+{property.favorite ? "★ Favorite" : "☆ Mark as Favorite"}
+</span>
 
 </div>
 
