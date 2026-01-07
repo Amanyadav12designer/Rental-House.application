@@ -15,7 +15,18 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   const[maxRent,setMaxRent]= useState("");
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
+const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
 
+
+
+function loginLandlord(){
+  setLandlordLoggedIn(true);
+
+}
+
+function logoutLandlord(){
+  setLandlordLoggedIn(false);
+}
 
 
   let filteredProperties=properties;
@@ -89,6 +100,9 @@ useEffect(()=>{
         p.id===id?{...p,favorite:!p.favorite}:p
       ));
     }
+
+
+
       
 
 return(
@@ -102,7 +116,12 @@ return(
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
 <span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("all")}> Show All</span>
-<AddPropertyForm onAdd={addProperty}/> 
+
+<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px"}}>Login as Landlord</button>
+<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px"}}>Logout</button>
+
+{LandlordLoggedIn && (
+<AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
 
 
