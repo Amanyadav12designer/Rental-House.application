@@ -18,7 +18,7 @@ return JSON.parse(localStorage.getItem("properties")) || [];
 
 
 
-  let filtered=properties;
+  let filteredProperties=properties;
 
   if(search){
     filteredProperties=filteredProperties.filter(p=>
@@ -54,7 +54,7 @@ useEffect(()=>{
 
 );
 
-const filteredProperties=properties.filter(p=>{
+let filtered=properties.filter(p=>{
 
   if(filter==="favorite") return p.favorite;
   return true;
@@ -100,7 +100,7 @@ return(
 
   <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
-<span style={{marginLeft:"20px"}} onClick={()=>setFilter(favorite)}> Filter Favorites</span>
+<span style={{marginLeft:"20px"}} onClick={()=>setFilter("favorite")}> Filter Favorites</span>
 <span style={{marginLeft:"20px"}} onClick={()=>setFilter("all")}> Show All</span>
 <AddPropertyForm onAdd={addProperty}/> 
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
