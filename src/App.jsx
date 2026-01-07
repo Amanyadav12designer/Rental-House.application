@@ -14,10 +14,11 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   const[minRent,setMinRent]= useState("");
   const[maxRent,setMaxRent]= useState("");
   const[searchLocation,setSearchLocation]= useState("");
+  const[filter,setFilter]= useState("all");
 
 
 
-  let filteredProperties=properties;
+  let filtered=properties;
 
   if(search){
     filteredProperties=filteredProperties.filter(p=>
@@ -52,6 +53,12 @@ useEffect(()=>{
 },[properties]
 
 );
+
+const filteredProperties=properties.filter(p=>{
+
+  if(filter==="favorite") return p.favorite;
+  return true;
+});
 
 
 
