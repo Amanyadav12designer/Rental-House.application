@@ -100,8 +100,8 @@ return(
 
   <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
-
-
+<span style={{marginLeft:"20px"}} onClick={()=>setFilter(favorite)}> Filter Favorites</span>
+<span style={{marginLeft:"20px"}} onClick={()=>setFilter("all")}> Show All</span>
 <AddPropertyForm onAdd={addProperty}/> 
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
 
