@@ -6,8 +6,9 @@ import PropertyCard from "./PropertyCard";
 export default function PropertyList({properties,onToggle,onDelete}){
 
 
+
 if (properties.length===0){
-    return <p>No properties available</p>}
+    return <p style={{margin:"40px auto",fontFamily:"arial",color:"red"}}>No properties available</p>}
     
 
     return(

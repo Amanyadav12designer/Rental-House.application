@@ -22,9 +22,10 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   if(search){
     filteredProperties=filteredProperties.filter(p=>
 
-      p.title.toLowerCase().includes(search.toLowerCase())
-    );
+      p.title.toLowerCase().includes(search.toLowerCase()) 
+    ) 
   }
+ 
 
   if(minRent){
     filteredProperties=filteredProperties.filter(p=>
@@ -51,6 +52,7 @@ useEffect(()=>{
 },[properties]
 
 );
+
 
 
   function addProperty(newProperty){
