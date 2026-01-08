@@ -37,7 +37,7 @@ export default function AddPropertyForm({onAdd}){
 
 
     return(
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}> style={{marginBottom:"20px"}}
     
       <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title" />
       <input value={location} onChange={e=>setLocation(e.target.value)} placeholder="Location" />
