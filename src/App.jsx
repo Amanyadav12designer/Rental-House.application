@@ -25,7 +25,7 @@ const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
 
 
 async function getCoordinates(location){
-const res= await  fetch(`https://nominatim.openstreetmap.org/search?q=${location}&format=json
+const res= await  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json
 `);
 
 const data = await res.json();
