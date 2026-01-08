@@ -8,8 +8,8 @@ export default function AddPropertyForm({onAdd}){
     const [location,setLocation] = useState("");
     const [rent,setRent] = useState("");
     const [image,setImage] = useState("");
-    const [lat, setLat] = useState("");
-const [lng, setLng] = useState("");
+
+
 
 
 
@@ -21,7 +21,7 @@ const [lng, setLng] = useState("");
             return;
         }
 
-        const coords= cityCoordinates[location.toLowerCase()] || { lat:28.6139, lng:77.2090 };
+        
 
         const newProperty = {
             id: Date.now(),

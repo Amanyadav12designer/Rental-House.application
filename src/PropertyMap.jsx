@@ -4,7 +4,7 @@ export default function PropertyMap({ properties }) {
   return (
     <MapContainer
       center={[20.5937, 78.9629]}
-      zoom={12}
+      zoom={5}
       style={{ height: "300px", width: "100%", marginBottom: "20px" }}
     >
       <TileLayer
