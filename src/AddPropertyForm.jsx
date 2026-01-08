@@ -21,13 +21,15 @@ const [lng, setLng] = useState("");
             return;
         }
 
+        const coords= cityCoordinates[location.toLowerCase()] || { lat:28.6139, lng:77.2090 };
+
         const newProperty = {
             id: Date.now(),
             title,
             location,
             rent,image,
             favorite: false,
-coordinates: { lat: 28.6139, lng: 77.2090 }
+coordinates: coords
 
 
         }

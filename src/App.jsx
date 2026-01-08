@@ -22,6 +22,13 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
 const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
+const cityCoordinates = {
+  delhi: { lat: 28.6139, lng: 77.2090 },
+  mumbai: { lat: 19.0760, lng: 72.8777 },
+  bangalore: { lat: 12.9716, lng: 77.5946 },
+  chennai: { lat: 13.0827, lng: 80.2707 }
+};
+
 
 
 
