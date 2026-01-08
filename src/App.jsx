@@ -1,4 +1,8 @@
 import {useState,useEffect} from "react";
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+import 'leaflet-defaulticon-compatibility';
+
 
 import AddPropertyForm from "./AddPropertyForm";
 import PropertyList from "./PropertyList";

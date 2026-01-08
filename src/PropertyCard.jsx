@@ -1,3 +1,31 @@
+
+
+import MapView from "./MapView";
+
+export default function PropertyCard({ property, onToggle, onDelete }) {
+
+  return (
+    <div>
+      <h3>{property.title}</h3>
+      <p>{property.location}</p>
+
+      <MapView
+        lat={property.lat}
+        lng={property.lng}
+        title={property.title}
+      />
+
+      <button onClick={() => onToggle(property.id)}>
+        Toggle
+      </button>
+
+      <button onClick={() => onDelete(property.id)}>
+        Delete
+      </button>
+    </div>
+  );
+}
+
 export default function PropertyCard({property,onToggle,onDelete,onFavorite}){
 
 return(

@@ -8,6 +8,9 @@ export default function AddPropertyForm({onAdd}){
     const [location,setLocation] = useState("");
     const [rent,setRent] = useState("");
     const [image,setImage] = useState("");
+    const [lat, setLat] = useState("");
+const [lng, setLng] = useState("");
+
 
 
 
@@ -23,7 +26,10 @@ export default function AddPropertyForm({onAdd}){
             title,
             location,
             rent,image,
-            favorite: false
+            favorite: false,
+        lat: parseFloat(lat),
+lng: parseFloat(lng)
+
         }
         onAdd(newProperty);
 
