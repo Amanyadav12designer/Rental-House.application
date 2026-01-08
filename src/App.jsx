@@ -32,8 +32,8 @@ const data = await res.json();
 
 if(data.length===0) return null;
 return{
-  Lat:parseFloat(data[0].Lat),
-  Lon:parseFloat(data[0].Lon)
+  lat:parseFloat(data[0].Lat),
+  lon:parseFloat(data[0].Lon)
 };
 
 
@@ -109,9 +109,7 @@ useEffect(()=>{
 
 
 
-  function addProperty(newProperty){
-    setProperties([...properties,newProperty]);
-  }
+  
 
     function toggleAvailability(id){
       setProperties(properties.map(p=>

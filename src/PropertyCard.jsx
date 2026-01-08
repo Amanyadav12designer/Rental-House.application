@@ -10,8 +10,8 @@ export default function PropertyCard({ property, onToggle, onDelete }) {
       <p>{property.location}</p>
 
       <MapView
-        lat={property.lat}
-        lng={property.lng}
+        lat={property.coordinates.lat}
+        lng={property.coordinates.lng}
         title={property.title}
       />
 

@@ -28,8 +28,8 @@ export default function AddPropertyForm({onAdd}){
             title,
             location,
             rent,image,
-            favorite: false,
-coordinates: coords
+            favorite: false
+            
 
 
         }
@@ -45,7 +45,7 @@ coordinates: coords
 
 
     return(
-    <form onSubmit={handleSubmit}> style={{marginBottom:"20px"}}
+    <form onSubmit={handleSubmit} style={{marginBottom:"20px"}}>
     
       <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title" />
       <input value={location} onChange={e=>setLocation(e.target.value)} placeholder="Location" />
