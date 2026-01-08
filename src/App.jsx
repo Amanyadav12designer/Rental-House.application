@@ -2,6 +2,8 @@ import {useState,useEffect} from "react";
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
+import PropertyMap from "./PropertyMap";
+
 
 
 import AddPropertyForm from "./AddPropertyForm";
@@ -127,6 +129,9 @@ return(
 {LandlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
+
+  <PropertyMap properties={filteredProperties} />
+  
 
 
 <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px"}}/>

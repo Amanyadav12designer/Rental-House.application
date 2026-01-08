@@ -27,8 +27,8 @@ const [lng, setLng] = useState("");
             location,
             rent,image,
             favorite: false,
-        lat: parseFloat(lat),
-lng: parseFloat(lng)
+coordinates: { lat: 28.6139, lng: 77.2090 }
+
 
         }
         onAdd(newProperty);
