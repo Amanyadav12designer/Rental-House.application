@@ -4,6 +4,9 @@ import "./App.css";
 
 
 
+
+
+
 import AddPropertyForm from "./AddPropertyForm";
 import PropertyList from "./PropertyList";
 
@@ -22,7 +25,7 @@ const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
 
 async function getCoordinates(location){
   const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
-const data = await res.JSON();
+const data = await res.json();
  if(data.length===0)return null;
 
  return{
@@ -89,7 +92,7 @@ if(maxRent){
 
 if(searchLocation){
   filteredProperties=filteredProperties.filter(p=>
-    p.title.toLowerCase().includes(searchLocation.toLowerCase())
+    p.location.toLowerCase().includes(searchLocation.toLowerCase())
   );
 }
 
@@ -100,7 +103,7 @@ useEffect(()=>{
 
 );
 
- filteredProperties=properties.filter(p=>{
+ filteredProperties=filteredProperties.filter(p=>{
 
   if(filter==="favorite") return p.favorite;
   return true;
@@ -156,7 +159,7 @@ return(
 {LandlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
-<propertyMap properties={filteredProperties}/>
+<PropertyMap properties={filteredProperties}/>
   
   
 
