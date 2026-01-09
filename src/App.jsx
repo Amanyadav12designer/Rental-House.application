@@ -20,12 +20,39 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   const[filter,setFilter]= useState("all");
 const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
 
+async function getCoordinates(location){
+  const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+const data = await res.JSON();
+ if(data.length===0)return null;
 
+ return{
+lat: parseFloat(data[0].lat),
+lng : parseFloat(data[0].lng)
 
+ };
 
-function addProperty(NewProperty){
-  setProperties([...properties,NewProperty]);
 }
+
+
+async function addProperty(rawProperty){
+
+  const coords= await getCoordinates(rawProperty.location);
+
+  if(!coords){
+    alert("location not found");
+    return;
+  }
+
+  const newProperty={
+    ...rawProperty,coords
+  }
+
+  setProperties=([...properties,newProperty]);
+}
+
+
+
+
 
 function loginLandlord(){
   setLandlordLoggedIn(true);
@@ -129,7 +156,7 @@ return(
 {LandlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
-
+<propertyMap properties={filteredProperties}/>
   
   
 
