@@ -47,7 +47,7 @@ async function addProperty(rawProperty){
     ...rawProperty,coords
   }
 
-  setProperties=([...properties,newProperty]);
+  setProperties([...properties,newProperty]);
 }
 
 
