@@ -13,11 +13,11 @@ if (properties.length===0){
 
     return(
 
-        <div style={{ margin:"40px auto",fontFamily:"arial"}}>
+        <div className="property-list">
 
-    
+    {
 
-        { 
+        
 
 properties.map(p=>(
 

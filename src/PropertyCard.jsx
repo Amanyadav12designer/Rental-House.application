@@ -5,7 +5,7 @@ import MapView from "./MapView";
 export default function PropertyCard({ property, onToggle, onDelete }) {
 
   return (
-    <div>
+    <div className="property-card">
       <h3>{property.title}</h3>
       <p>{property.location}</p>
 

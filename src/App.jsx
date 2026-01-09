@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
 import PropertyMap from "./PropertyMap";
+import "./App.css";
 
 
 
@@ -141,8 +142,7 @@ useEffect(()=>{
 
 return(
 
-  
-<div style={{padding:"20px",marginBottom:"20px", fontFamily:"arial"}}>
+  <div className="app-container">
 
   <h1>Rental Housing Application</h1>
 
@@ -178,6 +178,7 @@ return(
 
 
 </div>
+
 
 );}
 
