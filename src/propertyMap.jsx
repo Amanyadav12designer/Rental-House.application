@@ -1,6 +1,6 @@
 import {MapContainer,TileLayer,Marker,Popup} from "react0leaf-let";
 
-export default function propertyMap({properties}){
+export default function PropertyMap({properties}){
 if(properties===0) return null;
 
 return(
@@ -38,6 +38,6 @@ return(
 
 
      </MapContainer>
-)
+);
 
 }

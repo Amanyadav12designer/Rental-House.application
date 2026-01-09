@@ -1,5 +1,7 @@
 import {useState,useEffect} from "react";
 
+
+
 import "./App.css";
 
 
@@ -15,7 +17,7 @@ export default function App(){
 return JSON.parse(localStorage.getItem("properties")) || [];
 
   });
-
+const [selectedProperty,setSelectedProperty]= useState(null);
   const[search,setSearch]= useState("");
   const[minRent,setMinRent]= useState("");
   const[maxRent,setMaxRent]= useState("");
@@ -47,10 +49,10 @@ async function addProperty(rawProperty){
   }
 
   const newProperty={
-    ...rawProperty,coords
+    ...rawProperty,...coords
   }
 
-  setProperties([...properties,newProperty]);
+  setProperties(prev => [...prev, newProperty]);
 }
 
 
@@ -159,8 +161,10 @@ return(
 {LandlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
-<PropertyMap properties={filteredProperties}/>
-  
+{selectedProperty&&(
+  <PropertyMap properties={selectedProperty}/>
+)}
+
   
 
 
