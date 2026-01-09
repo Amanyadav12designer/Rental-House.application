@@ -3,10 +3,19 @@ body{
   margin:0;
   font-family:arial, sans-serif;
   background: #f9f9f9;
+ 
 }
 
 .app-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1600px;
+  margin-bottom: 10px;
   padding: 20px;
+  margin-left:5%;
+  
+}
+
+.app-container h1 {
+  text-align: left ;
+  margin-bottom: 40px;
+  padding-right:0%;
 }

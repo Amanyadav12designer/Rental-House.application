@@ -1,56 +1,53 @@
 
+import "./PropertyCard.css";
 
-import MapView from "./MapView";
 
-export default function PropertyCard({ property, onToggle, onDelete }) {
-
+export default function PropertyCard({
+  property,
+  onToggle,
+  onDelete,
+  onFavorite
+}) {
   return (
     <div className="property-card">
       <h3>{property.title}</h3>
-      <p>{property.location}</p>
+      <p>Location: {property.location}</p>
+      <p>Rent: ₹{property.rent}</p>
+      <img src={property.image} alt={property.title} style={{width:"100%",objectFit:"cover",borderRadius:"8px"}}/>
 
-      <MapView
-        lat={property.coordinates.lat}
-        lng={property.coordinates.lng}
-        title={property.title}
-      />
+    
 
-      <button onClick={() => onToggle(property.id)}>
-        Toggle
+      <button style={{width:"130px",marginTop:"20px"}} onClick={() => onToggle(property.id)}>
+        Toggle Availability
       </button>
 
-      <button onClick={() => onDelete(property.id)}>
+      <button
+        onClick={() => onDelete(property.id)}
+        style={{ marginLeft: "1px", color: "red",marginTop:"30px",width:"130px" }}
+      >
         Delete
       </button>
+
+      
+
+      <span
+        style={{ marginLeft: "1px", cursor: "pointer",paddingTop:"40px" }}
+        onClick={() => onFavorite(property.id)}
+      >
+        {property.favorite ? "★ Favorite" : "☆ Mark as Favorite"}
+      </span>
+
+      
+
+      <p style={{textAlign:"right"}}>
+        Status:{" "}
+        <strong style={{ color: property.available ? "green" : "red" }}>
+          {property.available ? "Available" : "Not Available"}
+        </strong>
+      </p>
+
+      
     </div>
   );
 }
 
-export default function PropertyCard({property,onToggle,onDelete,onFavorite}){
-
-return(
-
-    <div style={{
-        border:"1px solid grey",padding:"10px", marginBottom:"10px",borderRadius:"8px"
-    }}>
-
-<h3>{property.title}</h3>
-<p>Location: {property.location}</p>
-<p>Rent: ${property.rent}</p>
-<img src={property.image} width="200px" style={{borderRadius:"8px"}}/>
-
-
-<p>Status:{""}<strong style={{color: property.available ? "green" : "red"}}> {property.available?"Available":"Not Available"}</strong></p>
-<button onClick={()=>onToggle(property.id)}>Toggle Availability</button>
-<button onClick={()=>onDelete(property.id)}style={{marginLeft:"10px",color:"red"}}
->Delete Property</button>
-
-<span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>onFavorite(property.id)}>
-{property.favorite ? "★ Favorite" : "☆ Mark as Favorite"}
-</span>
-
-</div>
-
-);
-
-}

@@ -8,7 +8,7 @@ export default function PropertyList({properties,onToggle,onDelete,onFavorite}){
 
 
 if (properties.length===0){
-    return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey"}}>Sorry, but there is no property matching your searches</p>}
+    return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>Sorry, No properties available at the moment</p>}
     
 
     return(

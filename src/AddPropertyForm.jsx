@@ -45,12 +45,12 @@ export default function AddPropertyForm({onAdd}){
 
 
     return(
-    <form onSubmit={handleSubmit} style={{marginBottom:"20px"}}>
+    <form onSubmit={handleSubmit} style={{marginTop:"30px"}}>
     
-      <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title" />
-      <input value={location} onChange={e=>setLocation(e.target.value)} placeholder="eg Delhi" />
-      <input value={rent} onChange={e=>setRent(e.target.value)} placeholder="Rent" />
-      <input value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL" />
+      <input style={{marginLeft:"10px"}} value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title" />
+      <input style={{marginLeft:"10px"}} value={location} onChange={e=>setLocation(e.target.value)} placeholder="eg Delhi" />
+      <input style={{marginLeft:"10px"}} value={rent} onChange={e=>setRent(e.target.value)} placeholder="Rent" />
+      <input style={{marginLeft:"10px"}} value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL" />
 
       <button type="submit" style={{marginLeft:"10px"}}>Add Property</button> 
     </form>

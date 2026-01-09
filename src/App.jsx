@@ -1,15 +1,11 @@
 import {useState,useEffect} from "react";
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import 'leaflet-defaulticon-compatibility';
-import PropertyMap from "./PropertyMap";
+
 import "./App.css";
 
 
 
 import AddPropertyForm from "./AddPropertyForm";
 import PropertyList from "./PropertyList";
-
 
 export default function App(){
   const [properties,setProperties]= useState(()=>{
@@ -25,36 +21,11 @@ return JSON.parse(localStorage.getItem("properties")) || [];
 const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
 
 
-async function getCoordinates(location){
-const res= await  fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json
-`);
-
-const data = await res.json();
-
-if(data.length===0) return null;
-return{
-  lat:parseFloat(data[0].Lat),
-  lon:parseFloat(data[0].Lon)
-};
 
 
-
+function addProperty(NewProperty){
+  setProperties([...properties,NewProperty]);
 }
-
-async function addProperty(rawProperty){
-const coords= await getCoordinates(rawProperty.location);
-if(!coords){
-  alert("Invalid location");
-  return;
-}
-
-const newProperty={
-  ...rawProperty,coordinates:coords
-};
-
-setProperties([...properties,newProperty]);
-}
-
 
 function loginLandlord(){
   setLandlordLoggedIn(true);
@@ -141,6 +112,7 @@ useEffect(()=>{
       
 
 return(
+  
 
   <div className="app-container">
 
@@ -158,11 +130,11 @@ return(
 <AddPropertyForm onAdd={addProperty}/> )}
 <PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
 
-  <PropertyMap properties={filteredProperties} />
+  
   
 
 
-<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px"}}/>
+<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px",marginLeft:"10px"}}/>
 <input value={minRent} onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" style={{marginLeft:"10px"}}/>
 <input value={maxRent} onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" style={{marginLeft:"10px"}}/>
 
