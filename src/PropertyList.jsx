@@ -3,14 +3,18 @@
 
 import PropertyCard from "./PropertyCard";
 
-export default function PropertyList({properties,onToggle,onDelete,onFavorite}){
+export default function PropertyList({properties,isLandLord,onDelete,onFavorite,filteredProperties,onToggle,visibleCount}){
 
 
 
-if (properties.length===0){
-    return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>Sorry, No properties available at the moment</p>}
-    
-
+if (visibleCount===0&& isLandLord){
+    return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No property added yet</p>}
+    if (!isLandLord&& visibleCount===0){
+        return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No available properties match your search.</p>
+    }
+if(properties.length===0){
+    return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No  properties match your search.</p>
+}
     return(
 
         <div className="property-list">
@@ -19,7 +23,7 @@ if (properties.length===0){
 
         
 
-properties.map(p=>(
+filteredProperties.map(p=>(
 
     <PropertyCard key={p.id} property={p} onToggle={onToggle} onDelete={onDelete} onFavorite={onFavorite}/>
 

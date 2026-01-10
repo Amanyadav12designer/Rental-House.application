@@ -17,13 +17,13 @@ export default function PropertyCard({
 
     
 
-      <button style={{width:"130px",marginTop:"20px"}} onClick={() => onToggle(property.id)}>
+      <button style={{width:"130px",marginTop:"20px",border:"1px solid black",borderRadius:"5px",height:"30px"}} onClick={() => onToggle(property.id)}>
         Toggle Availability
       </button>
 
       <button
         onClick={() => onDelete(property.id)}
-        style={{ marginLeft: "1px", color: "red",marginTop:"30px",width:"130px" }}
+        style={{ marginLeft: "1px", color: "red",marginTop:"30px",width:"130px",border:"1px solid black",borderRadius:"5px",height:"30px" }}
       >
         Delete
       </button>

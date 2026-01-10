@@ -52,7 +52,7 @@ export default function AddPropertyForm({onAdd}){
       <input style={{marginLeft:"10px"}} value={rent} onChange={e=>setRent(e.target.value)} placeholder="Rent" />
       <input style={{marginLeft:"10px"}} value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL" />
 
-      <button type="submit" style={{marginLeft:"10px"}}>Add Property</button> 
+      <button type="submit" style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px"}}>Add Property</button> 
     </form>
     
 

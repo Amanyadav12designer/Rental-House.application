@@ -24,7 +24,8 @@ const [selectedProperty,setSelectedProperty]= useState(null);
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
 const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
-
+const[isLandLord,setIsLandLord]= useState(false);
+const visibleCount=properties.length;
 async function getCoordinates(location){
   const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
 const data = await res.json();
@@ -155,15 +156,17 @@ return(
 <span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px"}}>Login as Landlord</button>
-<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px"}}>Logout</button>
+<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",hover:{background:"green"}}}>Login as Landlord</button>
+<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px"}}>Logout</button>
 
 {LandlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}/> )}
-<PropertyList properties={filteredProperties} onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite}/>
+<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandLord={isLandLord} visibleCount={properties.length} />
 {selectedProperty&&(
   <PropertyMap properties={selectedProperty}/>
+  
 )}
+
 
   
 
