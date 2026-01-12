@@ -149,18 +149,18 @@ return(
 
   <div className="app-container">
 
-  <h1>Rental Housing Application</h1>
+  <h1>Hidden Homes!</h1>
 
   <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
-<span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
-<span style={{marginLeft:"20px",cursor:"pointer"}} onClick={()=>setFilter("all")}> Show All</span>
+<span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
+<span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",hover:{background:"green"}}}>Login as Landlord</button>
-<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px"}}>Logout</button>
+<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"10px"}}>Login as Landlord</button>
+<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC",fontSize:"12px"}}>Logout</button>
 
 {LandlordLoggedIn && (
-<AddPropertyForm onAdd={addProperty}/> )}
+<AddPropertyForm onAdd={addProperty}  /> )} 
 <PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandLord={isLandLord} visibleCount={properties.length} />
 {selectedProperty&&(
   <PropertyMap properties={selectedProperty}/>

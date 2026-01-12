@@ -7,10 +7,10 @@ export default function PropertyList({properties,isLandLord,onDelete,onFavorite,
 
 
 
-if (visibleCount===0&& isLandLord){
+if (visibleCount===0 && isLandLord){
     return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No property added yet</p>}
-    if (!isLandLord&& visibleCount===0){
-        return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No available properties match your search.</p>
+    if (visibleCount===0 && !isLandLord){
+        return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No properties available yet.</p>
     }
 if(properties.length===0){
     return <p style={{margin:"40px auto",fontFamily:"arial",color:"grey",paddingLeft:"10px"}}>No  properties match your search.</p>

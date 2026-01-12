@@ -1,11 +1,14 @@
 body{
 
   margin:0;
-  font-family:arial, sans-serif;
+  font-family: "Playfair", serif;
   background: #f9f9f9;
  
 }
-
+body h1{
+  font-family: "Holtwood One SC", serif;
+  font-weight: 500;
+}
 .app-container {
   max-width: 1600px;
   margin-bottom: 10px;
@@ -14,8 +17,19 @@ body{
   
 }
 
+
 .app-container h1 {
   text-align: left ;
   margin-bottom: 40px;
   padding-right:0%;
+}
+
+
+input, select, textarea {
+  font-family: "Playfair", serif;
+  font-size: 1em;
+  padding: 0.5em;
+  border: 1px solid #cdc3c3;
+  border-radius: 4px;
+  width: auto;
 }
