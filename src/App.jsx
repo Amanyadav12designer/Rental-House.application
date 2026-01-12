@@ -23,8 +23,9 @@ const [selectedProperty,setSelectedProperty]= useState(null);
   const[maxRent,setMaxRent]= useState("");
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
-const[LandlordLoggedIn,setLandlordLoggedIn]= useState(false);
-const[isLandLord,setIsLandLord]= useState(false);
+const[landlordLoggedIn,setLandlordLoggedin]= useState(false);
+const[feedbackMessage,setFeedbackMessage]= useState("");
+
 const visibleCount=properties.length;
 async function getCoordinates(location){
   const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
@@ -61,12 +62,12 @@ async function addProperty(rawProperty){
 
 
 function loginLandlord(){
-  setLandlordLoggedIn(true);
+  setLandlordLoggedin(true);
 
 }
 
 function logoutLandlord(){
-  setLandlordLoggedIn(false);
+  setLandlordLoggedin(false);
 }
 
 
@@ -131,13 +132,33 @@ useEffect(()=>{
 
 
     function deleteProperty(id){
+if(!landlordLoggedIn) return;
+
+const confirmDelete= window.confirm("Are you sure you want to delete this property?");
+if(!confirmDelete) return;
+
+
       setProperties(properties.filter(p=>p.id!==id));
     }
     
     function toggleFavorite(id){
+
+
+     
+      
+      
       setProperties(properties.map(p=>
         p.id===id?{...p,favorite:!p.favorite}:p
       ));
+
+      setFeedbackMessage(   "Added to favorites!" );
+
+      setTimeout(()=>{
+        setFeedbackMessage("");
+      },1000);
+
+
+
     }
 
 
@@ -156,12 +177,12 @@ return(
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button onClick={()=>setLandlordLoggedIn(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"10px"}}>Login as Landlord</button>
-<button onClick={()=>setLandlordLoggedIn(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC",fontSize:"12px"}}>Logout</button>
+<button onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"10px"}}>Login as Landlord</button>
+<button onClick={()=>setLandlordLoggedin(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC",fontSize:"12px"}}>Logout</button>
 
-{LandlordLoggedIn && (
+{landlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}  /> )} 
-<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandLord={isLandLord} visibleCount={properties.length} />
+<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={landlordLoggedIn} visibleCount={properties.length} Message={feedbackMessage} />
 {selectedProperty&&(
   <PropertyMap properties={selectedProperty}/>
   

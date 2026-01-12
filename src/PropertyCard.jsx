@@ -8,7 +8,7 @@ export default function PropertyCard({
   property,
   onToggle,
   onDelete,
-  onFavorite
+  onFavorite,isLandlord,message
 }) {
   return (
     <div className="property-card">
@@ -23,12 +23,17 @@ export default function PropertyCard({
         Switch Status
       </button>
 
-      <button
-        onClick={() => onDelete(property.id)}
-        style={{ marginLeft: "1px", color: "red",marginTop:"30px",width:"130px",border:"1px solid black",borderRadius:"5px",height:"30px" ,fontFamily:"Graduate",cursor:"pointer"}}
-      >
-        Delete
+      <button  onClick={()=>
+      
+        onDelete(property.id)
+      }  disabled={!isLandlord}
+      className="delete-button"
+
+      >Delete
+      
+        
       </button>
+
 
          
 
@@ -38,6 +43,12 @@ export default function PropertyCard({
       >
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
       </span>
+
+      {message&&
+      <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message}</p>
+      } 
+
+    
 
       
 
