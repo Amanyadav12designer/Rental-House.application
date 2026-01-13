@@ -176,7 +176,9 @@ return(
       <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"  style={{width:"200px",height:"auto"}}></img>
     
 
-  <h1>Find your perfect stay!</h1>
+  <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
+  <div className="header-badge">FInd Your stay!
+  </div>
   </header>
 
   <strong>Total Properties : {properties.length} </strong>
@@ -184,8 +186,8 @@ return(
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button    onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"200px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"12px",padding: "0px 20px"}}>  Login as landlord </button>
-<button onClick={()=>setLandlordLoggedin(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC",fontSize:"12px"}}>Logout</button>
+<button    onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"200px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Graduate" ,fontSize:"12px",padding: "0px 20px",fontWeight:"bold"}}>  Login as landlord </button>
+<button onClick={()=>setLandlordLoggedin(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Graduate",fontSize:"12px",fontWeight:"bold"}}>Logout</button>
 
 {landlordLoggedIn && (
 <AddPropertyForm onAdd={addProperty}  /> )} 

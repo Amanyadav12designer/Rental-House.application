@@ -16,6 +16,9 @@
 
 .property-card:hover{
     box-shadow: 0 4px 8px rgba(104, 41, 70, 0.3);
+    transform: translateY(-4px);
+    transition: background-color 0.3s ease;
+    background-color: #f1e1f23f;
    
    
 
