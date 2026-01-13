@@ -1,4 +1,5 @@
 import {useState,useEffect} from "react";
+import {MdLogin} from "react-icons/md";
 
 
 
@@ -170,14 +171,20 @@ return(
 
   <div className="app-container">
 
-  <h1>Hidden Homes!</h1>
+    <header>
+
+      <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"  style={{width:"200px",height:"auto"}}></img>
+    
+
+  <h1>Find your perfect stay!</h1>
+  </header>
 
   <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"150px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"10px"}}>Login as Landlord</button>
+<button    onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"200px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC" ,fontSize:"12px",padding: "0px 20px"}}>  Login as landlord </button>
 <button onClick={()=>setLandlordLoggedin(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Holtwood One SC",fontSize:"12px"}}>Logout</button>
 
 {landlordLoggedIn && (
