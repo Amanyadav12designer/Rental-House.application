@@ -1,5 +1,7 @@
 import {useState,useEffect} from "react";
 import {MdLogin} from "react-icons/md";
+import RoleSelection from "./RoleSelection";
+
 
 
 
@@ -24,8 +26,25 @@ const [selectedProperty,setSelectedProperty]= useState(null);
   const[maxRent,setMaxRent]= useState("");
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
-const[landlordLoggedIn,setLandlordLoggedin]= useState(false);
+
+  
+
 const[feedbackMessage,setFeedbackMessage]= useState("");
+const[role,setRole]=useState(null);
+
+const[isLoggedIn,setIsLoggedIn]= useState(false);
+
+const isLandlord=   isLoggedIn && role==="Landlord";
+
+
+
+
+
+
+
+
+
+
 
 const visibleCount=properties.length;
 async function getCoordinates(location){
@@ -62,14 +81,6 @@ async function addProperty(rawProperty){
 
 
 
-function loginLandlord(){
-  setLandlordLoggedin(true);
-
-}
-
-function logoutLandlord(){
-  setLandlordLoggedin(false);
-}
 
 
   let filteredProperties=properties;
@@ -116,7 +127,22 @@ useEffect(()=>{
 
 
 
-  
+function handleLogin(selectedRole){
+  setRole(selectedRole);
+  setIsLoggedIn(true);
+
+}
+
+function handleLogout(){
+  setRole(null);
+  setIsLoggedIn(false);
+}
+
+
+
+  if (!isLoggedIn) {
+  return <RoleSelection onLogin={handleLogin} />;
+}
 
     function toggleAvailability(id){
       setProperties(properties.map(p=>
@@ -133,7 +159,7 @@ useEffect(()=>{
 
 
     function deleteProperty(id){
-if(!landlordLoggedIn) return;
+if(!isLandlord) return;
 
 const confirmDelete= window.confirm("Are you sure you want to delete this property?");
 if(!confirmDelete) return;
@@ -179,19 +205,20 @@ return(
   <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
   <div className="header-badge">FInd Your stay!
   </div>
-  </header>
 
-  <strong>Total Properties : {properties.length} </strong>
+  
+ 
+  </header>
+   <button onClick={handleLogout}> Logout</button>
+   <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-<button    onClick={()=>setLandlordLoggedin(true)} style={{marginLeft:"20px",width:"200px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Graduate" ,fontSize:"12px",padding: "0px 20px",fontWeight:"bold"}}>  Login as landlord </button>
-<button onClick={()=>setLandlordLoggedin(false)} style={{marginLeft:"10px",width:"100px",border:"1px solid black",borderRadius:"5px",height:"30px",cursor:"pointer",fontFamily:"Graduate",fontSize:"12px",fontWeight:"bold"}}>Logout</button>
 
-{landlordLoggedIn && (
+{isLandlord && (
 <AddPropertyForm onAdd={addProperty}  /> )} 
-<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={landlordLoggedIn} visibleCount={properties.length} Message={feedbackMessage} />
+<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={isLandlord} visibleCount={properties.length} Message={feedbackMessage} />
 {selectedProperty&&(
   <PropertyMap properties={selectedProperty}/>
   
