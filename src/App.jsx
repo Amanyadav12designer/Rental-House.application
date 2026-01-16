@@ -46,6 +46,7 @@ const isLandlord=   isLoggedIn && role==="Landlord";
 
 
 
+
 const visibleCount=properties.length;
 async function getCoordinates(location){
   const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
@@ -84,6 +85,7 @@ async function addProperty(rawProperty){
 
 
   let filteredProperties=properties;
+  const favoriteProperties= filteredProperties.filter(p=>p.favorite===true);
 
   if(search){
     filteredProperties=filteredProperties.filter(p=>
@@ -183,10 +185,13 @@ if(!confirmDelete) return;
       setTimeout(()=>{
         setFeedbackMessage("");
       },1000);
-
+      
+    
+  
 
 
     }
+ 
 
 
 
@@ -209,16 +214,16 @@ return(
   
  
   </header>
-   <button onClick={handleLogout}> Logout</button>
+  
    <strong>Total Properties : {properties.length} </strong>
   <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
 <span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
 
-
+ <button style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold",background:"white",borderRadius:"4px",border:"1px solid grey",width:"120px",height:"35px"}} onClick={handleLogout}>  Logout</button>
 {isLandlord && (
 <AddPropertyForm onAdd={addProperty}  /> )} 
-<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={isLandlord} visibleCount={properties.length} Message={feedbackMessage} />
+<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={isLandlord} visibleCount={properties.length} Message={feedbackMessage}  filter={filter}/>
 {selectedProperty&&(
   <PropertyMap properties={selectedProperty}/>
   
