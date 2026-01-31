@@ -5,7 +5,7 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 
 export default function PropertyCard({
-  property,
+  property=[],
   onToggle,
   onDelete,
   onFavorite,isLandlord,message

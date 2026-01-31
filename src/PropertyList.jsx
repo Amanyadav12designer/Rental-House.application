@@ -8,7 +8,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 
 import PropertyCard from "./PropertyCard";
 
-export default function PropertyList({properties,isLandlord,onDelete,onFavorite,filteredProperties,onToggle,visibleCount,Message,filter}){
+export default function PropertyList({properties=[],isLandlord,onDelete,onFavorite,filteredProperties,onToggle,visibleCount,message,filter}){
 
 
 
@@ -36,9 +36,9 @@ if(properties.length===0){
 
         
 
-filteredProperties.map(p=>(
+properties.map(p=>(
 
-    <PropertyCard key={p.id} property={p} onToggle={onToggle} onDelete={onDelete} onFavorite={onFavorite} isLandlord={isLandlord} message={Message}/>
+    <PropertyCard key={p.id} property={p} onToggle={onToggle} onDelete={onDelete} onFavorite={onFavorite} isLandlord={isLandlord} message={message}/>
 
     
 

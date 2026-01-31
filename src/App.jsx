@@ -1,6 +1,11 @@
 import {useState,useEffect} from "react";
-import {MdLogin} from "react-icons/md";
-import RoleSelection from "./RoleSelection";
+
+import { Routes, Route,useNavigate } from "react-router-dom";
+
+import RolePage from "./pages/RolePage";
+import HomePage from "./pages/HomePage";
+import FavoritePage from "./pages/FavoritePage";
+
 
 
 
@@ -12,29 +17,29 @@ import "./App.css";
 
 
 
-import AddPropertyForm from "./AddPropertyForm";
-import PropertyList from "./PropertyList";
 
 export default function App(){
   const [properties,setProperties]= useState(()=>{
 return JSON.parse(localStorage.getItem("properties")) || [];
 
   });
-const [selectedProperty,setSelectedProperty]= useState(null);
+
   const[search,setSearch]= useState("");
   const[minRent,setMinRent]= useState("");
   const[maxRent,setMaxRent]= useState("");
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
+  const navigate= useNavigate();
+ 
 
   
 
 const[feedbackMessage,setFeedbackMessage]= useState("");
 const[role,setRole]=useState(null);
 
-const[isLoggedIn,setIsLoggedIn]= useState(false);
 
-const isLandlord=   isLoggedIn && role==="Landlord";
+
+const isLandlord=  role==="landlord";
 
 
 
@@ -48,35 +53,49 @@ const isLandlord=   isLoggedIn && role==="Landlord";
 
 
 const visibleCount=properties.length;
-async function getCoordinates(location){
-  const res= await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
-const data = await res.json();
- if(data.length===0)return null;
+async function addProperty(newProperty) {
+  try {
+    const res = await fetch("http://localhost:5000/api/properties", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newProperty),
+    });
 
- return{
-lat: parseFloat(data[0].lat),
-lng : parseFloat(data[0].lng)
+    if (!res.ok) {
+      throw new Error("Failed to add property");
+    }
 
- };
+    // ✅ Get saved property from backend
+
+
+    // ✅ Add correct property (with _id)
+    loadProperties();
+
+    alert("Property added successfully ✅");
+
+  } catch (error) {
+    console.log(error.message);
+    alert("Error adding property ❌");
+  }
 
 }
 
+  async function loadProperties(){
 
-async function addProperty(rawProperty){
+    const res= await fetch("http://localhost:5000/api/properties");
 
-  const coords= await getCoordinates(rawProperty.location);
+    const data= await res.json();
 
-  if(!coords){
-    alert("location not found");
-    return;
+    setProperties(data);
+   
+
   }
 
-  const newProperty={
-    ...rawProperty,...coords
-  }
+  useEffect(()=>{
+    loadProperties();
+  },[]);
 
-  setProperties(prev => [...prev, newProperty]);
-}
+
 
 
 
@@ -129,22 +148,7 @@ useEffect(()=>{
 
 
 
-function handleLogin(selectedRole){
-  setRole(selectedRole);
-  setIsLoggedIn(true);
 
-}
-
-function handleLogout(){
-  setRole(null);
-  setIsLoggedIn(false);
-}
-
-
-
-  if (!isLoggedIn) {
-  return <RoleSelection onLogin={handleLogin} />;
-}
 
     function toggleAvailability(id){
       setProperties(properties.map(p=>
@@ -160,38 +164,84 @@ function handleLogout(){
     
 
 
-    function deleteProperty(id){
-if(!isLandlord) return;
+   async function deleteProperty(id){
 
-const confirmDelete= window.confirm("Are you sure you want to delete this property?");
-if(!confirmDelete) return;
-
-
-      setProperties(properties.filter(p=>p.id!==id));
+    if (!isLandlord){
+      alert("only landlord can delete property");
+      return;
     }
+
+    const confirmDelete=window.confirm("are you sure u want to delete property");
+    if(!confirmDelete)return;
+
+
+    try{
+
+      const res= await fetch(`http://localhost:5000/api/properties/${id}`,{
+        method:"DELETE",
+      });
+
+      if(!res.ok){
+        throw new EError("Delete failed");
+
+      }
+      
+        setProperties(properties.filter(p=>p.id!==id));
+
+        alert("deleted successfully")
+    }
+
+    catch(error){
+      console.log(error);
+      alert("something went wrong");
+    }
+
+
+  }
     
-    function toggleFavorite(id){
+   async function toggleFavorite(id){
+      try{
+        const res= await fetch(`http://localhost:5000/api/properties/${id}/favorite`,{
+          method:"PATCH"
+        });
 
-
-     
-      
-      
-      setProperties(properties.map(p=>
-        p.id===id?{...p,favorite:!p.favorite}:p
-      ));
+        if(!res.ok){
+          throw new Error("could not added")
+        }
+          
+       setProperties(prev =>
+      prev.map(p =>
+        p.id === id ? { ...p, favorite: !p.favorite } : p
+      )
+    );
 
       setFeedbackMessage(   "Added to favorites!" );
 
       setTimeout(()=>{
-        setFeedbackMessage("");
-      },1000);
-      
-    
+        setFeedbackMessage("")
+      },3000);
+  
+    }
+
+         catch(error){
+      console.log(error);
+      alert("something went wrong");
+    }
+
+      }
   
 
 
-    }
+     
+      
+    
  
+    function handleLoggedout(){
+      
+      
+      navigate("/");
+
+    }
 
 
 
@@ -200,44 +250,69 @@ if(!confirmDelete) return;
 return(
   
 
-  <div className="app-container">
-
-    <header>
-
-      <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"  style={{width:"200px",height:"auto"}}></img>
-    
-
-  <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
-  <div className="header-badge">FInd Your stay!
-  </div>
+  <div>
 
   
- 
-  </header>
+    <Routes>
+
+      {/* Role selection */}
+      <Route
+        path="/"
+        element={<RolePage setRole={setRole} 
+        />}
+      />
+
+      {/* Main Home */}
+      <Route
+        path="/home"
+        element={
+          <HomePage
+            properties={filteredProperties}
+            onAdd={addProperty}
+            onFavorite={toggleFavorite}
+            onDelete={deleteProperty}
+            isLandlord={isLandlord}
+            onToggle={toggleAvailability}
+               message={feedbackMessage}
+               onLogout={handleLoggedout}
+               
+           
+      visibleCount={properties.length}
+      filter={filter}
+      filteredProperties={filteredProperties}
+      search={search}
+      setSearch={setSearch}
+      minRent={minRent}
+      setMinRent={setMinRent}
+
+      maxRent={maxRent}
+      setMaxRent={setMaxRent}
+      searchLocation={searchLocation}
+      setSeachLocation={setSearchLocation}
+          />
+        }
+      />
+
+      {/* Favorites */}
+      <Route
+        path="/favorites"
+        element={
+          <FavoritePage
+            properties={properties.filter(p => p.favorite)}
+            onFavorite={toggleFavorite}
+            onDelete={deleteProperty}
+          />
+        }
+      />
+
+    </Routes>
+
+
+
   
-   <strong>Total Properties : {properties.length} </strong>
-  <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
-<span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("favorite")}>  Favorites</span>
-<span style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold"}} onClick={()=>setFilter("all")}> Show All</span>
-
- <button style={{marginLeft:"20px",cursor:"pointer",fontFamily:"Playfair",fontSize:"16px",fontWeight:"bold",background:"white",borderRadius:"4px",border:"1px solid grey",width:"120px",height:"35px"}} onClick={handleLogout}>  Logout</button>
-{isLandlord && (
-<AddPropertyForm onAdd={addProperty}  /> )} 
-<PropertyList properties={filteredProperties}   onToggle={toggleAvailability} onDelete={deleteProperty} onFavorite={toggleFavorite} filteredProperties={filteredProperties} isLandlord={isLandlord} visibleCount={properties.length} Message={feedbackMessage}  filter={filter}/>
-{selectedProperty&&(
-  <PropertyMap properties={selectedProperty}/>
-  
-)}
 
 
-  
 
-
-<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px",marginLeft:"10px"}}/>
-<input value={minRent} onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" style={{marginLeft:"10px"}}/>
-<input value={maxRent} onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" style={{marginLeft:"10px"}}/>
-
-    <input value={searchLocation} onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" style={{marginLeft:"10px"}}/>
 
     
 

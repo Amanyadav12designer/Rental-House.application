@@ -1,69 +1,79 @@
-import { useState } from "react";
+
 import AddPropertyForm from "../AddPropertyForm";
 import PropertyList from "../PropertyList";
+
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-
-export default function HomePage({ properties, onAdd, onToggleFav, onDelete }) {
+export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
+  visibleCount,onLogout,
+  filter,
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation}) {
   const location = useLocation();
-const params = new URLSearchParams(location.search);
-const role = params.get("role");   // "landlord" or "tenant"
 
 
-  const [search, setSearch] = useState("");
-  const [minRent, setMinRent] = useState("");
-  const [maxRent, setMaxRent] = useState("");
 
   
-
-  // FILTER LOGIC (DERIVED VIEW)
-  const filteredProperties = properties.filter(p => {
-
-    const matchesSearch =
-      p.title.toLowerCase().includes(search.toLowerCase()) ||
-      p.location.toLowerCase().includes(search.toLowerCase());
-const matchesMin = minRent ? p.rent >= Number(minRent) : true;
-const matchesMax = maxRent ? p.rent <= Number(maxRent) : true;
-
-
-    return matchesSearch && matchesMin && matchesMax;
-  });
-
   return (
     <div className="home-container">
 
-      <h1>🏠 Rental App</h1>
-
-{role === "landlord" && <AddPropertyForm onAdd={onAdd} />}
+      
 
 
-      <div style={{ margin: "20px 0" }}>
-        <input 
-          placeholder="Search by city or title..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+ <header>
 
-        <input 
-          placeholder="Min rent"
-          type="number"
-          value={minRent}
-          onChange={e => setMinRent(e.target.value)}
-        />
+      <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"  style={{width:"200px",height:"auto"}}></img>
+    
 
-        <input 
-          placeholder="Max rent"
-          type="number"
-          value={maxRent}
-          onChange={e => setMaxRent(e.target.value)}
-        />
-      </div>
+  <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
+  <div className="header-badge">FInd Your stay!
+  </div>
 
-      <PropertyList 
-        properties={filteredProperties}
-        onToggleFav={onToggleFav}
+  
+ 
+  </header>
+  <div className="stats-bar">
+  
+   <strong>Total Properties : {properties.length} </strong>
+  <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
+
+
+
+
+<div className="link-card">
+
+<Link className="Link" to="/favorites"> Favorites</Link></div>
+<button className="logout-button" onClick={onLogout}>LOG-OUT</button></div>
+
+      {isLandlord && <AddPropertyForm onAdd={onAdd} />}
+
+      <PropertyList
+        properties={properties}
+        onFavorite={onFavorite}
         onDelete={onDelete}
+        isLandlord={isLandlord}
+        onToggle={onToggle}
+        message={message}
+    filteredProperties={filteredProperties}
+        filter={filter}
+        visibleCount={visibleCount}
+        search={search}
+        minRent={minRent}
+        maxRent={maxRent}
+        searchLocation={searchLocation}
+     
+        
       />
+
+   
+
+
+<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px",marginLeft:"10px"}}/>
+<input value={minRent} onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" style={{marginLeft:"10px"}}/>
+<input value={maxRent} onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" style={{marginLeft:"10px"}}/>
+
+    <input value={searchLocation} onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" style={{marginLeft:"10px"}}/>
+
 
     </div>
   );
