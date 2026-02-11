@@ -35,7 +35,7 @@ const isFormValid= !title || !location || !rent || !image;
             id: Date.now(),
             title,
             location,
-            rent,image,
+            rent:Number(rent),image,
             favorite: false
             
 

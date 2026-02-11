@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1770483420235",
+    "email": "asimyadav857@gmail.com",
+    "password": "$2b$10$s/a1PZP.m.hxaoRxlErU8eXD/CGdbbnH0w9NRSzbtolA4YOMUJs4m",
+    "role": "tenant"
+  },
+  {
+    "id": "1770483518920",
+    "email": "aartiyadav11009@gmail.com",
+    "password": "$2b$10$4ccuf0SQGuOpf3IjeE2Eb.oQPJNJtplplq5YyvMS60nVnw1I2tFdm",
+    "role": "tenant"
+  },
+  {
+    "id": "1770629786720",
+    "email": "asimyadav87@gmail.com",
+    "password": "$2b$10$t/CtUBhSFHONZrojZWrFwe1L9hd9XgR9IehVMYbd8TDlkox7xyv3O",
+    "role": "landlord"
+  },
+  {
+    "id": "1770797278861",
+    "email": "sjfofj37@gmail.com",
+    "password": "$2b$10$zHVwKBWAmcE8ixfI/tULIOUaSMDUaybGexxsZPiWvUoVygyvSAIRW",
+    "role": "tenant"
+  },
+  {
+    "id": "1770797375885",
+    "email": "sjfofj437@gmail.com",
+    "password": "$2b$10$E1cBB74wJwqXJxILduyrhe1JRutfQZT4pSCtfkTIpW1JDParDnZ4q",
+    "role": "landlord"
+  },
+  {
+    "id": "1770800050005",
+    "email": "asimyadav85dcdc7@gmail.com",
+    "password": "$2b$10$2HGVufWG6IEqmU8kyw18le7Nqrfy/LnUfKji5AjJSFo0/xTUJ1Eu6",
+    "role": "landlord"
+  },
+  {
+    "id": "1770801966129",
+    "email": "asixsxsmyadav857@gmail.com",
+    "password": "$2b$10$p1Bg2n8.tmVgx2tE8WAEVeWt9kVZ.bgY44w/Elvr59JY6.O1mZe8q",
+    "role": "tenant"
+  },
+  {
+    "id": "1770802334100",
+    "email": "asimyadav8cee57@gmail.com",
+    "password": "$2b$10$Fv6pNrI9YfmRXa/ixBHWxuYEyTQriM8tUwUW32L1h4OXXF9zFiub.",
+    "role": "tenant"
+  },
+  {
+    "id": "1770802592517",
+    "email": "asimyadav8cee57@gdemail.com",
+    "password": "$2b$10$tMjBsYnaMswtRpNvdmM4eOWMG5Vc2CSWdDz22npTlSdVsDtKKdRjG",
+    "role": "landlord"
+  }
+]

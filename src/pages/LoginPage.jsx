@@ -1,0 +1,74 @@
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+export default function LoginPage({onLogin}){
+    const navigate= useNavigate();
+
+const [email,setEmail]= useState("");
+const [password,setPassword]= useState("");
+
+async function handleSubmit(e){
+e.preventDefault();
+try{
+
+    const res= await fetch("http://localhost:5000/api/login",{
+        method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({email,password}),
+    });
+    const data= await res.json();
+
+    if(!res.ok){
+        alert(data.message)
+        return;
+    }
+
+
+
+localStorage.setItem("token",data.token);
+
+
+
+
+alert("login successful"+ data.role);
+
+navigate(`/home?role=${data.role}`);
+
+onLogin(data.role);
+
+
+
+}
+catch(error){
+    console.log(error);
+}
+
+}
+
+
+return(
+    <div>
+<form onSubmit={handleSubmit}>
+
+<h2>LOGIN PAGE</h2>
+
+<input
+placeholder="email"
+value={email}
+onChange ={(e)=>setEmail(e.target.value)}/>
+
+
+<input
+type = "password"
+placeholder="password"
+value={password}
+onChange ={(e)=>setPassword(e.target.value)}/>
+
+<button   type="submit">login</button>
+
+</form>
+
+<p>Don't have an account? <a href="/signup">Signup here</a></p>
+
+    </div>
+);
+
+}

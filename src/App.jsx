@@ -5,7 +5,9 @@ import { Routes, Route,useNavigate } from "react-router-dom";
 import RolePage from "./pages/RolePage";
 import HomePage from "./pages/HomePage";
 import FavoritePage from "./pages/FavoritePage";
-
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import {Navigate} from "react-router-dom";
 
 
 
@@ -19,10 +21,7 @@ import "./App.css";
 
 
 export default function App(){
-  const [properties,setProperties]= useState(()=>{
-return JSON.parse(localStorage.getItem("properties")) || [];
-
-  });
+  const [properties,setProperties]= useState([]);
 
   const[search,setSearch]= useState("");
   const[minRent,setMinRent]= useState("");
@@ -30,6 +29,7 @@ return JSON.parse(localStorage.getItem("properties")) || [];
   const[searchLocation,setSearchLocation]= useState("");
   const[filter,setFilter]= useState("all");
   const navigate= useNavigate();
+  const token= localStorage.getItem("token");
  
 
   
@@ -54,10 +54,12 @@ const isLandlord=  role==="landlord";
 
 const visibleCount=properties.length;
 async function addProperty(newProperty) {
+
+  const token= localStorage.getItem("token");
   try {
     const res = await fetch("http://localhost:5000/api/properties", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`,},
       body: JSON.stringify(newProperty),
     });
 
@@ -97,6 +99,22 @@ async function addProperty(newProperty) {
 
 
 
+function handleLogin(userRole){
+setRole(userRole);
+navigate("/home")
+
+}
+
+function handleLogout(){
+  localStorage.removeItem("role");
+
+  localStorage.removeItem("token");
+  navigate("/login");
+
+
+}
+
+
 
 
 
@@ -133,12 +151,7 @@ if(searchLocation){
   );
 }
 
-useEffect(()=>{
-  localStorage.setItem("properties", JSON.stringify(properties));
 
-},[properties]
-
-);
 
  filteredProperties=filteredProperties.filter(p=>{
 
@@ -166,6 +179,8 @@ useEffect(()=>{
 
    async function deleteProperty(id){
 
+      const token= localStorage.getItem("token");
+
     if (!isLandlord){
       alert("only landlord can delete property");
       return;
@@ -179,10 +194,11 @@ useEffect(()=>{
 
       const res= await fetch(`http://localhost:5000/api/properties/${id}`,{
         method:"DELETE",
+        headers:{Authorization:`Bearer${token}`,},
       });
 
       if(!res.ok){
-        throw new EError("Delete failed");
+        throw new Error("Delete failed");
 
       }
       
@@ -229,6 +245,7 @@ useEffect(()=>{
     }
 
       }
+ 
   
 
 
@@ -236,12 +253,7 @@ useEffect(()=>{
       
     
  
-    function handleLoggedout(){
-      
-      
-      navigate("/");
 
-    }
 
 
 
@@ -254,13 +266,11 @@ return(
 
   
     <Routes>
+      {!token ?(<>
 
-      {/* Role selection */}
-      <Route
-        path="/"
-        element={<RolePage setRole={setRole} 
-        />}
-      />
+    <Route path="/" element={<Navigate to="/signup" />}/>
+      <Route path="/signup" element={<SignupPage setRole={setRole}/>}/>
+      <Route path="/login" element={<LoginPage onLogin={handleLogin}/>}/> </>):(<>
 
       {/* Main Home */}
       <Route
@@ -274,7 +284,10 @@ return(
             isLandlord={isLandlord}
             onToggle={toggleAvailability}
                message={feedbackMessage}
-               onLogout={handleLoggedout}
+             
+               role={role}
+
+               onLogout={handleLogout}
                
            
       visibleCount={properties.length}
@@ -296,17 +309,18 @@ return(
       {/* Favorites */}
       <Route
         path="/favorites"
-        element={
+        element={ token?
           <FavoritePage
             properties={properties.filter(p => p.favorite)}
             onFavorite={toggleFavorite}
             onDelete={deleteProperty}
-          />
+          />:<Navigate to="/login" />
         }
-      />
+      /> </> )}
+
 
     </Routes>
-
+      
 
 
   
@@ -326,7 +340,7 @@ return(
 </div>
 
 
-);}
+);}  
 
 
 

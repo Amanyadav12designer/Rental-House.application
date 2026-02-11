@@ -1,0 +1,34 @@
+[
+  {
+    "id": "1770027802012",
+    "title": "Delhi ,sec21",
+    "location": "New Delhi",
+    "rent": null,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc9APxkj0xClmrU3PpMZglHQkx446nQPG6lA&s",
+    "favorite": true
+  },
+  {
+    "id": "1770027984812",
+    "title": "NewYork",
+    "location": "America",
+    "rent": null,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc9APxkj0xClmrU3PpMZglHQkx446nQPG6lA&s",
+    "favorite": false
+  },
+  {
+    "id": "1770028014864",
+    "title": "xsx",
+    "location": "xsxs",
+    "rent": 21000,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc9APxkj0xClmrU3PpMZglHQkx446nQPG6lA&s",
+    "favorite": false
+  },
+  {
+    "id": "1770807228058",
+    "title": "fvfvv",
+    "location": "vsv",
+    "rent": null,
+    "image": "vsvs",
+    "favorite": false
+  }
+]
