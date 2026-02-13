@@ -118,5 +118,11 @@
     "email": "c  f fcf",
     "password": "$2b$10$/4CMY6h/OrI4AmuKEJg5Hu2Ud27LSKEghlifRGcIoO4Frku6HpYQC",
     "role": "landlord"
+  },
+  {
+    "id": "1770999853414",
+    "email": "heyvrinda444@gmail.com",
+    "password": "$2b$10$LLq54jUGAAQJ96hgdyRBIeSXxcqj/fiAXT5sSIv6iB355t65vbqmu",
+    "role": "landlord"
   }
 ]

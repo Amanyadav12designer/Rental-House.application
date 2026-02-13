@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function LoginPage({onLogin}){
     const navigate= useNavigate();
 
@@ -42,6 +43,8 @@ catch(error){
     console.log(error);
 }
 
+
+
 }
 
 
@@ -68,7 +71,7 @@ onChange ={(e)=>setPassword(e.target.value)}/>
 
 </form>
 
-<p>Don't have an account? <a href="/signup">Signup here</a></p>
+<p>Don't have an account? <Link to="/signup">Signup here</Link></p>
 
     </div></div>
 );
