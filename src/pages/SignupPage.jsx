@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function SignupPage() {
   const navigate = useNavigate();
 
@@ -8,6 +9,7 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [userRole, setUserRole] = useState("tenant");
   const [loading, setLoading] = useState(false);
+  
 
   async function handleSignup(e) {
     e.preventDefault();
@@ -30,6 +32,8 @@ export default function SignupPage() {
         }),
       });
 
+     
+
       const data = await res.json();
 
       if (!res.ok) {
@@ -48,8 +52,11 @@ export default function SignupPage() {
     }
   }
 
+;
+
   return (
-    <div>
+    <div className="signup-page">
+      <div className="signup-card">
       <form onSubmit={handleSignup}>
         <h2>SIGNUP PAGE</h2>
 
@@ -74,16 +81,14 @@ export default function SignupPage() {
           <option value="landlord">Landlord</option>
         </select>
 
-        <button type="submit" disabled={loading}>
+        <button className="signup-btn" type="submit" disabled={loading}>
           {loading ? "Signing up..." : "Signup"}
         </button>
-      </form>
+        <button className="signup-footer" onClick={() => navigate("/login")} type="button">
+          Already have an account? Login
+        </button>
+      </form></div>
 
-
-      <p>
-
-        already have an account? <a href="/login">Login here</a>
-      </p>
     </div>
   );
 }

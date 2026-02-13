@@ -24,6 +24,7 @@ try{
 
 
 localStorage.setItem("token",data.token);
+localStorage.setItem("role",data.role);
 
 
 
@@ -45,7 +46,8 @@ catch(error){
 
 
 return(
-    <div>
+    <div className="signup-page">
+        <div className="signup-card">
 <form onSubmit={handleSubmit}>
 
 <h2>LOGIN PAGE</h2>
@@ -68,7 +70,7 @@ onChange ={(e)=>setPassword(e.target.value)}/>
 
 <p>Don't have an account? <a href="/signup">Signup here</a></p>
 
-    </div>
+    </div></div>
 );
 
 }

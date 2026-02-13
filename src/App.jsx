@@ -1,346 +1,236 @@
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
-import { Routes, Route,useNavigate } from "react-router-dom";
-
-import RolePage from "./pages/RolePage";
 import HomePage from "./pages/HomePage";
 import FavoritePage from "./pages/FavoritePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-import {Navigate} from "react-router-dom";
-
-
-
 
 import "./App.css";
 
+export default function App() {
+  const navigate = useNavigate();
 
+  const [properties, setProperties] = useState([]);
+  const [search, setSearch] = useState("");
+  const [minRent, setMinRent] = useState("");
+  const [maxRent, setMaxRent] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
+  const [filter, setFilter] = useState("all");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [role, setRole] = useState(null);
 
+  const token = localStorage.getItem("token");
+  const isLandlord = role === "landlord";
 
-
-
-
-export default function App(){
-  const [properties,setProperties]= useState([]);
-
-  const[search,setSearch]= useState("");
-  const[minRent,setMinRent]= useState("");
-  const[maxRent,setMaxRent]= useState("");
-  const[searchLocation,setSearchLocation]= useState("");
-  const[filter,setFilter]= useState("all");
-  const navigate= useNavigate();
-  const token= localStorage.getItem("token");
- 
-
-  
-
-const[feedbackMessage,setFeedbackMessage]= useState("");
-const[role,setRole]=useState(null);
-
-
-
-const isLandlord=  role==="landlord";
-
-
-
-
-
-
-
-
-
-
-
-
-const visibleCount=properties.length;
-async function addProperty(newProperty) {
-
-  const token= localStorage.getItem("token");
-  try {
-    const res = await fetch("http://localhost:5000/api/properties", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" ,Authorization:`Bearer ${token}`,},
-      body: JSON.stringify(newProperty),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to add property");
+  // ---------------- LOAD PROPERTIES ----------------
+  async function loadProperties() {
+    try {
+      const res = await fetch("http://localhost:5000/api/properties");
+      const data = await res.json();
+      setProperties(data);
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-    // ✅ Get saved property from backend
-
-
-    // ✅ Add correct property (with _id)
+  useEffect(() => {
     loadProperties();
+  }, []);
 
-    alert("Property added successfully ✅");
-
-  } catch (error) {
-    console.log(error.message);
-    alert("Error adding property ❌");
+  // ---------------- AUTH ----------------
+  function handleLogin(userRole) {
+    setRole(userRole);
+    navigate("/home");
   }
 
-}
-
-  async function loadProperties(){
-
-    const res= await fetch("http://localhost:5000/api/properties");
-
-    const data= await res.json();
-
-    setProperties(data);
-   
-
+  function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setRole(null);
+    navigate("/login");
   }
 
-  useEffect(()=>{
-    loadProperties();
-  },[]);
+  // ---------------- ADD PROPERTY ----------------
+  async function addProperty(newProperty) {
+    try {
+      const res = await fetch("http://localhost:5000/api/properties", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newProperty),
+      });
 
+      if (!res.ok) throw new Error("Failed to add");
 
-
-function handleLogin(userRole){
-setRole(userRole);
-navigate("/home")
-
-}
-
-function handleLogout(){
-  localStorage.removeItem("role");
-
-  localStorage.removeItem("token");
-  navigate("/login");
-
-
-}
-
-
-
-
-
-
-
-
-  let filteredProperties=properties;
-  const favoriteProperties= filteredProperties.filter(p=>p.favorite===true);
-
-  if(search){
-    filteredProperties=filteredProperties.filter(p=>
-
-      p.title.toLowerCase().includes(search.toLowerCase()) 
-    ) 
-  }
- 
-
-  if(minRent){
-    filteredProperties=filteredProperties.filter(p=>
-      p.rent >=Number(minRent)
-    );
+      await loadProperties();
+      alert("Property added ✅");
+    } catch (err) {
+      alert("Error adding property ❌");
+    }
   }
 
-if(maxRent){
-  filteredProperties=filteredProperties.filter(p=>
-    p.rent <=Number(maxRent)
-  );
-}
-
-
-if(searchLocation){
-  filteredProperties=filteredProperties.filter(p=>
-    p.location.toLowerCase().includes(searchLocation.toLowerCase())
-  );
-}
-
-
-
- filteredProperties=filteredProperties.filter(p=>{
-
-  if(filter==="favorite") return p.favorite;
-  return true;
-});
-
-
-
-
-
-    function toggleAvailability(id){
-      setProperties(properties.map(p=>
-
-        p.id===id?{...p,available:!p.available}:p
-
-      )
-
-    
-
-      )
-    };
-    
-
-
-   async function deleteProperty(id){
-
-      const token= localStorage.getItem("token");
-
-    if (!isLandlord){
-      alert("only landlord can delete property");
+  // ---------------- DELETE PROPERTY ----------------
+  async function deleteProperty(id) {
+    if (!isLandlord) {
+      alert("Only landlord can delete");
       return;
     }
 
-    const confirmDelete=window.confirm("are you sure u want to delete property");
-    if(!confirmDelete)return;
+    const confirmDelete = window.confirm("Delete property?");
+    if (!confirmDelete) return;
 
-
-    try{
-
-      const res= await fetch(`http://localhost:5000/api/properties/${id}`,{
-        method:"DELETE",
-        headers:{Authorization:`Bearer${token}`,},
+    try {
+      const res = await fetch(`http://localhost:5000/api/properties/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      if(!res.ok){
-        throw new Error("Delete failed");
+      if (!res.ok) throw new Error("Delete failed");
 
-      }
-      
-        setProperties(properties.filter(p=>p.id!==id));
-
-        alert("deleted successfully")
+      setProperties(prev => prev.filter(p => p.id !== id));
+    } catch (err) {
+      alert("Delete failed");
     }
-
-    catch(error){
-      console.log(error);
-      alert("something went wrong");
-    }
-
-
   }
-    
-   async function toggleFavorite(id){
-      try{
-        const res= await fetch(`http://localhost:5000/api/properties/${id}/favorite`,{
-          method:"PATCH"
-        });
 
-        if(!res.ok){
-          throw new Error("could not added")
-        }
-          
-       setProperties(prev =>
-      prev.map(p =>
-        p.id === id ? { ...p, favorite: !p.favorite } : p
-      )
+  // ---------------- TOGGLE FAVORITE ----------------
+  async function toggleFavorite(id) {
+    try {
+      const res = await fetch(`http://localhost:5000/api/properties/${id}/favorite`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error();
+
+      setProperties(prev =>
+        prev.map(p =>
+          p.id === id ? { ...p, favorite: !p.favorite } : p
+        )
+      );
+
+      setFeedbackMessage("Added to favorites!");
+      setTimeout(() => setFeedbackMessage(""), 3000);
+    } catch (err) {
+      alert("Error toggling favorite");
+    }
+  }
+
+  // ---------------- FILTERS ----------------
+  let filteredProperties = [...properties];
+
+  if (search) {
+    filteredProperties = filteredProperties.filter(p =>
+      p.title.toLowerCase().includes(search.toLowerCase())
     );
+  }
 
-      setFeedbackMessage(   "Added to favorites!" );
+  if (minRent) {
+    filteredProperties = filteredProperties.filter(
+      p => p.rent >= Number(minRent)
+    );
+  }
 
-      setTimeout(()=>{
-        setFeedbackMessage("")
-      },3000);
-  
-    }
+  if (maxRent) {
+    filteredProperties = filteredProperties.filter(
+      p => p.rent <= Number(maxRent)
+    );
+  }
 
-         catch(error){
-      console.log(error);
-      alert("something went wrong");
-    }
+  if (searchLocation) {
+    filteredProperties = filteredProperties.filter(p =>
+      p.location.toLowerCase().includes(searchLocation.toLowerCase())
+    );
+  }
 
-      }
- 
-  
-
-
-     
-      
-    
- 
-
-
+  if (filter === "favorite") {
+    filteredProperties = filteredProperties.filter(p => p.favorite);
+  }
 
 
-      
+  useEffect(() => {
+    const savedRole = localStorage.getItem("role");
+    if (savedRole) {
+      setRole(savedRole);
+    }}, []);
 
-return(
-  
-
-  <div>
-
-  
+  // ---------------- ROUTES ----------------
+  return (
     <Routes>
-      {!token ?(<>
+      {/* DEFAULT */}
+      <Route path="/" element={<Navigate to={token ?  "/home" : "/login"} />} />
 
-    <Route path="/" element={<Navigate to="/signup" />}/>
-      <Route path="/signup" element={<SignupPage setRole={setRole}/>}/>
-      <Route path="/login" element={<LoginPage onLogin={handleLogin}/>}/> </>):(<>
-
-      {/* Main Home */}
+      {/* AUTH */}
       <Route
-        path="/home"
+        path="/login"
         element={
-          <HomePage
-            properties={filteredProperties}
-            onAdd={addProperty}
-            onFavorite={toggleFavorite}
-            onDelete={deleteProperty}
-            isLandlord={isLandlord}
-            onToggle={toggleAvailability}
-               message={feedbackMessage}
-             
-               role={role}
-
-               onLogout={handleLogout}
-               
-           
-      visibleCount={properties.length}
-      filter={filter}
-      filteredProperties={filteredProperties}
-      search={search}
-      setSearch={setSearch}
-      minRent={minRent}
-      setMinRent={setMinRent}
-
-      maxRent={maxRent}
-      setMaxRent={setMaxRent}
-      searchLocation={searchLocation}
-      setSeachLocation={setSearchLocation}
-          />
+          token ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          token ? <Navigate to="/home" /> : <SignupPage setRole={setRole} />
         }
       />
 
-      {/* Favorites */}
+      {/* PROTECTED */}
+      <Route
+        path="/home"
+        element={
+          token ? (
+            <HomePage
+              properties={filteredProperties}
+              onAdd={addProperty}
+              onFavorite={toggleFavorite}
+              onDelete={deleteProperty}
+              isLandlord={isLandlord}
+              message={feedbackMessage}
+              role={role}
+              onLogout={handleLogout}
+              search={search}
+              setSearch={setSearch}
+              minRent={minRent}
+              setMinRent={setMinRent}
+              maxRent={maxRent}
+              setMaxRent={setMaxRent}
+              searchLocation={searchLocation}
+              setSeachLocation={setSearchLocation}
+              filter={filter}
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
+
       <Route
         path="/favorites"
-        element={ token?
-          <FavoritePage
-            properties={properties.filter(p => p.favorite)}
-            onFavorite={toggleFavorite}
-            onDelete={deleteProperty}
-          />:<Navigate to="/login" />
+        element={
+          token ? (
+            <FavoritePage
+              properties={properties.filter(p => p.favorite)}
+              onFavorite={toggleFavorite}
+              onDelete={deleteProperty}
+            />
+          ) : (
+            <Navigate to="/login" />
+          )
         }
-      /> </> )}
+      />
 
-
+      {/* FALLBACK */}
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
-      
-
-
-  
-
-
-
-
-    
-
-
-
-
-
-    
-
-
-</div>
-
-
-);}  
+  );
+}
 
 
 

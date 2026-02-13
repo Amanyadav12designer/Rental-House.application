@@ -52,5 +52,71 @@
     "email": "asimyadav8cee57@gdemail.com",
     "password": "$2b$10$tMjBsYnaMswtRpNvdmM4eOWMG5Vc2CSWdDz22npTlSdVsDtKKdRjG",
     "role": "landlord"
+  },
+  {
+    "id": "1770894168181",
+    "email": "asimyadav857@gmail.comwefwe",
+    "password": "$2b$10$kp9A8..HX3x0CJlEEJEsvuxdUMoAoRlimgDbEt2pPh.ybA7muYyMm",
+    "role": "tenant"
+  },
+  {
+    "id": "1770910002748",
+    "email": "sjfofj437@gmail.comcc",
+    "password": "$2b$10$HUR6P4PJEwHZhGqi8GIrC.q8eTOimtxl/PJG35USF9BkrHoYjrAPq",
+    "role": "tenant"
+  },
+  {
+    "id": "1770911156182",
+    "email": "sjfofj437@gmail.comcch",
+    "password": "$2b$10$S.aqs202bho8dTtkkhXcEupthSNQFFBgwa0tiMebMgBO6GUi8IIk.",
+    "role": "tenant"
+  },
+  {
+    "id": "1770975005737",
+    "email": "sjfofj437@gmail.comccccch",
+    "password": "$2b$10$ktbzS3UpD.5tMnVRpzMJlu50EdA7R4eTTrSsBLPxNToLULhnAawnu",
+    "role": "landlord"
+  },
+  {
+    "id": "1770975059232",
+    "email": "sjfofj437@gmail.comcccscch",
+    "password": "$2b$10$0zM8bIkKBe.jAzxzATD.P.30MpGJX9WY3L.t6ShnZyRs3EH/Wcfy2",
+    "role": "landlord"
+  },
+  {
+    "id": "1770976106585",
+    "email": "asimyadav857@gmail.coccrrcrmwefwe",
+    "password": "$2b$10$5zmNzSg/D4ZpwjnfzRZRhOFiP12YtiwhxCwpq7xsCefpehPvERjZG",
+    "role": "tenant"
+  },
+  {
+    "id": "1770976246047",
+    "email": "xexee",
+    "password": "$2b$10$h8q.WFAl4tSLzJ2GDliwkeycKgGGTnv1NnBojJ16NXGSjlvDCrzw2",
+    "role": "landlord"
+  },
+  {
+    "id": "1770977255708",
+    "email": "xexeecrcr",
+    "password": "$2b$10$Bjwrl4GtMVtrJFGWPmQk9uW.JIcS.SYZ6okygz0A3N8wZbyiQLp4q",
+    "role": "landlord"
+  },
+  {
+    "id": "1770977272245",
+    "email": "xexeecrcrrcrc",
+    "password": "$2b$10$1stEPsbaFODVG6J0EHsWMewiH9.skRpv/Fy54Nmm95eB3SYW4Ao16",
+    "role": "landlord"
+  },
+  {
+    "id": "1770977356713",
+    "email": "xexeecrcrcc",
+    "password": "$2b$10$vwSe47.rQUAY3geXQfDz.u5I8Q54i02s7GywU/Oh2XDcDtb/Wo20.",
+    "role": "landlord"
+  },
+  {
+    "id": "1770977724984",
+    "email": "c  f fcf",
+    "password": "$2b$10$/4CMY6h/OrI4AmuKEJg5Hu2Ud27LSKEghlifRGcIoO4Frku6HpYQC",
+    "role": "landlord"
   }
 ]
