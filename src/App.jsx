@@ -26,7 +26,7 @@ export default function App() {
   // ---------------- LOAD PROPERTIES ----------------
   async function loadProperties() {
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL + "/api/properties");
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
       const data = await res.json();
       setProperties(data);
     } catch (err) {
@@ -54,7 +54,7 @@ export default function App() {
   // ---------------- ADD PROPERTY ----------------
   async function addProperty(newProperty) {
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL + "/api/properties", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export default function App() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL + `/api/properties/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ export default function App() {
   // ---------------- TOGGLE FAVORITE ----------------
   async function toggleFavorite(id) {
     try {
-      const res = await fetch(import.meta.env.VITE_API_URL + `/api/properties/${id}/favorite`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
