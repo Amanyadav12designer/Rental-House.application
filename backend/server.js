@@ -7,31 +7,37 @@ const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+/* ---------------- MIDDLEWARE ---------------- */
+app.use(cors({
+  origin: "*", // later you can restrict this
+}));
 app.use(express.json());
 
+/* ---------------- TEST ROUTE ---------------- */
 app.get("/", (req, res) => {
-  res.send("Rental Housing API is running");
+  res.json({ message: "Rental Housing API running" });
 });
 
-const filePath = path.join(__dirname, "properties.json");
-const usersFile = path.join(__dirname, "users.json");
+/* ---------------- FILE PATHS ---------------- */
+const dataDir = path.join(__dirname, "data");
+if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
 
-// ---------- USERS ----------
-function readUsers() {
-  if (!fs.existsSync(usersFile)) {
-    fs.writeFileSync(usersFile, JSON.stringify([]));
-  }
-  return JSON.parse(fs.readFileSync(usersFile, "utf-8"));
+const usersFile = path.join(dataDir, "users.json");
+const propertiesFile = path.join(dataDir, "properties.json");
+
+/* ---------------- HELPERS ---------------- */
+function readJSON(file) {
+  if (!fs.existsSync(file)) fs.writeFileSync(file, JSON.stringify([]));
+  return JSON.parse(fs.readFileSync(file, "utf-8"));
 }
 
-function saveUsers(users) {
-  fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+function writeJSON(file, data) {
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
 }
 
-// ---------- AUTH ----------
+/* ---------------- AUTH ---------------- */
 app.post("/api/signup", async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -40,28 +46,26 @@ app.post("/api/signup", async (req, res) => {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    const users = readUsers();
-    const exists = users.find(u => u.email === email);
+    const users = readJSON(usersFile);
 
-    if (exists) {
+    if (users.find(u => u.email === email)) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = {
+    users.push({
       id: Date.now().toString(),
       email,
       password: hashedPassword,
       role,
-    };
+    });
 
-    users.push(newUser);
-    saveUsers(users);
+    writeJSON(usersFile, users);
 
     res.status(201).json({ message: "Signup successful" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
@@ -70,7 +74,7 @@ app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const users = readUsers();
+    const users = readJSON(usersFile);
     const user = users.find(u => u.email === email);
 
     if (!user) {
@@ -83,26 +87,21 @@ app.post("/api/login", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "2h" }
     );
 
-    res.json({
-      message: "Login successful",
-      token,
-      role: user.role,
-    });
+    res.json({ token, role: user.role });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-// ---------- AUTH MIDDLEWARE ----------
+/* ---------------- AUTH MIDDLEWARE ---------------- */
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
-
   if (!authHeader) {
     return res.status(401).json({ message: "No token provided" });
   }
@@ -110,64 +109,55 @@ function authMiddleware(req, res, next) {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch {
     res.status(403).json({ message: "Invalid token" });
   }
 }
 
-// ---------- PROPERTIES ----------
-function readProperties() {
-  if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify([]));
-  }
-  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-}
-
-function saveProperties(properties) {
-  fs.writeFileSync(filePath, JSON.stringify(properties, null, 2));
-}
+/* ---------------- PROPERTIES ---------------- */
+app.get("/api/properties", (req, res) => {
+  res.json(readJSON(propertiesFile));
+});
 
 app.post("/api/properties", authMiddleware, (req, res) => {
   if (req.user.role !== "landlord") {
     return res.status(403).json({ message: "Access denied" });
   }
 
-  const properties = readProperties();
+  const properties = readJSON(propertiesFile);
+
   const newProperty = {
-    ...req.body,
     id: Date.now().toString(),
+    ...req.body,
     favorite: false,
   };
 
   properties.push(newProperty);
-  saveProperties(properties);
+  writeJSON(propertiesFile, properties);
 
   res.json(newProperty);
 });
 
-app.get("/api/properties", (req, res) => {
-  res.json(readProperties());
-});
-
 app.delete("/api/properties/:id", authMiddleware, (req, res) => {
-  let properties = readProperties();
+  let properties = readJSON(propertiesFile);
   properties = properties.filter(p => p.id !== req.params.id);
-  saveProperties(properties);
+  writeJSON(propertiesFile, properties);
   res.json({ message: "Deleted" });
 });
 
 app.patch("/api/properties/:id/favorite", authMiddleware, (req, res) => {
-  let properties = readProperties();
-  properties = properties.map(p =>
+  const properties = readJSON(propertiesFile).map(p =>
     p.id === req.params.id ? { ...p, favorite: !p.favorite } : p
   );
-  saveProperties(properties);
+
+  writeJSON(propertiesFile, properties);
   res.json({ message: "Favorite toggled" });
 });
 
+/* ---------------- START ---------------- */
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
