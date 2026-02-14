@@ -26,7 +26,7 @@ export default function App() {
   // ---------------- LOAD PROPERTIES ----------------
   async function loadProperties() {
     try {
-      const res = await fetch("import.meta.env.VITE_API_URL + /api/properties", );
+      const res = await fetch(import.meta.env.VITE_API_URL + "/api/properties");
       const data = await res.json();
       setProperties(data);
     } catch (err) {
