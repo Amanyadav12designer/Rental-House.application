@@ -123,6 +123,14 @@ export default function App() {
     }
   }
 
+  function toggleAvailability(id){
+    setProperties(prev =>
+      prev.map(p =>
+        p.id === id ? { ...p, available: !p.available } : p
+      )
+    );
+  }
+
   // ---------------- FILTERS ----------------
   let filteredProperties = [...properties];
 
@@ -189,7 +197,9 @@ export default function App() {
             <HomePage
               properties={filteredProperties}
               onAdd={addProperty}
+            
               onFavorite={toggleFavorite}
+              onToggle={toggleAvailability}
               onDelete={deleteProperty}
               isLandlord={isLandlord}
               message={feedbackMessage}

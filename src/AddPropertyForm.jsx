@@ -36,7 +36,7 @@ const isFormValid= !title || !location || !rent || !image;
             title,
             location,
             rent:Number(rent),image,
-            favorite: false
+            favorite: false,available:false
             
 
 
