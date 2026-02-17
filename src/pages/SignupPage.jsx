@@ -9,6 +9,8 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [userRole, setUserRole] = useState("tenant");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const[existError,setExistError]= useState("");
   
 
   async function handleSignup(e) {
@@ -37,7 +39,7 @@ export default function SignupPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message || "Signup failed");
+        setExistError(data.message);
         return;
       }
       localStorage.setItem("token", data.token);
@@ -48,13 +50,24 @@ export default function SignupPage() {
       console.log(error);
       alert("Signup failed");
     } finally {
+      setError(data.message);
       setLoading(false);
     }
   }
 
-;
+  setTimeout(() => {
+    setLoading(false);
+  },7000);
+
+
+ 
+
+setTimeout(()=>{
+  setExistError("");
+},7000);
 
   return (
+
     <div className="signup-page">
       <div className="signup-card">
       <form onSubmit={handleSignup}>
@@ -81,13 +94,20 @@ export default function SignupPage() {
           <option value="landlord">Landlord</option>
         </select>
 
-        <button className="signup-btn" type="submit" disabled={loading}>
-          {loading ? "Signing up..." : "Signup"}
+        <button className="signup-btn " type="submit" disabled={loading}>
+          {loading ? <div className="loading-spinner"></div> : "Signup"}
         </button>
         <button className="signup-footer" onClick={() => navigate("/login")} type="button">
           Already have an account? Login
         </button>
-      </form></div>
+      
+      </form>
+        {error && <p className="error">{error}</p>}
+
+
+        {existError && <div className="error-box">{existError}</div>}
+      </div>
+      
 
     </div>
   );

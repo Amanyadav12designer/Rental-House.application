@@ -6,11 +6,12 @@ export default function LoginPage({onLogin}){
 
 const [email,setEmail]= useState("");
 const [password,setPassword]= useState("");
+const [loading,setLoading]= useState(false);
 
 async function handleSubmit(e){
 e.preventDefault();
 try{
-
+setLoading(true);
     const res= await fetch(`${import.meta.env.VITE_API_URL}/api/login`,{
         method:"POST",headers:{"Content-Type":"application/json"},
         body:JSON.stringify({email,password}),
@@ -30,7 +31,7 @@ localStorage.setItem("role",data.role);
 
 
 
-alert("login successful"+ data.role);
+
 
 navigate(`/home?role=${data.role}`);
 
@@ -41,7 +42,8 @@ onLogin(data.role);
 }
 catch(error){
     console.log(error);
-}
+}finally{
+    setLoading(false);}
 
 
 
@@ -67,7 +69,7 @@ placeholder="password"
 value={password}
 onChange ={(e)=>setPassword(e.target.value)}/>
 
-<button   type="submit">login</button>
+<button  className="signup-btn"  disabled={loading} type="submit">{loading ? <div className="loading-spinner"/> : "Login"}</button>
 
 </form>
 
