@@ -185,7 +185,7 @@ export default function App() {
       <Route
         path="/signup"
         element={
-          token ? <Navigate to="/home" /> : <SignupPage setRole={setRole} />
+          token ? <Navigate to="/login" /> : <SignupPage setRole={setRole} />
         }
       />
 
