@@ -19,6 +19,8 @@ export default function App() {
   const [filter, setFilter] = useState("all");
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [role, setRole] = useState(null);
+  const[successMessage,setSuccessMessage]= useState("");
+  const[successDeleteMessage,setSuccessDeleteMessage]= useState("");
 
   const token = localStorage.getItem("token");
   const isLandlord = role === "landlord";
@@ -66,9 +68,10 @@ export default function App() {
       if (!res.ok) throw new Error("Failed to add");
 
       await loadProperties();
-      alert("Property added ✅");
+      setSuccessMessage("Property added ✅");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
-      alert("Error adding property ❌");
+      ("Error adding property ❌");
     }
   }
 
@@ -93,6 +96,8 @@ export default function App() {
       if (!res.ok) throw new Error("Delete failed");
 
       setProperties(prev => prev.filter(p => p.id !== id));
+      setSuccessDeleteMessage("Property deleted ✅");
+      setTimeout(() => setSuccessDeleteMessage(""), 3000);
     } catch (err) {
       alert("Delete failed");
     }
@@ -197,6 +202,7 @@ export default function App() {
             <HomePage
               properties={filteredProperties}
               onAdd={addProperty}
+            successFeedback={successMessage}
             
               onFavorite={toggleFavorite}
               onToggle={toggleAvailability}
@@ -214,6 +220,7 @@ export default function App() {
               searchLocation={searchLocation}
               setSeachLocation={setSearchLocation}
               filter={filter}
+              deletedMessage={successDeleteMessage}
             />
           ) : (
             <Navigate to="/login" />

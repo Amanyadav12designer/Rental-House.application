@@ -11,6 +11,7 @@ export default function SignupPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const[existError,setExistError]= useState("");
+  const[signupSuccess,setSignupSuccess]= useState("");
   
 
   async function handleSignup(e) {
@@ -44,7 +45,7 @@ export default function SignupPage() {
       }
       localStorage.setItem("token", data.token);
 
-      alert("Signup successful 🎉");
+      setSignupSuccess("Signup successful 🎉");
       navigate("/login"); // ✅ go to login
     } catch (error) {
       console.log(error);
@@ -69,6 +70,7 @@ setTimeout(()=>{
   return (
 
     <div className="signup-page">
+      {signupSuccess && <div className="success-box">{signupSuccess}</div>}
       <div className="signup-card">
       <form onSubmit={handleSignup}>
         <h2>SIGNUP PAGE</h2>

@@ -7,6 +7,7 @@ export default function LoginPage({onLogin}){
 const [email,setEmail]= useState("");
 const [password,setPassword]= useState("");
 const [loading,setLoading]= useState(false);
+const [error,setError]= useState("");
 
 async function handleSubmit(e){
 e.preventDefault();
@@ -19,9 +20,14 @@ setLoading(true);
     const data= await res.json();
 
     if(!res.ok){
-        alert(data.message)
+        setError(data.message);
+        setTimeout(() => {
+    setError("");
+  }, 3000);
         return;
     }
+
+    
 
 
 
@@ -44,7 +50,6 @@ catch(error){
     console.log(error);
 }finally{
     setLoading(false);}
-
 
 
 }
@@ -74,6 +79,8 @@ onChange ={(e)=>setPassword(e.target.value)}/>
 </form>
 
 <p>Don't have an account? <Link to="/signup">Signup here</Link></p>
+
+{error && <p className="error-message">{error}</p>}
 
     </div></div>
 );

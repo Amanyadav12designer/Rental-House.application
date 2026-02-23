@@ -686,3 +686,54 @@ border-radius: 50%;
   margin-top: 1rem;
   text-align: center;
 }
+
+.error-message {
+  color: #d8000c;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+
+.success-message{
+
+  background-color: #e6ffed;
+  color: #2d662d;
+  border: 1px solid #2d662d;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  width: 300px;
+  margin-left: 35%;
+
+}
+
+@keyframes fadeIn {
+  from { opacity: 0;
+   transform: translateY(-4px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.deleted-message{
+
+  background-color: #ffe5e5;
+  color: #d8000c;
+  border: 1px solid #d8000c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  animation: fadeInDelete 0.5s ease-in-out;
+  width: 300px;
+  margin-left: 35%;
+
+}
+.signup-success {
+  background-color: #e6ffed;
+  color: #2d662d;
+  border: 1px solid #2d662d;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  text-align: center;
+}

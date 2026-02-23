@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 import {MdHome} from "react-icons/md";
-import { MdLocationOn } from "react-icons/md";
+
 import { MdAttachMoney } from "react-icons/md";
 import { MdImage } from "react-icons/md";
 
@@ -13,7 +13,6 @@ export default function AddPropertyForm({onAdd}){
     const [title,setTitle] = useState("");
 
 
-    const [location,setLocation] = useState("");
     const [rent,setRent] = useState("");
     const [image,setImage] = useState("");
 

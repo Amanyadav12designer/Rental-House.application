@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
   visibleCount,onLogout,
   filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation}) {
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage}) {
   const location = useLocation();
 
 
@@ -16,6 +16,9 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
   
   return (
     <div className="home-container">
+      {successFeedback && <div className="success-message">{successFeedback}</div>}
+
+      {deletedMessage && <div className="deleted-message">{deletedMessage}</div>}
 
       
 

@@ -168,6 +168,8 @@ app.patch("/api/properties/:id/favorite", authMiddleware, (req, res) => {
   res.json({ message: "Favorite toggled" });
 });
 
+
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 }); 
