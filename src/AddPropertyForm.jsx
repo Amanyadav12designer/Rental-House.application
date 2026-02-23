@@ -13,6 +13,7 @@ import { MdImage } from "react-icons/md";
 export default function AddPropertyForm({onAdd}){
 
     const [title,setTitle] = useState("");
+    const [location,setLocation] = useState("");
 
 
     const [rent,setRent] = useState("");
