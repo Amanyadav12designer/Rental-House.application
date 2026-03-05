@@ -139,7 +139,7 @@ app.post("/api/properties", authMiddleware, (req, res) => {
   const newProperty = {
     ...req.body,
     id: Date.now().toString(),
-    favorite: false,
+    favorite: false,deleted:false
   };
 
   properties.push(newProperty);
