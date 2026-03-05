@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
   visibleCount,onLogout,
   filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage}) {
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,restoreProperty}) {
   const location = useLocation();
 
 
@@ -48,7 +48,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 <Link className="Link" to="/favorites"> Favorites</Link></div>
 <button className="logout-button" onClick={onLogout}>LOG-OUT</button></div>
 
-      {isLandlord && <AddPropertyForm onAdd={onAdd} />}
+      {isLandlord && <AddPropertyForm onAdd={onAdd} onRestore={restoreProperty} />}
 
       <PropertyList
         properties={properties}

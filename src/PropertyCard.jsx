@@ -11,6 +11,8 @@ export default function PropertyCard({
   onFavorite,isLandlord,message
 }) {
   return (
+    <div className="property-grid">
+   
     <div className="property-card">
       <h3 style={{fontFamily:"Graduate",fontSize:"23px"}}>{property.title}</h3>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
@@ -61,7 +63,7 @@ export default function PropertyCard({
       
 
       
-    </div>
+    </div></div>
   );
 }
 

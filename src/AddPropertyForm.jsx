@@ -10,7 +10,7 @@ import { MdImage } from "react-icons/md";
 
 
 
-export default function AddPropertyForm({onAdd}){
+export default function AddPropertyForm({onAdd,onRestore}){
 
     const [title,setTitle] = useState("");
     const [location,setLocation] = useState("");
@@ -38,7 +38,7 @@ const isFormValid= !title || !location || !rent || !image;
             title,
             location,
             rent:Number(rent),image,
-            favorite: false,available:false
+            favorite: false,available:false,deleted:false
             
 
 
@@ -75,6 +75,9 @@ const isFormValid= !title || !location || !rent || !image;
         <MdImage className="input-icon" />
         <input  value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL" />
       </div>
+
+      <button type="button" onClick={onRestore} style={{marginLeft:"10px",width:"120px",border:"1px solid grey",borderRadius:"5px",height:"35px",cursor:"pointer",fontFamily:"Playfair",width:"120px",fontWeight:"bold",color:"white",background:"red"}}>Restore Property</button>
+
 
       <button type="submit" disabled={isFormValid} style={{marginLeft:"10px",width:"100px",border:"1px solid grey",borderRadius:"5px",height:"35px",cursor:"pointer",fontFamily:"Playfair",width:"100px",fontWeight:"bold",color:"white",background:"black"}}>Add Property</button> 
     </form>
