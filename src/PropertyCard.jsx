@@ -8,7 +8,7 @@ export default function PropertyCard({
   property=[],
   onToggle,
   onDelete,
-  onFavorite,isLandlord,message
+  onFavorite,isLandlord,message,onRestore
 }) {
   return (
     <div className="property-grid">
@@ -35,6 +35,11 @@ export default function PropertyCard({
       
         
       </button>
+
+      <button  onClick={()=>      
+        onRestore(property.id)
+      }  disabled={!isLandlord}
+      className="restore-button">Restore</button>
 
 
          

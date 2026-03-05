@@ -48,7 +48,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 <Link className="Link" to="/favorites"> Favorites</Link></div>
 <button className="logout-button" onClick={onLogout}>LOG-OUT</button></div>
 
-      {isLandlord && <AddPropertyForm onAdd={onAdd} onRestore={restoreProperty} />}
+      {isLandlord && <AddPropertyForm onAdd={onAdd}  />}
 
       <PropertyList
         properties={properties}
@@ -64,6 +64,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
         minRent={minRent}
         maxRent={maxRent}
         searchLocation={searchLocation}
+        onRestore={restoreProperty}
      
         
       />
