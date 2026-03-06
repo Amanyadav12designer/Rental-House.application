@@ -86,8 +86,8 @@ export default function App() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/delete`, {
-        method: "PATCH",
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}`, {
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -103,33 +103,9 @@ export default function App() {
     }
   }
 
-  async function restoreProperty(id) {
-    if(!isLandlord){
-      alert("Only landlord can restore");
-      return;
+  
 
-    }
-    const confirmRestore = window.confirm("Restore property?");
-    if(!confirmRestore) return;
-
-  try{
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/restore`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if(!res.ok) throw new Error("Restore failed");
-
-    await loadProperties();
-    setSuccessMessage("Property restored ✅");
-    setTimeout(() => setSuccessMessage(""), 3000);
-  }catch(err){
-    alert("Restore failed");
-
-  }
-}
+    
 
 
 
@@ -234,7 +210,7 @@ export default function App() {
               properties={filteredProperties}
               onAdd={addProperty}
             successFeedback={successMessage}
-            restoreProperty={restoreProperty}
+          
             
               onFavorite={toggleFavorite}
               onToggle={toggleAvailability}
