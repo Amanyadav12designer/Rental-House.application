@@ -234,7 +234,7 @@ export default function App() {
               properties={filteredProperties}
               onAdd={addProperty}
             successFeedback={successMessage}
-            RestoreProperty={restoreProperty}
+            restoreProperty={restoreProperty}
             
               onFavorite={toggleFavorite}
               onToggle={toggleAvailability}
