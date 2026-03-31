@@ -21,6 +21,8 @@ export default function App() {
   const [role, setRole] = useState(null);
   const[successMessage,setSuccessMessage]= useState("");
   const[successDeleteMessage,setSuccessDeleteMessage]= useState("");
+  const [editingProperty, setEditingProperty]= useState(null);
+
 
   const token = localStorage.getItem("token");
   const isLandlord = role === "landlord";
@@ -75,6 +77,29 @@ export default function App() {
     }
   }
 
+
+  async function updateProperty(id, updatedData){
+const token= localStorage.getItem("token");
+
+try{
+
+const res= await fetch (`${import.meta.env.VITE_API_URL}/api/properties/${id}`, {
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify(updatedData),
+});
+
+if (!res.ok) throw new Error("Failed to update property");
+
+await loadProperties();
+
+} catch (err) {
+  console.error("Error updating property:", err);
+}
+  }
   // ---------------- DELETE PROPERTY ----------------
   async function deleteProperty(id) {
     if (!isLandlord) {
@@ -95,7 +120,7 @@ export default function App() {
 
       if (!res.ok) throw new Error("Delete failed");
 
-      setProperties(prev => prev.filter(p => p.id !== id));
+    loadProperties();
       setSuccessDeleteMessage("Property deleted ✅");
       setTimeout(() => setSuccessDeleteMessage(""), 3000);
     } catch (err) {
@@ -210,8 +235,10 @@ export default function App() {
               properties={filteredProperties}
               onAdd={addProperty}
             successFeedback={successMessage}
+            updateProperty={updateProperty}
           
-            
+            editingProperty={editingProperty}
+            setEditingProperty={setEditingProperty}
               onFavorite={toggleFavorite}
               onToggle={toggleAvailability}
               onDelete={deleteProperty}
@@ -229,6 +256,7 @@ export default function App() {
               setSeachLocation={setSearchLocation}
               filter={filter}
               deletedMessage={successDeleteMessage}
+              
             />
           ) : (
             <Navigate to="/login" />

@@ -150,7 +150,8 @@ app.post("/api/properties", authMiddleware, (req, res) => {
 
 app.get("/api/properties", (req, res) => {
   const properties = readProperties();
-  
+   
+res.json(properties);
 });
 
 
@@ -173,6 +174,26 @@ app.patch("/api/properties/:id/favorite", authMiddleware, (req, res) => {
   );
   saveProperties(properties);
   res.json({ message: "Favorite toggled" });
+});
+
+
+app.patch("/api/properties/:id", authMiddleware, (req, res) => {
+
+  let properties= readProperties();
+
+  const index = properties.findIndex(p=> p.id===req.params.id);
+
+if(index===-1){
+  return res.status(404).json({message:"Property not found"});
+}
+
+properties[index]={
+  ...properties[index],...req.body
+};
+
+saveProperties(properties);
+res.json({message:"Property updated", property: properties[index]});
+
 });
 
 

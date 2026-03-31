@@ -2,10 +2,11 @@ import PropertyList from "../PropertyList";
 import {Link} from "react-router-dom";
 
 export default function FavoritePage({
-  properties,
+  properties = [],
   onFavorite,
   onDelete,
   isLandlord
+  ,onToggle
 }) {
 if (properties.length === 0) {
   return (
@@ -37,6 +38,9 @@ if (properties.length === 0) {
         onFavorite={onFavorite}
         onDelete={onDelete}
         isLandlord={isLandlord}
+        onToggle={onToggle}
+    
+      
       /></div>
     </div>
   );

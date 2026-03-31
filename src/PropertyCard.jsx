@@ -8,13 +8,29 @@ export default function PropertyCard({
   property=[],
   onToggle,
   onDelete,
-  onFavorite,isLandlord,message
+  onFavorite,isLandlord,message, updateProperty,editingProperty,setEditingProperty
 }) {
+
+
+function handleEditSubmit(e){
+
+e.preventDefault();
+
+const updatedData={
+  rent: editingProperty.rent,
+
+  title: editingProperty.title
+};
+
+updateProperty(property.id,updatedData);
+
+}
+
   return (
     <div className="property-grid">
    
     <div className="property-card">
-      <h3 style={{fontFamily:"Graduate",fontSize:"23px"}}>{property.title}</h3>
+      <h2>{property.title}</h2>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Rent: ₹{property.rent}</p>
       <img src={property.image} alt={property.title} style={{width:"100%",objectFit:"cover",borderRadius:"8px"}}/>
@@ -35,6 +51,9 @@ export default function PropertyCard({
       
         
       </button>
+
+
+
 
     
 
@@ -62,6 +81,12 @@ export default function PropertyCard({
           {property.available ? "Available" : "Not Available"}
         </strong>
       </p>
+
+
+     
+
+
+      
       
 
       

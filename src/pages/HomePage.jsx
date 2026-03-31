@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
   visibleCount,onLogout,
   filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage}) {
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,editingProperty,setEditingProperty,updateProperty}) {
   const location = useLocation();
 
 
@@ -29,7 +29,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
     
 
   <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
-  <div className="header-badge">FInd Your stay!
+  <div className="header-badge">
   </div>
 
   
@@ -64,6 +64,10 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
         minRent={minRent}
         maxRent={maxRent}
         searchLocation={searchLocation}
+        updateProperty={updateProperty}
+        editingProperty={editingProperty}
+        setEditingProperty={setEditingProperty}
+        
        
      
         
@@ -72,11 +76,11 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
    
 
 
-<input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" style={{marginTop:"20px",marginLeft:"10px"}}/>
-<input value={minRent} onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" style={{marginLeft:"10px"}}/>
-<input value={maxRent} onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" style={{marginLeft:"10px"}}/>
+<input value={search} className="filters" onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" />
+<input value={minRent} className="filters" onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" />
+<input value={maxRent} className="filters" onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" />
 
-    <input value={searchLocation} onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" style={{marginLeft:"10px"}}/>
+    <input value={searchLocation} className="filters" onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" />
 
 
     </div>
