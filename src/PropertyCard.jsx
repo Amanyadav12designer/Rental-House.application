@@ -82,8 +82,15 @@ updateProperty(property.id,updatedData);
         </strong>
       </p>
 
+      <a href={`tel:${property.contactNumber}`} className="contact-button">
+        Call Contact
+      </a>
 
-     
+      <br />
+
+      <a href={`https://wa.me/${property.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="contact-button">
+         WhatsApp
+      </a>
 
 
       

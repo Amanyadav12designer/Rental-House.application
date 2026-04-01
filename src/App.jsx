@@ -73,7 +73,9 @@ export default function App() {
       setSuccessMessage("Property added ✅");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (err) {
-      ("Error adding property ❌");
+      console.log(err);
+      setFeedbackMessage("Error adding property ❌");
+    
     }
   }
 
@@ -137,6 +139,7 @@ await loadProperties();
 
   // ---------------- TOGGLE FAVORITE ----------------
   async function toggleFavorite(id) {
+    let token = localStorage.getItem("token");
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
         method: "PATCH",
