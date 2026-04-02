@@ -80,30 +80,9 @@ export default function App() {
   }
 
 
-  async function updateProperty(id, updatedData){
-const token= localStorage.getItem("token");
-
-try{
-
-const res= await fetch (`${import.meta.env.VITE_API_URL}/api/properties/${id}`, {
-  method: "PATCH",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-  body: JSON.stringify(updatedData),
-});
-
-if (!res.ok) throw new Error("Failed to update property");
-
-await loadProperties();
-
-} catch (err) {
-  console.error("Error updating property:", err);
-}
-  }
   // ---------------- DELETE PROPERTY ----------------
   async function deleteProperty(id) {
+    
     if (!isLandlord) {
       alert("Only landlord can delete");
       return;
@@ -122,7 +101,7 @@ await loadProperties();
 
       if (!res.ok) throw new Error("Delete failed");
 
-    loadProperties();
+      setProperties(prev => prev.filter(p => p._id !== id));
       setSuccessDeleteMessage("Property deleted ✅");
       setTimeout(() => setSuccessDeleteMessage(""), 3000);
     } catch (err) {
@@ -152,7 +131,7 @@ await loadProperties();
 
       setProperties(prev =>
         prev.map(p =>
-          p.id === id ? { ...p, favorite: !p.favorite } : p
+          p._id === id ? { ...p, favorite: !p.favorite } : p
         )
       );
 
@@ -238,7 +217,7 @@ await loadProperties();
               properties={filteredProperties}
               onAdd={addProperty}
             successFeedback={successMessage}
-            updateProperty={updateProperty}
+           
           
             editingProperty={editingProperty}
             setEditingProperty={setEditingProperty}

@@ -8,23 +8,13 @@ export default function PropertyCard({
   property=[],
   onToggle,
   onDelete,
-  onFavorite,isLandlord,message, updateProperty,editingProperty,setEditingProperty
+  onFavorite,isLandlord,message
 }) {
 
 
-function handleEditSubmit(e){
 
-e.preventDefault();
 
-const updatedData={
-  rent: editingProperty.rent,
 
-  title: editingProperty.title
-};
-
-updateProperty(property.id,updatedData);
-
-}
 
   return (
     <div className="property-grid">
@@ -43,7 +33,7 @@ updateProperty(property.id,updatedData);
 
       <button  onClick={()=>
       
-        onDelete(property.id)
+        onDelete(property._id)
       }  disabled={!isLandlord}
       className="delete-button"
 
@@ -62,7 +52,7 @@ updateProperty(property.id,updatedData);
 
       <span
         style={{ marginLeft: "1px", cursor: "pointer",paddingTop:"40px" }}
-        onClick={() => onFavorite(property.id)}
+        onClick={() => onFavorite(property._id)}
       >
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
       </span>
