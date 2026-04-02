@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
   visibleCount,onLogout,
   filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,editingProperty,setEditingProperty,updateProperty}) {
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage}) {
   const location = useLocation();
 
 
@@ -64,9 +64,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
         minRent={minRent}
         maxRent={maxRent}
         searchLocation={searchLocation}
-        updateProperty={updateProperty}
-        editingProperty={editingProperty}
-        setEditingProperty={setEditingProperty}
+      
         
        
      

@@ -148,9 +148,13 @@ app.get("/api/properties", async (req, res) => {
 // DELETE PROPERTY
 app.delete("/api/properties/:id", authMiddleware, async (req, res) => {
   try {
-    await Property.findByIdAndDelete(req.params.id);
+    if (req.user.role !== "landlord") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+   const deletedProperty = await Property.findByIdAndDelete(req.params.id);
     res.json({ message: "Property deleted" });
   } catch (err) {
+    
     res.status(500).json({ message: "Delete failed" });
   }
 });
@@ -175,24 +179,7 @@ app.patch("/api/properties/:id/favorite", authMiddleware, async (req, res) => {
 });
 
 // UPDATE PROPERTY
-app.patch("/api/properties/:id", authMiddleware, async (req, res) => {
-  try {
-    const updated = await Property.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
 
-    if (!updated) {
-      return res.status(404).json({ message: "Property not found" });
-    }
-
-    res.json(updated);
-
-  } catch (err) {
-    res.status(500).json({ message: "Update failed" });
-  }
-});
 
 // ---------------- START SERVER ----------------
 app.listen(PORT, () => {

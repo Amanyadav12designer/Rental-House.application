@@ -25,18 +25,24 @@ export default function App() {
 
 
   const token = localStorage.getItem("token");
-  const isLandlord = role === "landlord";
+ const isLandlord = role?.toLowerCase() === "landlord";
 
   // ---------------- LOAD PROPERTIES ----------------
-  async function loadProperties() {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
-      const data = await res.json();
-      setProperties(data);
-    } catch (err) {
-      console.log(err);
-    }
+async function loadProperties() {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
+    const data = await res.json();
+
+    const normalized = data.map(p => ({
+      ...p,
+      id: p._id, // 👈 force consistent ID
+    }));
+
+    setProperties(normalized);
+  } catch (err) {
+    console.log(err);
   }
+}
 
   useEffect(() => {
     loadProperties();
@@ -82,6 +88,7 @@ export default function App() {
 
   // ---------------- DELETE PROPERTY ----------------
   async function deleteProperty(id) {
+    let token = localStorage.getItem("token");
     
     if (!isLandlord) {
       alert("Only landlord can delete");
@@ -101,7 +108,7 @@ export default function App() {
 
       if (!res.ok) throw new Error("Delete failed");
 
-      setProperties(prev => prev.filter(p => p._id !== id));
+      setProperties(prev => prev.filter(p => p.id !== id));
       setSuccessDeleteMessage("Property deleted ✅");
       setTimeout(() => setSuccessDeleteMessage(""), 3000);
     } catch (err) {
@@ -131,7 +138,7 @@ export default function App() {
 
       setProperties(prev =>
         prev.map(p =>
-          p._id === id ? { ...p, favorite: !p.favorite } : p
+          p.id === id ? { ...p, favorite: !p.favorite } : p
         )
       );
 
@@ -219,8 +226,7 @@ export default function App() {
             successFeedback={successMessage}
            
           
-            editingProperty={editingProperty}
-            setEditingProperty={setEditingProperty}
+           
               onFavorite={toggleFavorite}
               onToggle={toggleAvailability}
               onDelete={deleteProperty}

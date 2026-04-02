@@ -33,8 +33,8 @@ export default function PropertyCard({
 
       <button  onClick={()=>
       
-        onDelete(property._id)
-      }  disabled={!isLandlord}
+        onDelete(property.id)
+      }  
       className="delete-button"
 
       >Delete
@@ -52,7 +52,7 @@ export default function PropertyCard({
 
       <span
         style={{ marginLeft: "1px", cursor: "pointer",paddingTop:"40px" }}
-        onClick={() => onFavorite(property._id)}
+        onClick={() => onFavorite(property.id)}
       >
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
       </span>
