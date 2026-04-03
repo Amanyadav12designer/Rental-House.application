@@ -17,7 +17,7 @@ export default function App() {
   const [maxRent, setMaxRent] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [filter, setFilter] = useState("all");
-  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState({id:null,text:""});
   const [role, setRole] = useState(null);
   const[successMessage,setSuccessMessage]= useState("");
   const[successDeleteMessage,setSuccessDeleteMessage]= useState("");
@@ -88,7 +88,7 @@ async function loadProperties() {
 
   // ---------------- DELETE PROPERTY ----------------
   async function deleteProperty(id) {
-    let token = localStorage.getItem("token");
+  
     
     if (!isLandlord) {
       alert("Only landlord can delete");
@@ -107,6 +107,7 @@ async function loadProperties() {
       });
 
       if (!res.ok) throw new Error("Delete failed");
+    
 
       setProperties(prev => prev.filter(p => p.id !== id));
       setSuccessDeleteMessage("Property deleted ✅");
@@ -147,12 +148,12 @@ setProperties(prev =>
 );
 
 if (current.favorite) {
-  setFeedbackMessage("Added to favorites!");
+  setFeedbackMessage({id, text: "Removed from favorites!"});
 } else {
-  setFeedbackMessage("Removed from favorites!");
+  setFeedbackMessage({id, text: "Added to favorites!"});
 }
 
-setTimeout(() => setFeedbackMessage(""), 5000);  } catch (err) {
+setTimeout(() => setFeedbackMessage({id: null, text: ""}), 5000);  } catch (err) {
       alert("Error toggling favorite");
     }
   }
