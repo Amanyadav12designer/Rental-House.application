@@ -136,19 +136,27 @@ async function loadProperties() {
 
       if (!res.ok) throw new Error();
 
-      setProperties(prev =>
-        prev.map(p =>
-          p.id === id ? { ...p, favorite: !p.favorite } : p
-        )
-      );
+      const current = properties.find(p => p.id === id);
 
-      setFeedbackMessage("Added to favorites!");
-      setTimeout(() => setFeedbackMessage(""), 3000);
-    } catch (err) {
+if (!current) return;
+
+setProperties(prev =>
+  prev.map(p =>
+    p.id === id ? { ...p, favorite: !p.favorite } : p
+  )
+);
+
+if (current.favorite) {
+  setFeedbackMessage("Added to favorites!");
+} else {
+  setFeedbackMessage("Removed from favorites!");
+}
+
+setTimeout(() => setFeedbackMessage(""), 5000);  } catch (err) {
       alert("Error toggling favorite");
     }
   }
-
+  
   function toggleAvailability(id){
     setProperties(prev =>
       prev.map(p =>

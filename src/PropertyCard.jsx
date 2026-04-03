@@ -57,7 +57,7 @@ export default function PropertyCard({
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
       </span>
 
-      {message&&
+      {message&& 
       <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message}</p>
       } 
 
