@@ -1,4 +1,4 @@
-console.log("🔥🔥🔥 TEST CHANGE 🔥🔥🔥");
+console.log("🚀 PORT CHECK:", process.env.PORT);
 
 const express = require("express");
 
@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 
 // ---------------- MONGODB CONNECTION ----------------
@@ -192,7 +192,10 @@ app.patch("/api/properties/:id/favorite", authMiddleware, async (req, res) => {
 // UPDATE PROPERTY
 
 
-// ---------------- START SERVER ----------------
+// ---------------- START SERVER ----------------const PORT = process.env.PORT || 5000;
+
+
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
