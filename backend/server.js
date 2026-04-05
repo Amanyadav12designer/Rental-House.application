@@ -152,6 +152,7 @@ app.get("/api/properties", async (req, res) => {
 
     res.json(formatted);
   } catch (err) {
+    console.log("❌ FETCH ERROR:", err); 
     res.status(500).json({ message: "Error fetching properties" });
   }
 });
