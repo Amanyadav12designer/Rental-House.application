@@ -1,4 +1,4 @@
-throw new Error("🚨 TEST ERROR - NEW SERVER");
+console.log("🔥🔥🔥 TEST CHANGE 🔥🔥🔥");
 
 const express = require("express");
 
