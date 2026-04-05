@@ -19,7 +19,15 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.log(err));
 
 // ---------------- MIDDLEWARE ----------------
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://your-frontend-url.vercel.app"
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // ---------------- MODELS ----------------
