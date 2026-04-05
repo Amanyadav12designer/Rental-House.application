@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
+
+
+mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
   title: String,
   rent: Number,
   location: String,
   image: String,
-contactNumber: String,
-whatsappNumber: String,
-
+  contactNumber: String,
+  whatsappNumber: String,
   favorite: { type: Boolean, default: false },
   available: { type: Boolean, default: true },
 });

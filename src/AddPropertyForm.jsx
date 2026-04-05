@@ -22,7 +22,7 @@ export default function AddPropertyForm({onAdd,onRestore}){
     const [image,setImage] = useState("");
 
 
-const isFormValid= !title || !location || !rent || !image;
+const isFormValid= !title || !location || !rent || !image || !contactNumber || !whatsappNumber;
 
 
 
@@ -36,11 +36,11 @@ const isFormValid= !title || !location || !rent || !image;
         
 
         const newProperty = {
-            id: Date.now(),
+          
             title,
             location,
             rent:Number(rent),image,contactNumber,whatsappNumber,
-            favorite: false,available:false,deleted:false
+          
             
 
 

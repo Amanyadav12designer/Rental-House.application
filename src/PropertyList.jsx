@@ -38,7 +38,7 @@ if(properties.length===0){
 
 properties.map(p=>(
 
-    <PropertyCard key={p._id} property={p} onToggle={onToggle} onDelete={onDelete} onFavorite={onFavorite} isLandlord={isLandlord} message={message}  />
+    <PropertyCard key={p.id} property={p} onToggle={onToggle} onDelete={onDelete} onFavorite={onFavorite} isLandlord={isLandlord} message={message}  />
 
     
 

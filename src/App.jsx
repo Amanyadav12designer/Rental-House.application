@@ -29,19 +29,10 @@ export default function App() {
 
   // ---------------- LOAD PROPERTIES ----------------
 async function loadProperties() {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
-    const data = await res.json();
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
+  const data = await res.json();
 
-    const normalized = data.map(p => ({
-      ...p,
-      id: p._id, // 👈 force consistent ID
-    }));
-
-    setProperties(normalized);
-  } catch (err) {
-    console.log(err);
-  }
+  setProperties(data); // ✅ no mapping needed
 }
 
   useEffect(() => {
@@ -94,6 +85,7 @@ async function loadProperties() {
       alert("Only landlord can delete");
       return;
     }
+    console.log("delete", id);
 
     const confirmDelete = window.confirm("Delete property?");
     if (!confirmDelete) return;
@@ -124,39 +116,40 @@ async function loadProperties() {
 
 
 
-  // ---------------- TOGGLE FAVORITE ----------------
-  async function toggleFavorite(id) {
-    let token = localStorage.getItem("token");
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+async function toggleFavorite(id) {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      if (!res.ok) throw new Error();
+    if (!res.ok) throw new Error();
 
-      const current = properties.find(p => p.id === id);
+    const updated = await res.json();
 
-if (!current) return;
+    const normalized = { ...updated, id: updated._id };
 
-setProperties(prev =>
-  prev.map(p =>
-    p.id === id ? { ...p, favorite: !p.favorite } : p
-  )
-);
+    setProperties(prev =>
+      prev.map(p =>
+        p.id === id ? { ...p, ...normalized } : p
+      )
+    );
 
-if (current.favorite) {
-  setFeedbackMessage({id, text: "Removed from favorites!"});
-} else {
-  setFeedbackMessage({id, text: "Added to favorites!"});
-}
+    setFeedbackMessage({
+      id,
+      text: normalized.favorite
+        ? "Added to favorites!"
+        : "Removed from favorites!"
+    });
 
-setTimeout(() => setFeedbackMessage({id: null, text: ""}), 5000);  } catch (err) {
-      alert("Error toggling favorite");
-    }
+    setTimeout(() => setFeedbackMessage({ id: null, text: "" }), 3000);
+
+  } catch (err) {
+    alert("Error toggling favorite");
   }
+}
   
   function toggleAvailability(id){
     setProperties(prev =>

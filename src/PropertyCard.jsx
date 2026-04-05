@@ -39,8 +39,11 @@ export default function PropertyCard({
 
       >Delete
       
+      
         
       </button>
+      
+
 
 
 

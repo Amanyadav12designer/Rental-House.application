@@ -1,4 +1,9 @@
+
+console.log("🔥 USING MONGO BACKEND SERVER.JS");
+
 const express = require("express");
+
+
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -7,6 +12,7 @@ require("dotenv").config();
 
 const app = express();
 const PORT = 5000;
+
 
 // ---------------- MONGODB CONNECTION ----------------
 mongoose.connect(process.env.MONGO_URI)
@@ -139,7 +145,13 @@ app.post("/api/properties", authMiddleware, async (req, res) => {
 app.get("/api/properties", async (req, res) => {
   try {
     const properties = await Property.find();
-    res.json(properties);
+
+    const formatted = properties.map(p => ({
+      ...p.toObject(),
+      id: p._id, // 👈 clean mapping
+    }));
+
+    res.json(formatted);
   } catch (err) {
     res.status(500).json({ message: "Error fetching properties" });
   }
@@ -171,7 +183,7 @@ app.patch("/api/properties/:id/favorite", authMiddleware, async (req, res) => {
     property.favorite = !property.favorite;
     await property.save();
 
-    res.json(property);
+   res.json(property.toObject());
 
   } catch (err) {
     res.status(500).json({ message: "Favorite failed" });
