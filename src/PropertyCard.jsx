@@ -5,12 +5,13 @@ import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 
 export default function PropertyCard({
-  property=[],
+  property={},
   onToggle,
   onDelete,
-  onFavorite,isLandlord,message
+  onFavorite,isLandlord,message={}
 }) {
 
+  if (!property.id) return null;
 
 
 
@@ -60,7 +61,7 @@ export default function PropertyCard({
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
       </span>
 
-      {message.id === property.id && (
+      {message?.id === property.id && (
         <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message.text}</p>
       )} 
     
