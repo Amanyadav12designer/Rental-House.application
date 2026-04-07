@@ -38,7 +38,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
   <div className="stats-bar">
   
    <strong>Total Properties : {properties.length} </strong>
-  <strong style={{marginLeft:"20px"}}>Properties Available: {properties.filter(p=>p.available).length}</strong>
+  <strong>Properties Available: {properties.filter(p=>p.available).length}</strong>
 
 
 
