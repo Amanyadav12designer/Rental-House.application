@@ -584,6 +584,14 @@ background:linear-gradient(135deg,lab(79.71% 1.31 -3.5));
   flex-wrap: wrap;         /* prevents overflow on small screens */
 }
 
+
+@media (max-width: 600px) {
+  .stats-bar {
+    flex-direction: column; /* stack items vertically on small screens */
+    align-items: flex-start; /* left-align items when stacked */
+  }
+}
+
 .empty-favorites {
   text-align: center;
   margin-top: 80px;
