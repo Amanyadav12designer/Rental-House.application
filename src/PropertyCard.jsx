@@ -26,9 +26,9 @@ export default function PropertyCard({
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Rent: ₹{property.rent}</p>
       <img src={property.image} alt={property.title} style={{width:"100%",objectFit:"cover",borderRadius:"8px"}}/>
 
-    
+    <div className="action-buttons">
 
-      <button style={{width:"130px",marginTop:"20px",border:"1px solid black",borderRadius:"5px",height:"30px",fontFamily:"Graduate",cursor:"pointer"}} onClick={() => onToggle(property.id)}>
+      <button className="switch-button" onClick={() => onToggle(property.id)}>
         Switch Status
       </button>
 
@@ -43,6 +43,8 @@ export default function PropertyCard({
       
         
       </button>
+
+      
       
 
 
@@ -55,7 +57,7 @@ export default function PropertyCard({
          
 
       <span
-        style={{ marginLeft: "1px", cursor: "pointer",paddingTop:"40px" }}
+        className="favorite-btn"
         onClick={() => onFavorite(property.id)}
       >
         {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
@@ -64,6 +66,7 @@ export default function PropertyCard({
       {message?.id === property.id && (
         <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message.text}</p>
       )} 
+      </div>
     
 
 
@@ -75,16 +78,18 @@ export default function PropertyCard({
           {property.available ? "Available" : "Not Available"}
         </strong>
       </p>
+     
 
       <a href={`tel:${property.contactNumber}`} className="contact-button">
         Call Contact
       </a>
 
-      <br />
+      <br /> <br /> <br /> 
 
       <a href={`https://wa.me/${property.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="contact-button">
          WhatsApp
       </a>
+      
 
 
       

@@ -37,27 +37,12 @@ body h1{
     margin-bottom: 10px;
   }
 
-  header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:1px 25px;
-  background:linear-gradient(135deg, grey, #3091a7);
-  backdrop-filter:blur(6px);
- 
-  color:white;
-  font-family: "Inter", sans-serif;
-  font-weight:500;
-  gap:20px;
-  margin-bottom:40px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  height:173px;
-}
+
 
 .header-img{
   height:172px;
   width:50%;
-  z-index:10;
+  z-index:1000;
 
   right:0%;
   border-radius:2px;
@@ -139,20 +124,70 @@ opacity: 0.5;
 }
 
 header{
+  position: relative;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:1px 25px;
-  background:linear-gradient(135deg, grey, #3091a7);
-  backdrop-filter:blur(6px);
- 
+  padding: 0 32px;
+  gap:20px;
+  height:170px;
+
   color:white;
   font-family: "Inter", sans-serif;
   font-weight:500;
-  gap:20px;
+
+  /* premium gradient */
+  background: linear-gradient( 135deg,
+    #0f172a 1%,
+    #1e293b 1% ,
+    #0ea5e9 60%  );
+
+  /* glass effect */
+  backdrop-filter: blur(10px);
+
+  /* premium shadow */
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.25),
+    0 2px 8px rgba(0,0,0,0.15);
+
   margin-bottom:40px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  height:173px;
+  overflow:hidden;
+}
+
+
+/* subtle shine effect */
+header::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-50%;
+  width:60%;
+  height:100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(37, 66, 143, 0.15),
+    transparent
+  );
+  transform: skewX(-20deg);
+}
+
+
+
+/* bottom border glow */
+header::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
 }
 
 .header-badge{
@@ -804,24 +839,282 @@ border-radius: 50%;
 }
 
 
-.contact-button{
-  border: 1px solid black;
-  background-color: white;
-  color: black;
-  cursor: pointer;
-  border-radius: 5px;
-  height: 10px;
-  width: 100px;
-   font-family: "Playfair", serif;
-  font-weight: bold;
-  text-decoration:none;
-  padding-bottom:8px;
-  text-align:center;
 
+
+/* =========================
+   GLOBAL PREMIUM UPGRADE
+========================= */
+
+body{
+  background: linear-gradient(180deg,#f8fafc,#eef2f7);
+  color:#111827;
 }
 
-.contact-button:active {
-  transform: scale(0.95);
+.app-container{
+  max-width:1400px;
+  margin:auto;
+  padding:24px;
+}
+
+
+/* =========================
+   HEADER PREMIUM
+========================= */
+
+
+
+.app-container h1{
+  font-size:1.4rem;
+  letter-spacing:.5px;
+}
+
+
+
+/* =========================
+   PREMIUM BUTTONS
+========================= */
+
+button{
+  transition: all .25s ease;
+}
+
+button:hover{
+  transform: translateY(-1px);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+button:active{
+  transform: scale(.97);
+}
+.delete-button{
+  border-radius:10px;
+  padding:8px 14px;
+  border:1px solid #ff385c;
+  color:#ff385c;
   background:white;
-  transition: all 0.2s ease;
+  font-weight:600;
+  margin-left:40%;
 }
+
+.delete-button:hover{
+  background:#ff385c;
+  color:white;
+}
+
+
+.switch-button{
+  border-radius:10px;
+  padding:8px 14px;
+  border:1px solid #111;
+  background:white;
+  font-weight:600;
+  margin-left:3%;
+  cursor:pointer;
+}
+
+
+.favorite-btn{
+  position:absolute;
+  top:18px;
+  right:16px;
+  background:white;
+  border-radius:70%;
+  cursor:pointer;
+  padding:6px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+
+
+/* =========================
+   PREMIUM ROLE CARDS
+========================= */
+
+.role-card,
+.role-card2{
+  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.75);
+  border:1px solid rgba(0,0,0,0.06);
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.08),
+  0 2px 6px rgba(0,0,0,0.04);
+
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+}
+
+.role-card:hover,
+.role-card2:hover{
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+  0 20px 50px rgba(0,0,0,0.12),
+  0 4px 12px rgba(0,0,0,0.06);
+}
+
+
+
+/* =========================
+   ROLE BUTTONS PREMIUM
+========================= */
+
+.role-button,
+.role-button2{
+  background: linear-gradient(135deg,#2563eb,#1e40af);
+  color:white;
+  border:none;
+  box-shadow:0 6px 20px rgba(37,99,235,.3);
+}
+
+.role-button:hover,
+.role-button2:hover{
+  box-shadow:0 10px 25px rgba(37,99,235,.45);
+}
+
+
+
+/* =========================
+   LINK CARDS PREMIUM
+========================= */
+
+.link-card,
+.link-card2{
+  background:white;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  transition:.2s ease;
+}
+
+.link-card:hover,
+.link-card2:hover{
+  transform: translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+
+
+/* =========================
+   CONTAINER PREMIUM
+========================= */
+
+.container{
+  background-position:center;
+}
+
+.container::before{
+  background:rgba(255,255,255,.75);
+}
+
+
+
+/* =========================
+   INPUT PREMIUM
+========================= */
+
+ select, textarea{
+  border:1px solid #e5e7eb;
+  background:white;
+  transition:.2s ease;
+}
+
+
+select:focus,
+textarea:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+input{
+  border-radius:999px;
+  border:1px solid #e5e7eb;
+  padding:12px 16px;
+  background:white;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+input:focus{
+  border-color:#000;
+  box-shadow:0 0 0 2px rgba(0,0,0,.05);
+}
+
+
+/* =========================
+   SUCCESS / ERROR MESSAGES
+========================= */
+
+.success-message,
+.deleted-message{
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+  border:none;
+}
+
+
+
+/* =========================
+   PREMIUM STATS BAR
+========================= */
+
+.stats-bar{
+  background:white;
+  border-radius:20px;
+  padding:18px 22px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.06);
+}
+
+
+
+/* =========================
+   LOGOUT BUTTON
+========================= */
+
+.logout-button{
+  background:white;
+  border:1px solid #e5e7eb;
+}
+
+.logout-button:hover{
+  background:#f8fafc;
+}
+
+
+
+/* =========================
+   CONTACT BUTTON
+========================= */
+
+
+
+.contact-button{
+  height:auto;
+  padding:6px 10px;
+  background:white;
+  text-decoration:none;
+  border:1px solid grey;
+  margin-left:3%;
+  color:black;
+  margin-bottom:20px;
+
+}
+
+.contact-button:hover{
+  background:#f1f5f9;
+  border-color: black;
+  border-radius:5px;
+  transition: all .25s ease;
+}
+
+
+.contact-button2{
+  height:auto;
+  padding:6px 10px;
+  background:white;
+  border:1px solid #e5e7eb;
+
+  text-decoration:none;
+  color:black;
+  margin-top:20px;
+
+}
+
+.contact-button2:hover{
+  background:#f1f5f9;
+}
+
