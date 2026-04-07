@@ -588,7 +588,8 @@ background:linear-gradient(135deg,lab(79.71% 1.31 -3.5));
 @media (max-width: 600px) {
   .stats-bar {
 
-    justify-content: space-between; /* stack items vertically on small screens */
+    justify-content: space-between;
+     /* stack items vertically on small screens */
  
                   /* spacing between items */
   

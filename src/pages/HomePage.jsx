@@ -64,10 +64,12 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
         minRent={minRent}
         maxRent={maxRent}
         searchLocation={searchLocation}
-      setSearchLocation={setSearchLocation}
+        setSearchLocation={setSearchLocation}
+   
       setMinRent={setMinRent}
       setMaxRent={setMaxRent}
       setSearch={setSearch}
+      
         
        
      
@@ -81,7 +83,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 <input value={minRent} className="filters" onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" />
 <input value={maxRent} className="filters" onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" />
 
-    <input value={searchLocation} className="filters" onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" />
+    <input  value={searchLocation} className="filters" onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" />
 
 
     </div>

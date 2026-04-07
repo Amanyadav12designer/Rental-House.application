@@ -243,7 +243,7 @@ async function toggleFavorite(id) {
               maxRent={maxRent}
               setMaxRent={setMaxRent}
               searchLocation={searchLocation}
-              setSeachLocation={setSearchLocation}
+              setSearchLocation={setSearchLocation}
               filter={filter}
               deletedMessage={successDeleteMessage}
               
