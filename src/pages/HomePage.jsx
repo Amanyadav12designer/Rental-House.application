@@ -64,7 +64,10 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
         minRent={minRent}
         maxRent={maxRent}
         searchLocation={searchLocation}
-      
+      setSearchLocation={setSearchLocation}
+      setMinRent={setMinRent}
+      setMaxRent={setMaxRent}
+      setSearch={setSearch}
         
        
      
