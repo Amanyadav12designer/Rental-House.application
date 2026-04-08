@@ -140,8 +140,8 @@ async function toggleFavorite(id) {
     setFeedbackMessage({
       id,
       text: normalized.favorite
-        ? "Added to favorites!"
-        : "Removed from favorites!"
+        ? "Removed from favorites!"
+        : "Added to favorites!"
     });
 
     setTimeout(() => setFeedbackMessage({ id: null, text: "" }), 3000);
