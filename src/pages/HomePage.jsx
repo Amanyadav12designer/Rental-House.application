@@ -43,7 +43,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 
 
-<div className="link-card">
+<div className="link-card2">
 
 <Link className="Link" to="/favorites"> Favorites</Link></div>
 <button className="logout-button" onClick={onLogout}>LOG-OUT</button></div>

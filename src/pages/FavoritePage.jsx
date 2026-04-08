@@ -33,7 +33,7 @@ if (properties.length === 0) {
     <div>
       <h1 style={{textAlign:"center"}}>Favorite Properties</h1>
       <div className="link-card ">
-      <Link className="Link2" to="/home">Back to home   </Link> </div>
+      <Link style={{textDecoration:"none",padding:"10px"}} to="/home">Back to home   </Link> </div>
 <div style={{margin:"13px"}}>
       <PropertyList
     

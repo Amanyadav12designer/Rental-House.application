@@ -133,7 +133,7 @@ async function toggleFavorite(id) {
 
     setProperties(prev =>
       prev.map(p =>
-        p.id === id ? { ...p, ...normalized } : p
+        p.id === id ? { ...p,favorite: !normalized.favorite } : p
       )
     );
 

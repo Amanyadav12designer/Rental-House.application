@@ -43,6 +43,7 @@ export default function PropertyCard({
       
         
       </button>
+        </div>
 
       
       
@@ -66,7 +67,7 @@ export default function PropertyCard({
       {message?.id === property.id && (
         <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message.text}</p>
       )} 
-      </div>
+    
     
 
 
