@@ -63,7 +63,7 @@ const isFormValid= !title || !location || !rent || !image || !contactNumber || !
         <div className="input-wrapper">
         <MdHome className="input-icon"/>
     
-      <input value={title} onChange={e=>setTitle(e.target.value)} placeholder=    "Search home near you" /></div>
+      <input value={title} onChange={e=>setTitle(e.target.value)} placeholder=    "Property Details" /></div>
 
       <div className="input-wrapper">
       <MdLocationOn className="input-icon" />
