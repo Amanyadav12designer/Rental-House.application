@@ -45,19 +45,29 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 </div>
 
- <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
-        
-       <div className="nav-link"> <MdHome className="nav-icon" size={30} /> <li> <Link className="Link" style={{ textDecoration: 'none' }} to="/">HOME</Link></li></div>|
-     <div className="nav-link"> <MdBookmark className="nav-icon" size={30} style={{ marginLeft: '63px' }} /> <li><Link className="Link"  to="/favorites">FAVORITE PROPERTIES</Link></li></div>|
-        <div className="nav-link"> <MdInfo className="nav-icon" size={30} style={{ marginLeft: '7px' }} /> <li><Link className="Link" style={{ textDecoration: 'none' }} to="/brief">BRIEF</Link></li></div>|
-        
-       <div className="nav-link"> <MdLogout className="nav-icon" size={30} style={{ marginLeft: '18x' }} /> <li><span className="Link" style={{ textDecoration: 'none', color: 'black' }} onClick={onLogout}>LOG-OUT</span></li></div>
+<ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
 
-        
-        
-       
-        
-      </ul>
+<li className="nav-link">
+<MdHome className="nav-icon" size={30}/>
+<Link className="Link" to="/">HOME</Link>
+</li>
+
+<li className="nav-link">
+<MdBookmark className="nav-icon" size={30}/>
+<Link className="Link" to="/favorites">FAVORITE PROPERTIES</Link>
+</li>
+
+<li className="nav-link">
+<MdInfo className="nav-icon" size={30}/>
+<Link className="Link" to="/brief">BRIEF</Link>
+</li>
+
+<li className="nav-link" onClick={onLogout}>
+<MdLogout className="nav-icon" size={30}/>
+<span className="Link">LOG-OUT</span>
+</li>
+
+</ul>
 
  
 
