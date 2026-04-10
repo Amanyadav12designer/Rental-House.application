@@ -22,6 +22,7 @@ export default function App() {
   const[successMessage,setSuccessMessage]= useState("");
   const[successDeleteMessage,setSuccessDeleteMessage]= useState("");
   const [editingProperty, setEditingProperty]= useState(null);
+  const[menuOpen,setMenuOpen]= useState(false);
 
 
   const token = localStorage.getItem("token");
@@ -246,6 +247,8 @@ async function toggleFavorite(id) {
               setSearchLocation={setSearchLocation}
               filter={filter}
               deletedMessage={successDeleteMessage}
+              menuOpen={menuOpen}
+              setMenuOpen={setMenuOpen}
               
             />
           ) : (

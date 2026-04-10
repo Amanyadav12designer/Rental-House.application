@@ -1209,3 +1209,55 @@ font-weight:700;
   font-size:20px;
   position:absolute;
 }
+
+.hamburger{
+  display:none;
+ z-index:1001;
+  cursor:pointer;
+}
+
+.hamburger span{
+  border-radius:2px;
+  display:block;
+  width:25px;
+  margin:5px 0;
+  height:3px;
+  background:black;
+  transition: all .3s ease;
+}
+
+
+.hamburger.active span:nth-child(1){
+  transform: rotate(45deg) translate(5px,5px);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform: rotate(-45deg) translate(5px,-5px);
+}
+
+
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.open {
+    right: 0;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+
