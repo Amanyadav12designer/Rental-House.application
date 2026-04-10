@@ -42,7 +42,7 @@ body h1{
 .header-img{
   height:172px;
   width:50%;
-  z-index:1000;
+  z-index:10;
 
   right:0%;
   border-radius:2px;
@@ -130,7 +130,8 @@ header{
   align-items:center;
   padding: 0 32px;
   gap:20px;
-  height:170px;
+  height:130px;
+  border-radius:10px;
 
   color:white;
   font-family: "Inter", sans-serif;
@@ -519,13 +520,21 @@ background:linear-gradient(135deg,lab(79.71% 1.31 -3.5));
 
 
 .Link{
-  margin-left:2%;
+ 
   text-decoration:none;
   color:black;
   font-weight:bold;
 
   
 }
+
+.link:hover{
+  color:white;
+  transition: all .25s ease;
+}
+
+
+
 
 
 
@@ -1009,6 +1018,19 @@ button:active{
 }
 
 
+.header-logo{
+
+  border-radius:10px;
+ margin-left:20px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:200px;
+  height:auto;
+}
+
+
 
 /* =========================
    INPUT PREMIUM
@@ -1123,3 +1145,67 @@ input:focus{
   background:#f1f5f9;
 }
 
+
+
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:40px;
+  font-size:16px;
+  font-weight:600;
+  margin-top:4%;
+  position:relative;
+  
+  
+}
+.nav-links:hover{
+
+color:white;
+transition: all .25s ease;
+
+}
+
+.nav-links li{
+  cursor: pointer;
+  position:relative;
+  padding: 8px 0;
+
+
+}
+
+.nav-links li::after{
+  content:"";
+  position:absolute;
+  left:0;
+  height:2px;
+ top:40px;
+  width:0;
+  background: linear-gradient(135deg,black);
+  transition: width .3s ease;
+
+}
+
+.nav-links li:hover::after{
+  width:100%;
+  color:white;
+}
+
+.nav-links li.active{
+color:skyblue;
+font-weight:700;
+}
+
+.nav-links li.active::after{
+  width:100%;
+}
+
+.nav-icon{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  
+ margin-top:-4%;
+ margin-left:9px;
+  font-size:20px;
+  position:absolute;
+}

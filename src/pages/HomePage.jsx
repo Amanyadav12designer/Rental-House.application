@@ -1,6 +1,10 @@
 
 import AddPropertyForm from "../AddPropertyForm";
 import PropertyList from "../PropertyList";
+import {MdHome} from "react-icons/md";
+import {MdBookmark} from "react-icons/md";
+import { MdInfo} from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -24,29 +28,36 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 
  <header>
+  
+  
 
-      <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"  style={{width:"200px",height:"auto"}}></img>
+  
+
+      <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"   className="header-logo"></img>
     
 
-  <img src="https://i.postimg.cc/MTgGcwPD/Screenshot-2026-01-13-153032.png" alt="Header Image" className="header-img"/>
-  <div className="header-badge">
-  </div>
+ <ul class="nav-links">
+        
+       <div className="nav-link"> <MdHome className="nav-icon" size={30} /> <li> <Link className="Link" style={{ textDecoration: 'none' }} to="/">HOME</Link></li></div>|
+     <div className="nav-link"> <MdBookmark className="nav-icon" size={30} style={{ marginLeft: '63px' }} /> <li><Link className="Link"  to="/favorites">FAVORITE PROPERTIES</Link></li></div>|
+        <div className="nav-link"> <MdInfo className="nav-icon" size={30} style={{ marginLeft: '7px' }} /> <li><Link className="Link" style={{ textDecoration: 'none' }} to="/brief">BRIEF</Link></li></div>|
+        
+       <div className="nav-link"> <MdLogout className="nav-icon" size={30} style={{ marginLeft: '18x' }} /> <li><span className="Link" style={{ textDecoration: 'none', color: 'black' }} onClick={onLogout}>LOG-OUT</span></li></div>
+
+        
+        
+       
+        
+      </ul>
+
+ 
+
+  
 
   
  
   </header>
-  <div className="stats-bar">
-  
-   <strong>Total Properties : {properties.length} </strong>
-  <strong>Properties Available: {properties.filter(p=>p.available).length}</strong>
 
-
-
-
-<div className="link-card2">
-
-<Link className="Link" to="/favorites"> Favorites</Link></div>
-<button className="logout-button" onClick={onLogout}>LOG-OUT</button></div>
 
       {isLandlord && <AddPropertyForm onAdd={onAdd}  />}
 
