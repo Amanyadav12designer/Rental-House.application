@@ -36,18 +36,22 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
       <img src="https://i.postimg.cc/wTjNvdqQ/Screenshot-2026-01-13-002320-removebg-preview.png"   className="header-logo"></img>
     
 
-<div className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)}>
+<div className={`hamburger ${menuOpen ? "active" : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
 
 <span className="bar"></span>
 <span className="bar"></span>
-<span className="bar"></span></div>
- <ul class="nav-links">
+<span className="bar"></span>
+
+
+</div>
+
+ <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
         
-       <div className={`nav-links ${menuOpen ? "open" : ""}`}> <MdHome className="nav-icon" size={30} /> <li> <Link className="Link" style={{ textDecoration: 'none' }} to="/">HOME</Link></li></div>|
-     <div className={`nav-links ${menuOpen ? "open" : ""}`}> <MdBookmark className="nav-icon" size={30} style={{ marginLeft: '63px' }} /> <li><Link className="Link"  to="/favorites">FAVORITE PROPERTIES</Link></li></div>|
-        <div className={`nav-links ${menuOpen ? "open" : ""}`}> <MdInfo className="nav-icon" size={30} style={{ marginLeft: '7px' }} /> <li><Link className="Link" style={{ textDecoration: 'none' }} to="/brief">BRIEF</Link></li></div>|
+       <div className="nav-link"> <MdHome className="nav-icon" size={30} /> <li> <Link className="Link" style={{ textDecoration: 'none' }} to="/">HOME</Link></li></div>|
+     <div className="nav-link"> <MdBookmark className="nav-icon" size={30} style={{ marginLeft: '63px' }} /> <li><Link className="Link"  to="/favorites">FAVORITE PROPERTIES</Link></li></div>|
+        <div className="nav-link"> <MdInfo className="nav-icon" size={30} style={{ marginLeft: '7px' }} /> <li><Link className="Link" style={{ textDecoration: 'none' }} to="/brief">BRIEF</Link></li></div>|
         
-       <div className={`nav-links ${menuOpen ? "open" : ""}`}> <MdLogout className="nav-icon" size={30} style={{ marginLeft: '18x' }} /> <li><span className="Link" style={{ textDecoration: 'none', color: 'black' }} onClick={onLogout}>LOG-OUT</span></li></div>
+       <div className="nav-link"> <MdLogout className="nav-icon" size={30} style={{ marginLeft: '18x' }} /> <li><span className="Link" style={{ textDecoration: 'none', color: 'black' }} onClick={onLogout}>LOG-OUT</span></li></div>
 
         
         
