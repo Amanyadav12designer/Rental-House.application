@@ -54,7 +54,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <li className="nav-link">
 <MdBookmark className="nav-icon" size={30}/>
-<Link className="Link" to="/favorites">FAVORITE PROPERTIES</Link>
+<Link className="Link" to="/favorites">FAVORITE </Link>
 </li>
 
 <li className="nav-link">
