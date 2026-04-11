@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import FavoritePage from "./pages/FavoritePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import "leaflet/dist/leaflet.css";
 
 import "./App.css";
 

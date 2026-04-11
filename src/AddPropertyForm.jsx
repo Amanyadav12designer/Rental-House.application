@@ -7,6 +7,7 @@ import { MdLocationOn } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
 import { MdImage } from "react-icons/md";
 import{MdPhone} from "react-icons/md";
+import{MapContainer,TileLayer,Marker,useMapEvents} from "react-leaflet";
 
 
 
@@ -16,6 +17,9 @@ export default function AddPropertyForm({onAdd,onRestore}){
     const [location,setLocation] = useState("");
     const [contactNumber,setContactNumber] = useState("");
     const [whatsappNumber,setWhatsappNumber] = useState("");
+    const [lat,setLat] = useState("");
+    const [lng,setLng] = useState("");
+
 
 
     const [rent,setRent] = useState("");
@@ -32,6 +36,7 @@ const isFormValid= !title || !location || !rent || !image || !contactNumber || !
             alert("Please fill in all fields");
             return;
         }
+        
 
         
 
@@ -54,6 +59,24 @@ const isFormValid= !title || !location || !rent || !image || !contactNumber || !
         setImage("");
         setContactNumber("");
         setWhatsappNumber("");
+        setLat("");
+        setLng("");
+    }
+
+    function LocationPicker(){
+        useMapEvents({
+
+           async click(e){
+                setLat(e.latlng.lat);
+                setLng(e.latlng.lng);
+
+const res = await fetch( `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+const data = await res.json();
+setLocation(data.display_name);
+
+            },
+        })
+        return null;
     }
 
 
@@ -86,6 +109,18 @@ const isFormValid= !title || !location || !rent || !image || !contactNumber || !
         <div className="input-wrapper">
             <MdPhone className="input-icon" style={{marginTop:"5px"}} />
             <input type="text" placeholder="WhatsApp Number" value={whatsappNumber} onChange={e=>setWhatsappNumber(e.target.value)} style={{marginTop:"10px"}} />
+        </div>
+
+        <div style={{marginTop:"20px"}}>
+            <p style={{marginBottom:"10px"}}>Click on the map to select property location:</p>
+            <MapContainer center={[51.505, -0.09]} zoom={13} style={{height:"300px"}}>
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <LocationPicker />
+                {lat && lng && <Marker position={[lat, lng]} />}
+            </MapContainer>
         </div>
       
 

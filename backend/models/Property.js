@@ -9,6 +9,8 @@ const propertySchema = new mongoose.Schema({
   image: String,
   contactNumber: String,
   whatsappNumber: String,
+  lat: Number,
+lng: Number,
   favorite: { type: Boolean, default: false },
   available: { type: Boolean, default: true },
 });
