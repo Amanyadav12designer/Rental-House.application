@@ -19,6 +19,7 @@ export default function AddPropertyForm({onAdd,onRestore}){
     const [whatsappNumber,setWhatsappNumber] = useState("");
     const [lat,setLat] = useState("");
     const [lng,setLng] = useState("");
+    
 
 
 
@@ -28,34 +29,23 @@ export default function AddPropertyForm({onAdd,onRestore}){
 
 
 
-const isFormValid= !title || !location || !rent || !image || !contactNumber || !whatsappNumber;
+const isFormValid= !title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber;
 
 
 
     async function handleSubmit(e){
         e.preventDefault();
-        if(!title || !location || !rent || !image){
+        if(!title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber){
             alert("Please fill in all fields");
             return;
         }
-        
 
-        
-
-        const newProperty = {
-          
-            title,
-            location,
-            rent:Number(rent),image: imageUrl,contactNumber,whatsappNumber,
-          
-            
-
-
-        }
-
-const formData = new FormData();
-formData.append("File",imageFile);
+try{
+    const formData = new FormData();
+        formData.append("file",imageFile);
 formData.append("upload_preset","rental-housing-app");
+
+const res = await
 fetch( "https://api.cloudinary.com/v1_1/dgyohc9qx/image/upload",{
 
     method:"POST",
@@ -64,6 +54,25 @@ fetch( "https://api.cloudinary.com/v1_1/dgyohc9qx/image/upload",{
 
 const data = await res.json();
 const imageUrl = data.secure_url;
+        
+
+        
+
+        const newProperty = {
+          
+            title,
+            location,
+            rent:Number(rent),image: imageUrl,contactNumber,whatsappNumber,lat:Number(lat),lng:Number(lng)
+          
+            
+
+
+        }
+
+
+
+
+
 
         onAdd(newProperty);
 
@@ -71,13 +80,18 @@ const imageUrl = data.secure_url;
         setTitle("");
         setLocation("");
         setRent("");
-        setImage("");
+        setImageFile(null);
         setContactNumber("");
         setWhatsappNumber("");
         setLat("");
         setLng("");
     }
 
+    catch(err){
+        alert("Error adding property");
+        console.log(err);
+    }
+    }
     function LocationPicker(){
         useMapEvents({
 
