@@ -24,13 +24,15 @@ export default function AddPropertyForm({onAdd,onRestore}){
 
     const [rent,setRent] = useState("");
     const [image,setImage] = useState("");
+    const [imageFile,setImageFile] = useState(null);
+
 
 
 const isFormValid= !title || !location || !rent || !image || !contactNumber || !whatsappNumber;
 
 
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
         if(!title || !location || !rent || !image){
             alert("Please fill in all fields");
@@ -44,12 +46,25 @@ const isFormValid= !title || !location || !rent || !image || !contactNumber || !
           
             title,
             location,
-            rent:Number(rent),image,contactNumber,whatsappNumber,
+            rent:Number(rent),image: imageUrl,contactNumber,whatsappNumber,
           
             
 
 
         }
+
+const formData = new FormData();
+formData.append("File",imageFile);
+formData.append("upload_preset","rental-housing-app");
+fetch( "https://api.cloudinary.com/v1_1/dgyohc9qx/image/upload",{
+
+    method:"POST",
+    body:formData,
+});
+
+const data = await res.json();
+const imageUrl = data.secure_url;
+
         onAdd(newProperty);
 
 
@@ -99,7 +114,7 @@ setLocation(data.display_name);
 
       <div className="input-wrapper">
         <MdImage className="input-icon"  style={{marginTop:"5px"}} />
-        <input  value={image} onChange={e=>setImage(e.target.value)} placeholder="Image URL" style={{marginTop:"10px"}}  />
+        <input  onChange={e=>setImageFile(e.target.files[0])} type="file" placeholder="Upload Image" style={{marginTop:"10px"}}  />
       </div>
 
         <div className="input-wrapper">
