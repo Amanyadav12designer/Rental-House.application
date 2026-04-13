@@ -143,9 +143,9 @@ header{
 
   /* premium gradient */
   background: linear-gradient( 135deg,
-    #0f172a 1%,
-    #1e293b 1% ,
-    #0ea5e9 60%  );
+    rgb(95, 197, 204) 58%,
+  
+    #0ea5e9 -50%  );
 
   /* glass effect */
   backdrop-filter: blur(10px);
@@ -1160,6 +1160,7 @@ input:focus{
   font-weight:600;
  
   position:relative;
+  margin-top:5%;
   
   
 }
