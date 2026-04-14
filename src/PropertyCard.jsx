@@ -28,6 +28,9 @@ export default function PropertyCard({
         <video
         src={property.image}
         controls
+        playsInline
+
+        type="video/mp4"
         style={{ width: "100%", height: "200px", objectFit: "cover" }}
       />
       ):(
