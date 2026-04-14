@@ -23,19 +23,19 @@ export default function AddPropertyForm({onAdd,onRestore}){
 
 
 
-    const [rent,setRent] = useState("");
+    const [price,setPrice] = useState("");
     const [image,setImage] = useState("");
     const [imageFile,setImageFile] = useState(null);
 
 
 
-const isFormValid= !title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber;
+const isFormValid= !title || !location || !price || !imageFile || !contactNumber || !whatsappNumber;
 
 
 
     async function handleSubmit(e){
         e.preventDefault();
-        if(!title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber){
+        if(!title || !location || !price || !imageFile || !contactNumber || !whatsappNumber){
             alert("Please fill in all fields");
             return;
         }
@@ -62,7 +62,7 @@ const imageUrl = data.secure_url;
           
             title,
             location,
-            rent:Number(rent),image: imageUrl,contactNumber,whatsappNumber,lat:Number(lat),lng:Number(lng)
+            price:Number(price),image: imageUrl,contactNumber,whatsappNumber,lat:Number(lat),lng:Number(lng)
           
             
 
@@ -79,7 +79,7 @@ const imageUrl = data.secure_url;
 
         setTitle("");
         setLocation("");
-        setRent("");
+        setPrice("");
         setImageFile(null);
         setContactNumber("");
         setWhatsappNumber("");
@@ -123,7 +123,7 @@ setLocation(data.display_name);
 
       <div className="input-wrapper">
         <MdAttachMoney className="input-icon" />
-        <input  value={rent} onChange={e=>setRent(e.target.value)} placeholder="Rent" />
+        <input  value={price} onChange={e=>setPrice(e.target.value)} placeholder="Price" />
       </div>
 
       <div className="input-wrapper">

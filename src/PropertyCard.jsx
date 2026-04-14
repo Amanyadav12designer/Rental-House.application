@@ -23,7 +23,7 @@ export default function PropertyCard({
     <div className="property-card">
       <h2>{property.title}</h2>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
-      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Rent: ₹{property.rent}</p>
+      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
       <img src={property.image} alt={property.title} style={{width:"100%",objectFit:"cover",borderRadius:"8px"}}/>
 
     <div className="action-buttons">
@@ -75,7 +75,7 @@ export default function PropertyCard({
 
       <p style={{textAlign:"right"}}>
         Status:{" "}
-        <strong style={{ color: property.available ? "green" : "red" }}>
+        <strong style={{fontWeight:"bold", color: property.available ? "Black" : "grey" }}>
           {property.available ? "Available" : "Not Available"}
         </strong>
       </p>
