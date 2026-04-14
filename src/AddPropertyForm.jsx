@@ -46,7 +46,7 @@ try{
 formData.append("upload_preset","rental-housing-app");
 
 const res = await
-fetch( "https://api.cloudinary.com/v1_1/dgyohc9qx/image/upload",{
+fetch( "https://api.cloudinary.com/v1_1/dgyohc9qx/auto/upload",{
 
     method:"POST",
     body:formData,
@@ -128,7 +128,7 @@ setLocation(data.display_name);
 
       <div className="input-wrapper">
         <MdImage className="input-icon"  style={{marginTop:"5px"}} />
-        <input  onChange={e=>setImageFile(e.target.files[0])} type="file" placeholder="Upload Image" style={{marginTop:"10px"}}  />
+        <input  onChange={e=>setImageFile(e.target.files[0])} type="file" placeholder="Upload Image/Video" style={{marginTop:"10px"}} accept="image/*,video/*" />
       </div>
 
         <div className="input-wrapper">

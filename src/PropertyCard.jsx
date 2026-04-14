@@ -24,7 +24,21 @@ export default function PropertyCard({
       <h2>{property.title}</h2>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
-      <img src={property.image} alt={property.title} style={{width:"100%",objectFit:"cover",borderRadius:"8px"}}/>
+      {property.image.includes("video")?(
+        <video
+        src={property.image}
+        controls
+        style={{ width: "100%", height: "200px", objectFit: "cover" }}
+      />
+      ):(
+      <img
+        src={property.image}
+        alt={property.title}
+        style={{ width: "100%", height: "200px", objectFit: "cover" }}
+        
+        />
+
+      )}
 
     <div className="action-buttons">
 
