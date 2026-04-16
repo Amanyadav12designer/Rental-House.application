@@ -43,7 +43,7 @@ export default function SignupPage() {
         setExistError(data.message);
         return;
       }
-      localStorage.setItem("token", data.token);
+     
 
       setSignupSuccess("Signup successful 🎉");
       navigate("/login"); // ✅ go to login
