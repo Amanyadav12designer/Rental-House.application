@@ -74,7 +74,7 @@ placeholder="password"
 value={password}
 onChange ={(e)=>setPassword(e.target.value)}/>
 
-<button  className="signup-btn"  disabled={loading} type="submit">{loading ? <div className="loading-spinner"/> : "Login"}</button>
+<button  className="signup-btn2"  disabled={loading} type="submit">{loading ? <div className="loading-spinner"/> : "Login"}</button>
 
 </form>
 

@@ -89,17 +89,18 @@ setTimeout(()=>{
         />
 
         <select
+         style={{marginLeft: "3.5%"}} 
           value={userRole}
           onChange={(e) => setUserRole(e.target.value)}
         >
-          <option value="tenant">Tenant</option>
+          <option value="tenant">Tenant </option>
           <option value="landlord">Landlord</option>
         </select>
 
-        <button className="signup-btn " type="submit" disabled={loading}>
+        <button className="signup-btn2" type="submit" disabled={loading}>
           {loading ? <div className="loading-spinner"></div> : "Signup"}
         </button>
-        <button className="signup-footer" onClick={() => navigate("/login")} type="button">
+        <button className="signup-footer" style={{ marginLeft: "3.5%" }} onClick={() => navigate("/login")} type="button">
           Already have an account? Login
         </button>
       
