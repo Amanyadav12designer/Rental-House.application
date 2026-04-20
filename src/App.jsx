@@ -203,7 +203,7 @@ async function toggleFavorite(id) {
   return (
     <Routes>
       {/* DEFAULT */}
-      <Route path="/" element={<Navigate to={token ?  "/home" : "/login"} />} />
+      <Route path="/landlord-login" element={<Navigate to={token ?  "/home" : "/login"} />} />
 
       {/* AUTH */}
       <Route
@@ -223,7 +223,7 @@ async function toggleFavorite(id) {
       <Route
         path="/home"
         element={
-          token ? (
+          
             <HomePage
               properties={filteredProperties}
               onAdd={addProperty}
@@ -252,9 +252,7 @@ async function toggleFavorite(id) {
               setMenuOpen={setMenuOpen}
               
             />
-          ) : (
-            <Navigate to="/login" />
-          )
+         
         }
       />
 
