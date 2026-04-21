@@ -18,30 +18,30 @@ export default function App() {
   const [maxRent, setMaxRent] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [filter, setFilter] = useState("all");
-  const [feedbackMessage, setFeedbackMessage] = useState({id:null,text:""});
+  const [feedbackMessage, setFeedbackMessage] = useState({ id: null, text: "" });
   const [role, setRole] = useState(null);
-  const[successMessage,setSuccessMessage]= useState("");
-  const[successDeleteMessage,setSuccessDeleteMessage]= useState("");
-  const [editingProperty, setEditingProperty]= useState(null);
-  const[menuOpen,setMenuOpen]= useState(false);
-
+  const [successMessage, setSuccessMessage] = useState("");
+  const [successDeleteMessage, setSuccessDeleteMessage] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const token = localStorage.getItem("token");
- const isLandlord = role?.toLowerCase() === "landlord";
+  const isLandlord = role?.toLowerCase() === "landlord";
 
-  // ---------------- LOAD PROPERTIES ----------------
-async function loadProperties() {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
-  const data = await res.json();
-
-  setProperties(data); // ✅ no mapping needed
-}
+  async function loadProperties() {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
+    const data = await res.json();
+    setProperties(data);
+  }
 
   useEffect(() => {
     loadProperties();
   }, []);
 
-  // ---------------- AUTH ----------------
+  useEffect(() => {
+    const savedRole = localStorage.getItem("role");
+    if (savedRole) setRole(savedRole);
+  }, []);
+
   function handleLogin(userRole) {
     setRole(userRole);
     navigate("/home");
@@ -51,10 +51,9 @@ async function loadProperties() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     setRole(null);
-    navigate("/login");
+    navigate("/landlord-login");
   }
 
-  // ---------------- ADD PROPERTY ----------------
   async function addProperty(newProperty) {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`, {
@@ -66,28 +65,18 @@ async function loadProperties() {
         body: JSON.stringify(newProperty),
       });
 
-      if (!res.ok) throw new Error("Failed to add");
+      if (!res.ok) throw new Error();
 
       await loadProperties();
       setSuccessMessage("Property added ✅");
       setTimeout(() => setSuccessMessage(""), 3000);
-    } catch (err) {
-      console.log(err);
-      setFeedbackMessage("Error adding property ❌");
-    
+    } catch {
+      setFeedbackMessage({ id: null, text: "Error adding property ❌" });
     }
   }
 
-
-  // ---------------- DELETE PROPERTY ----------------
   async function deleteProperty(id) {
-  
-    
-    if (!isLandlord) {
-      alert("Only landlord can delete");
-      return;
-    }
-    console.log("delete", id);
+    if (!isLandlord) return alert("Only landlord can delete");
 
     const confirmDelete = window.confirm("Delete property?");
     if (!confirmDelete) return;
@@ -100,68 +89,54 @@ async function loadProperties() {
         },
       });
 
-      if (!res.ok) throw new Error("Delete failed");
-    
+      if (!res.ok) throw new Error();
 
-      setProperties(prev => prev.filter(p => p.id !== id));
+      setProperties(prev => prev.filter(p => p._id !== id));
       setSuccessDeleteMessage("Property deleted ✅");
       setTimeout(() => setSuccessDeleteMessage(""), 3000);
-    } catch (err) {
+    } catch {
       alert("Delete failed");
     }
   }
 
-  
+  async function toggleFavorite(id) {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    
+      const updated = await res.json();
 
+      setProperties(prev =>
+        prev.map(p =>
+          p._id === id ? { ...p, favorite: updated.favorite } : p
+        )
+      );
 
+      setFeedbackMessage({
+        id,
+        text: updated.favorite
+          ? "Added to favorites!"
+          : "Removed from favorites!",
+      });
 
-
-async function toggleFavorite(id) {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties/${id}/favorite`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) throw new Error();
-
-    const updated = await res.json();
-
-    const normalized = { ...updated, id: updated._id };
-
-    setProperties(prev =>
-      prev.map(p =>
-        p.id === id ? { ...p,favorite: !normalized.favorite } : p
-      )
-    );
-
-    setFeedbackMessage({
-      id,
-      text: normalized.favorite
-        ? "Removed from favorites!"
-        : "Added to favorites!"
-    });
-
-    setTimeout(() => setFeedbackMessage({ id: null, text: "" }), 3000);
-
-  } catch (err) {
-    alert("Error toggling favorite");
+      setTimeout(() => setFeedbackMessage({ id: null, text: "" }), 3000);
+    } catch {
+      alert("Favorite failed");
+    }
   }
-}
-  
-  function toggleAvailability(id){
+
+  function toggleAvailability(id) {
     setProperties(prev =>
       prev.map(p =>
-        p.id === id ? { ...p, available: !p.available } : p
+        p._id === id ? { ...p, available: !p.available } : p
       )
     );
   }
 
-  // ---------------- FILTERS ----------------
   let filteredProperties = [...properties];
 
   if (search) {
@@ -171,15 +146,11 @@ async function toggleFavorite(id) {
   }
 
   if (minRent) {
-    filteredProperties = filteredProperties.filter(
-      p => p.rent >= Number(minRent)
-    );
+    filteredProperties = filteredProperties.filter(p => p.rent >= Number(minRent));
   }
 
   if (maxRent) {
-    filteredProperties = filteredProperties.filter(
-      p => p.rent <= Number(maxRent)
-    );
+    filteredProperties = filteredProperties.filter(p => p.rent <= Number(maxRent));
   }
 
   if (searchLocation) {
@@ -192,89 +163,69 @@ async function toggleFavorite(id) {
     filteredProperties = filteredProperties.filter(p => p.favorite);
   }
 
-
-  useEffect(() => {
-    const savedRole = localStorage.getItem("role");
-    if (savedRole) {
-      setRole(savedRole);
-    }}, []);
-
-  // ---------------- ROUTES ----------------
   return (
     <Routes>
-      {/* DEFAULT */}
-      <Route path="/" element={<Navigate to={token ?  "/home" : "/login"} />} />
+      {/* Public homepage */}
+      <Route path="/" element={<Navigate to="/home" />} />
 
-      {/* AUTH */}
+      {/* Hidden admin login */}
       <Route
-        path="/login"
+        path="/landlord-login"
         element={
           token ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />
         }
       />
+
+      {/* Optional hidden signup */}
       <Route
         path="/signup"
-        element={
-          token ? <Navigate to="/login" /> : <SignupPage setRole={setRole} />
-        }
+        element={<SignupPage setRole={setRole} />}
       />
 
-      {/* PROTECTED */}
+      {/* Public Home */}
       <Route
         path="/home"
         element={
-          token ? (
-            <HomePage
-              properties={filteredProperties}
-              onAdd={addProperty}
+          <HomePage
+            properties={filteredProperties}
+            onAdd={addProperty}
             successFeedback={successMessage}
-           
-          
-           
-              onFavorite={toggleFavorite}
-              onToggle={toggleAvailability}
-              onDelete={deleteProperty}
-              isLandlord={isLandlord}
-              message={feedbackMessage}
-              role={role}
-              onLogout={handleLogout}
-              search={search}
-              setSearch={setSearch}
-              minRent={minRent}
-              setMinRent={setMinRent}
-              maxRent={maxRent}
-              setMaxRent={setMaxRent}
-              searchLocation={searchLocation}
-              setSearchLocation={setSearchLocation}
-              filter={filter}
-              deletedMessage={successDeleteMessage}
-              menuOpen={menuOpen}
-              setMenuOpen={setMenuOpen}
-              
-            />
-          ) : (
-            <Navigate to="/login" />
-          )
+            onFavorite={toggleFavorite}
+            onToggle={toggleAvailability}
+            onDelete={deleteProperty}
+            isLandlord={isLandlord}
+            message={feedbackMessage}
+            role={role}
+            onLogout={handleLogout}
+            search={search}
+            setSearch={setSearch}
+            minRent={minRent}
+            setMinRent={setMinRent}
+            maxRent={maxRent}
+            setMaxRent={setMaxRent}
+            searchLocation={searchLocation}
+            setSearchLocation={setSearchLocation}
+            filter={filter}
+            deletedMessage={successDeleteMessage}
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+          />
         }
       />
 
+      {/* Favorites public */}
       <Route
         path="/favorites"
         element={
-          token ? (
-            <FavoritePage
-              properties={properties.filter(p => p.favorite)}
-              onFavorite={toggleFavorite}
-              onDelete={deleteProperty}
-            />
-          ) : (
-            <Navigate to="/login" />
-          )
+          <FavoritePage
+            properties={properties.filter(p => p.favorite)}
+            onFavorite={toggleFavorite}
+            onDelete={deleteProperty}
+          />
         }
       />
 
-      {/* FALLBACK */}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
 }
