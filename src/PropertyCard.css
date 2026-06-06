@@ -12,7 +12,7 @@ padding:0;
   0 20px 30px rgba(0,0,0,0.04);
 
   transition: all .25s ease;
-  height:600px;
+  height:500px;
 }
 
 .property-card:hover{
@@ -23,13 +23,15 @@ padding:0;
 
 .property-card h2{
   font-size:1.1rem;
-  font-weight:600;
+  font-weight:400;
   padding:16px 18px 0 18px;
+  font-family: "Inter", sans-serif;
 }
 
 .property-card p{
   padding:0 18px;
-  color:#6b7280;
+  color:#131414;
+  font-family: "Inter", sans-serif;
 }
 .property-grid{
  display:grid;

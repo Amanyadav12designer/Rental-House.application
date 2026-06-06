@@ -909,7 +909,7 @@ button:active{
   transform: scale(.97);
 }
 .delete-button{
-  border-radius:10px;
+  border-radius:0px;
   padding:8px 14px;
   border:1px solid #ff385c;
   color:#ff385c;
@@ -925,13 +925,14 @@ button:active{
 
 
 .switch-button{
-  border-radius:10px;
+  border-radius:0px;
   padding:8px 14px;
   border:1px solid #111;
   background:white;
-  font-weight:600;
+  font-weight:350;
   margin-left:3%;
   cursor:pointer;
+  font-family: "Inter", sans-serif;
 }
 
 
@@ -1127,6 +1128,8 @@ input:focus{
   margin-left:3%;
   color:black;
   margin-bottom:20px;
+  font-family: "Inter", sans-serif;
+  width:160px;
 
 }
 
@@ -1143,10 +1146,12 @@ input:focus{
   padding:6px 10px;
   background:white;
   border:1px solid #e5e7eb;
+    font-family: "Inter", sans-serif;
 
   text-decoration:none;
   color:black;
   margin-top:20px;
+  width:160px;
 
 }
 

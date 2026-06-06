@@ -1,6 +1,7 @@
 
 import "./PropertyCard.css";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import {mdphone} from "react-icons/md";
 
 
 
@@ -21,9 +22,7 @@ export default function PropertyCard({
     <div className="property-grid">
    
     <div className="property-card">
-      <h2>{property.title}</h2>
-      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
-      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
+      
       {property.image.includes("video")?(
         <video
         src={property.image}
@@ -42,6 +41,10 @@ export default function PropertyCard({
         />
 
       )}
+
+      <h2>{property.title}</h2>
+      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
+      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
 
     <div className="action-buttons">
 
@@ -98,15 +101,13 @@ export default function PropertyCard({
       </p>
      
 
-      <a href={`tel:${property.contactNumber}`} className="contact-button">
+      <a href={`tel:${property.contactNumber}`}  style={{fontFamily: "Inter"}} className="contact-button"> 
         Call Contact
       </a>
 
       <br /> <br /> <br /> 
 
-      <a href={`https://wa.me/${property.whatsappNumber}`} target="_blank" rel="noopener noreferrer" className="contact-button">
-         WhatsApp
-      </a>
+      
       
 
 
