@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
   visibleCount,onLogout,
   filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,menuOpen,setMenuOpen}) {
+  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,menuOpen,setMenuOpen,loading}) {
   const location = useLocation();
 
 
@@ -24,7 +24,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
       {deletedMessage && <div className="deleted-message">{deletedMessage}</div>}
 
-      
+   
 
 
  <header>
@@ -76,6 +76,8 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
   
  
   </header>
+
+   {loading &&     <div className="loading-spinner"></div>}
 
 
       {isLandlord && <AddPropertyForm onAdd={onAdd}  />}

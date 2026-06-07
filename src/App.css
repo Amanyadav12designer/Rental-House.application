@@ -762,6 +762,7 @@ border-radius: 50%;
   width: 20px;
   height: 20px;
   animation: spin 0.8s linear infinite;
+  text-align: center;
 
 
   margin: auto;
@@ -1131,6 +1132,13 @@ input:focus{
   font-family: "Inter", sans-serif;
   width:160px;
 
+}
+
+.loading{
+  text-align:center;
+  font-size:1.2rem;
+  color:grey;
+  border-radius:50%;
 }
 
 .contact-button:hover{

@@ -23,14 +23,17 @@ export default function App() {
   const [successMessage, setSuccessMessage] = useState("");
   const [successDeleteMessage, setSuccessDeleteMessage] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
   const isLandlord = role?.toLowerCase() === "landlord";
 
   async function loadProperties() {
+    setLoading(true);
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
     const data = await res.json();
     setProperties(data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -163,6 +166,8 @@ export default function App() {
     filteredProperties = filteredProperties.filter(p => p.favorite);
   }
 
+  
+
   return (
     <Routes>
       {/* Public homepage */}
@@ -209,6 +214,7 @@ export default function App() {
             deletedMessage={successDeleteMessage}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
+            loading={loading}
           />
         }
       />
