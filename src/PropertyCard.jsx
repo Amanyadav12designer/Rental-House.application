@@ -1,7 +1,7 @@
 
 import "./PropertyCard.css";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import {mdphone} from "react-icons/md";
+
 
 
 
