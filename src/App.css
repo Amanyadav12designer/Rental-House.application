@@ -936,16 +936,33 @@ button:active{
   font-family: "Inter", sans-serif;
 }
 
+.switch-button:hover{
+  background:#111;
+  color:white;
+  transform: translateY(-1px);
+  transition: all .25s ease;
+}
 
-.favorite-btn{
-  position:absolute;
-  top:18px;
-  right:16px;
-  background:white;
-  border-radius:70%;
-  cursor:pointer;
-  padding:6px;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);
+.favorite-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 52px;
+  height: 52px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+  cursor: pointer;
+}
+
+.favorite-btn:hover {
+  background: #f1f1f1;
+  transform: translateY(-2px);
+  transition: all .25s ease;
 }
 
 
@@ -1134,6 +1151,16 @@ input:focus{
 
 }
 
+.contact-button:hover{
+  background: linear-gradient(135deg, blue, #589df8);
+  border-color: white;
+  border-radius:5px;
+  transition: all .25s ease;
+  color:white;
+  transform: translateY(-2px);
+
+}
+
 .loading{
   text-align:center;
   font-size:1.2rem;
@@ -1141,12 +1168,6 @@ input:focus{
   border-radius:50%;
 }
 
-.contact-button:hover{
-  background:#f1f5f9;
-  border-color: black;
-  border-radius:5px;
-  transition: all .25s ease;
-}
 
 
 .contact-button2{

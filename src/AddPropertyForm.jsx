@@ -62,7 +62,12 @@ const imageUrl = data.secure_url;
           
             title,
             location,
-            price:Number(price),image: imageUrl,contactNumber,whatsappNumber,lat:Number(lat),lng:Number(lng)
+            price:Number(price),
+            image: imageUrl,
+            contactNumber,
+            whatsappNumber,
+            lat:Number(lat),
+            lng:Number(lng)
           
             
 

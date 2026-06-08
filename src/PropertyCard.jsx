@@ -28,6 +28,7 @@ export default function PropertyCard({
         src={property.image}
         controls
         playsInline
+        
 
         type="video/mp4"
         style={{ width: "100%", height: "200px", objectFit: "cover" }}
@@ -43,6 +44,7 @@ export default function PropertyCard({
       )}
 
       <h2>{property.title}</h2>
+      
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
       <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
 
