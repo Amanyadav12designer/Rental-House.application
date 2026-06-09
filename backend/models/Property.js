@@ -4,7 +4,7 @@ mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema({
   title: String,
-  rent: Number,
+  price: Number,
   location: String,
   image: String,
   contactNumber: String,
