@@ -28,18 +28,34 @@ export default function App() {
   const token = localStorage.getItem("token");
   const isLandlord = role?.toLowerCase() === "landlord";
 
-  async function loadProperties() {
+ async function loadProperties() {
+  try {
     setLoading(true);
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/properties`);
+
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/properties`
+    );
+
+    if (!res.ok) {
+      throw new Error(`Server error: ${res.status}`);
+    }
+
     const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("API did not return an array");
+    }
+
     setProperties(data);
+
+  } catch (error) {
+    console.error("Error loading properties:", error);
+    setProperties([]);
+
+  } finally {
     setLoading(false);
   }
-
-  useEffect(() => {
-    loadProperties();
-  }, []);
-
+}
   useEffect(() => {
     const savedRole = localStorage.getItem("role");
     if (savedRole) setRole(savedRole);
