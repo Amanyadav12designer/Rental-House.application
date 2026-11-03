@@ -3,11 +3,6 @@
    Same class names as before, so it drops in over the old file.
    Replace your old CSS with this one (don't load both).
    ========================================================= */
-/* =========================================================
-   Rental House App — redesigned stylesheet
-   Same class names as before, so it drops in over the old file.
-   Replace your old CSS with this one (don't load both).
-   ========================================================= */
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap");
 
@@ -150,7 +145,7 @@ header::before, header::after { content: none; }
   color: currentColor;             /* SVG icons follow the text color */
 }
 
-.lucide-search-icon { width: 20px; height: 20px; color: var(--muted); }
+.lucide-search-icon { width: 18px; height: 18px; color: var(--muted); }
 
 .user-profile {
   display: flex;
@@ -480,7 +475,7 @@ input:focus, select:focus, textarea:focus {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: max-content;
+  height: 150px;
   margin: 0;
   padding: 10px 10px 0;            /* white frame around the photo */
   overflow: hidden;
@@ -503,11 +498,12 @@ input:focus, select:focus, textarea:focus {
 .property-card img,
 .property-card video {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
+  height: 200px;
+  margin-top:10px;
+
   display: block;
   padding: 0;
-  border-radius: 14px;
+  border-radius: 6px;
   box-sizing: border-box;
   transition: transform .5s ease;
 }
@@ -891,4 +887,100 @@ input:focus, select:focus, textarea:focus {
   .role-card, .role-card2 { width: 100%; max-width: 320px; }
   .stats-bar { justify-content: space-between; }
   .signup-card { padding: 28px 22px; }
+}
+
+/* =========================================================
+   Alignment fixes: property cards + compact sidebar
+   (placed last on purpose so these win over the rules above)
+   ========================================================= */
+
+/* ---------- Property card: text lines up with the photo's edges ---------- */
+.property-card { padding: 12px 14px 0; }          /* photo and all text share this 14px inset */
+
+.property-card img,
+.property-card video { height: 200px; margin: 0; max-width: 100%; }
+
+.property-card h2 { padding: 14px 0 0; }
+.property-card p  { padding: 4px 0 0; }
+
+.card-text { padding: 14px 0 0; gap: 4px; }
+.card-text h2 { padding: 0; margin: 0; }
+.card-text p1 { display: block; padding: 0; }     /* was 18px, which pushed the location right */
+
+.price-row   { padding: 8px 0 0; }
+.p           { padding: 12px 0 0; }
+.rating-row  { margin: 12px 0 0; padding: 12px 0; }
+.card-actions { padding: 12px 0 16px; }
+.property-content { padding: 14px 0 16px; }
+
+/* ---------- Sidebar: compact and tidy ---------- */
+.properties-right { gap: 14px; }
+
+.quick-actions-card,
+.side-card { padding: 16px 18px; border-radius: 18px; }
+
+.quick-actions-card h3 { margin: 0 0 12px; }
+
+.quick-actions-grid { gap: 10px; margin: 0; }
+.action-box {
+  height: auto;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;         /* icon over label */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.action-box svg,
+.action-box img,
+.action-box i {
+  width: 22px;
+  height: 22px;
+  font-size: 22px;
+  flex-shrink: 0;
+  display: block;
+  margin: 0;
+}
+
+/* heading row: title and "View All" on the same centre line */
+.side-context { align-items: center; margin-bottom: 12px; }
+.side-context h3 { margin: 0; }
+.side-context .view-button { padding: 6px 12px; font-size: 12px; border-radius: 8px; }
+
+/* Popular location: photo on the left, name + count stacked on the right */
+.four-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.Card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 2px;
+  align-items: center;
+  align-content: center;
+  min-height: 0;
+  padding: 10px;
+}
+.Card .side-image {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 40px;
+  height: 40px;
+  max-width: none;
+}
+.Card .side-image img { width: 40px; height: 40px; object-fit: cover; border-radius: 10px; margin: 0; }
+.Card h3  { grid-column: 2; align-self: end;   margin: 0; font-size: 13px; line-height: 1.2; }
+.Card p4  { grid-column: 2; align-self: start; margin: 0; display: block; font-size: 12px; line-height: 1.2; }
+
+/* tablet: put the two sidebar cards side by side instead of stacked full-width */
+@media (min-width: 551px) and (max-width: 1024px) {
+  .properties-right { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .action-box { padding: 10px 6px; }
+}
+
+/* phone: stack them, keep everything compact */
+@media (max-width: 550px) {
+  .properties-right { display: flex; flex-direction: column; }
 }

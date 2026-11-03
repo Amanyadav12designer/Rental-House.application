@@ -314,28 +314,6 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <div className="card-text">
 
-<h2>  1RK Fully Furnished </h2>
-<p1>Andheri West, Mumbai</p1>
-
-
-
-<p className="price">
-  ₹15,000<span className="month">/month</span>
-</p>
-
-<div className="price-row">
-
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-
-</div>
-
-<div className="rating-row">
-<p3>4.3</p3>
-<p3>Verified</p3>
-
-</div>
 
 </div>
 
@@ -350,28 +328,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <div className="card-text">
 
-<h2>  1RK Fully Furnished </h2>
-<p1>Andheri West, Mumbai</p1>
 
-
-
-<p className="price">
-  ₹15,000<span className="month">/month</span>
-</p>
-
-<div className="price-row">
-
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-
-</div>
-
-<div className="rating-row">
-<p3>4.3</p3>
-<p3>Verified</p3>
-
-</div>
 
 </div>
 
@@ -385,32 +342,11 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <div className="card-text">
 
-<h2>  1RK Fully Furnished </h2>
-<p1>Andheri West, Mumbai</p1>
-
-
-
-<p className="price">
-  ₹15,000<span className="month">/month</span>
-</p>
-
-<div className="price-row">
-
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-
-</div>
-
-<div className="rating-row">
-<p3>4.3</p3>
-<p3>Verified</p3>
 
 </div>
 
 </div>
 
-</div>
 
 <div className="property-card">
 
@@ -421,28 +357,9 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <div className="card-text">
 
-<h2>  1RK Fully Furnished </h2>
-<p1>Andheri West, Mumbai</p1>
 
 
 
-<p className="price">
-  ₹15,000<span className="month">/month</span>
-</p>
-
-<div className="price-row">
-
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-<p2>1Bed</p2>
-
-</div>
-
-<div className="rating-row">
-<p3>4.3</p3>
-<p3>Verified</p3>
-
-</div>
 
 
 
