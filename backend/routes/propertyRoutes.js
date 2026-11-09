@@ -6,7 +6,7 @@ const deleteProperty = require("../Controllers/propertyController").deleteProper
 const updateProperty = require("../Controllers/propertyController").updateProperty;
 const createProperty = require("../Controllers/propertyController").CreateProperty;
 const getAllProperties = require("../Controllers/propertyController").GetAllProperties;
-
+const {protect,allowLandlord} = require("../middleware/authMiddleware");
 router.get("/",getAllProperties);
 
 router.get("/my-properties",protect,getMyProperties);
