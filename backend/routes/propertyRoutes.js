@@ -7,6 +7,7 @@ const updateProperty = require("../Controllers/propertyController").updateProper
 const createProperty = require("../Controllers/propertyController").CreateProperty;
 const getAllProperties = require("../Controllers/propertyController").GetAllProperties;
 
+router.get("/",getAllProperties);
 
 router.get("/my-properties",protect,getMyProperties);
 router.post("/",protect,allowLandlord,createProperty);
