@@ -6,6 +6,7 @@ import FavoritePage from "./pages/FavoritePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import "leaflet/dist/leaflet.css";
+import ListingPage from "./pages/ListingPage";
 
 import "./App.css";
 
@@ -13,9 +14,9 @@ export default function App() {
   const navigate = useNavigate();
 
   const [properties, setProperties] = useState([]);
+  const[propertyType,setPropertyType]= useState("");
   const [search, setSearch] = useState("");
-  const [minRent, setMinRent] = useState("");
-  const [maxRent, setMaxRent] = useState("");
+ const [rentRange, setRentRange] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [filter, setFilter] = useState("all");
   const [feedbackMessage, setFeedbackMessage] = useState({ id: null, text: "" });
@@ -131,13 +132,13 @@ export default function App() {
 
       setProperties(prev =>
         prev.map(p =>
-          p._id === id ? { ...p, favorite: updated.favorite } : p
+          p._id === id ? { ...p, favorite: updated.property.favorite } : p
         )
       );
 
       setFeedbackMessage({
         id,
-        text: updated.favorite
+        text: updated.property.favorite
           ? "Added to favorites!"
           : "Removed from favorites!",
       });
@@ -164,13 +165,24 @@ export default function App() {
     );
   }
 
-  if (minRent) {
-    filteredProperties = filteredProperties.filter(p => p.rent >= Number(minRent));
-  }
+ if(rentRange){
 
-  if (maxRent) {
-    filteredProperties = filteredProperties.filter(p => p.rent <= Number(maxRent));
-  }
+filteredProperties= filteredProperties.filter(p=>{
+
+  const rent= p.rent;
+
+  const [min,max]= rentRange.split(",").map(Number);
+
+  return rent>=min && rent<=max;
+  
+})
+}
+
+
+if(propertyType){
+
+  filteredProperties= filteredProperties.filter(p=>p.propertyType?.toLowerCase()===propertyType.toLowerCase());
+}
 
   if (searchLocation) {
     filteredProperties = filteredProperties.filter(p =>
@@ -208,7 +220,30 @@ export default function App() {
         path="/home"
         element={
           <HomePage
-            properties={filteredProperties}
+
+          propertyType={propertyType}
+          setPropertyType={setPropertyType}
+
+         rentRange={rentRange}
+          setRentRange={setRentRange}
+          search={search}
+          setSearch={setSearch}
+       
+          searchLocation={searchLocation}
+          setSearchLocation={setSearchLocation}
+            
+          />
+        }
+      />
+
+      <Route 
+
+      path="/listing"
+      element={
+
+        <ListingPage
+
+           properties={filteredProperties}
             onAdd={addProperty}
             successFeedback={successMessage}
             onFavorite={toggleFavorite}
@@ -220,10 +255,10 @@ export default function App() {
             onLogout={handleLogout}
             search={search}
             setSearch={setSearch}
-            minRent={minRent}
-            setMinRent={setMinRent}
-            maxRent={maxRent}
-            setMaxRent={setMaxRent}
+          
+           rentRange={rentRange}
+            setRentRange={setRentRange}
+         
             searchLocation={searchLocation}
             setSearchLocation={setSearchLocation}
             filter={filter}
@@ -231,11 +266,12 @@ export default function App() {
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
             loading={loading}
-          />
-        }
-      />
 
-      {/* Favorites public */}
+        />
+        
+      }
+
+      />
       <Route
         path="/favorites"
         element={

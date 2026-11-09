@@ -1,33 +1,35 @@
 
-import AddPropertyForm from "../AddPropertyForm";
-import PropertyList from "../PropertyList";
-import {MdHome} from "react-icons/md";
-import {MdBookmark} from "react-icons/md";
-import { MdInfo} from "react-icons/md";
-import { MdLogout } from "react-icons/md";
-import { MdAdd } from "react-icons/md";
-import {LuBell} from "react-icons/lu";
-import { LuCircleUserRound } from "react-icons/lu";
-import { useLocation } from "react-router-dom";
+
+
+
 import { Link } from "react-router-dom";
-import SearchBox from "./SearchBox";
+
+import {useNavigate} from "react-router-dom";
 
 
-
-export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLandlord ,onToggle, message,
-  visibleCount,onLogout,
-  filter,
-  filteredProperties,search,minRent,maxRent,searchLocation,setSearch,setMinRent,setMaxRent,setSearchLocation,successFeedback,deletedMessage,menuOpen,setMenuOpen,loading}) {
-  const location = useLocation();
+export default function HomePage({rentRange,setRentRange,search,searchLocation,setSearch,setSearchLocation,propertyType,setPropertyType})     {
 
 
+const navigate=useNavigate();
+
+function handleSearch(){
+  navigate(`/Listing?search=${search}&rentRange=${rentRange}&searchLocation=${searchLocation}&propertyType=${propertyType}`);
+
+setSearch("");
+setRentRange("");
+setSearchLocation("");
+setPropertyType("");
+
+}
+
+const isMissingSearchParams = !search && !rentRange && !searchLocation && !propertyType;
+
+  
 
   
   return (
     <div className="home-container">
-      {successFeedback && <div className="success-message">{successFeedback}</div>}
-
-      {deletedMessage && <div className="deleted-message">{deletedMessage}</div>}
+      
 
    
 
@@ -41,16 +43,8 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
       <img src="https://i.postimg.cc/rm9pFt6R/df6b1cc7-5a8e-45ff-93fb-2ddc329cdfa6-removebg-preview.png"   className="header-logo"></img>
     
 
-<div className={`hamburger ${menuOpen ? "active" : ''}`} onClick={() => setMenuOpen(!menuOpen)}>
 
-<span className="bar"></span>
-<span className="bar"></span>
-<span className="bar"></span>
-
-
-</div>
-
-<ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
+ <ul className="nav-links">
 
 <li className="nav-link">
 
@@ -64,7 +58,7 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 <li className="nav-link">
 
-<Link className="Link" to="/brief">Dashboard</Link>
+<Link className="Link" to="/Listing">All Properties</Link>
 </li>
 
 <li className="nav-link" >
@@ -100,7 +94,9 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
     <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
   </svg>
 
-    <span>List Property</span>
+  <Link to="/Listing" className="nav-item">
+  <span>List Property</span>
+</Link>
 
 </div>
   
@@ -159,7 +155,68 @@ export default function HomePage({ properties, onAdd, onFavorite, onDelete,isLan
 
 </div>
 
-   <SearchBox />
+
+<div className="search-box">
+
+
+
+
+  
+
+
+  <input
+       type="text"
+       value={searchLocation}
+       onChange={(e)=>setSearchLocation(e.target.value)}
+        placeholder="Search by location, locality or state"
+      />
+
+      {/* Rent Dropdown */}
+      <select
+        value={rentRange}
+        onChange={(e) => setRentRange(e.target.value)}
+      >
+        <option>Rent Range</option>
+        <option>Below ₹10,000</option>
+        <option>₹10,000 - ₹20,000</option>
+        <option>₹20,000 - ₹30,000</option>
+        <option>₹30,000 - ₹50,000</option>
+        <option>Above ₹50,000</option>
+      </select>
+
+      {/* Property Type */}
+      <select
+      
+      
+      value={propertyType}
+      onChange={(e)=>setPropertyType(e.target.value)}
+      
+      >
+        <option>Property Type</option>
+        <option>Apartment</option>
+        <option>Builder Floor</option>
+        <option>Independent House</option>
+        <option>Villa</option>
+        <option>Studio Apartment</option>
+        <option>PG</option>
+      </select>
+
+     
+
+      {/* Search Button */}
+      <button   disabled={isMissingSearchParams}  onClick={handleSearch} className="search-button">
+        
+        
+        <svg xmlns="http://www.w3.org/2000/svg" width="24"  height="24" viewBox="0 0 24 24" fill="none" stroke="#100f0f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        
+        
+        Search</button>
+
+        
+
+
+
+</div>
 
 
    <div className="trending-searches">
@@ -573,47 +630,9 @@ Gurgoan</h3>
 
 
 
-
-
-   {loading &&     <div className="loading-spinner"></div>}
-
-
-      {isLandlord && <AddPropertyForm onAdd={onAdd}  />}
-
-      <PropertyList
-        properties={properties}
-        onFavorite={onFavorite}
-        onDelete={onDelete}
-        isLandlord={isLandlord}
-        onToggle={onToggle}
-        message={message}
-    filteredProperties={filteredProperties}
-        filter={filter}
-        visibleCount={visibleCount}
-        search={search}
-        minRent={minRent}
-        maxRent={maxRent}
-        searchLocation={searchLocation}
-        setSearchLocation={setSearchLocation}
-   
-      setMinRent={setMinRent}
-      setMaxRent={setMaxRent}
-      setSearch={setSearch}
-      
-        
-       
-     
-        
-      />
-
    
 
 
-<input value={search} className="filters" onChange={e=>setSearch(e.target.value)} placeholder="Search by Title" />
-<input value={minRent} className="filters" onChange={e=>setMinRent(e.target.value)} placeholder="Min Rent" />
-<input value={maxRent} className="filters" onChange={e=>setMaxRent(e.target.value)} placeholder="Max Rent" />
-
-    <input  value={searchLocation} className="filters" onChange={e=>setSearchLocation(e.target.value)} placeholder="Search by Location" />
 
 
     </div>

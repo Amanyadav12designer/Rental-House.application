@@ -19,23 +19,24 @@ export default function AddPropertyForm({onAdd,onRestore}){
     const [whatsappNumber,setWhatsappNumber] = useState("");
     const [lat,setLat] = useState("");
     const [lng,setLng] = useState("");
+    const [propertyType,setPropertyType] = useState("");
     
 
 
 
-    const [price,setPrice] = useState("");
+    const [rent,setRent] = useState("");
     const [image,setImage] = useState("");
     const [imageFile,setImageFile] = useState(null);
 
 
 
-const isFormValid= !title || !location || !price || !imageFile || !contactNumber || !whatsappNumber;
+const isFormValid= !title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber;
 
 
 
     async function handleSubmit(e){
         e.preventDefault();
-        if(!title || !location || !price || !imageFile || !contactNumber || !whatsappNumber){
+        if(!title || !location || !rent || !imageFile || !contactNumber || !whatsappNumber){
             alert("Please fill in all fields");
             return;
         }
@@ -62,12 +63,13 @@ const imageUrl = data.secure_url;
           
             title,
             location,
-            price:Number(price),
+            rent:Number(rent),
             image: imageUrl,
             contactNumber,
             whatsappNumber,
             lat:Number(lat),
-            lng:Number(lng)
+            lng:Number(lng),
+            propertyType:"apartment"
           
             
 
@@ -84,12 +86,13 @@ const imageUrl = data.secure_url;
 
         setTitle("");
         setLocation("");
-        setPrice("");
+        setRent("");
         setImageFile(null);
         setContactNumber("");
         setWhatsappNumber("");
         setLat("");
         setLng("");
+        setPropertyType("");
     }
 
     catch(err){
@@ -128,7 +131,20 @@ setLocation(data.display_name);
 
       <div className="input-wrapper">
         <MdAttachMoney className="input-icon" />
-        <input  value={price} onChange={e=>setPrice(e.target.value)} placeholder="Price" />
+        <input  value={rent} onChange={e=>setRent(e.target.value)} placeholder="Rent" />
+      </div>
+
+      <div className="input-wrapper">
+        <MdHome className="input-icon" />
+        <select value={propertyType} onChange={e=>setPropertyType(e.target.value)}>
+            <option value="">Select Property Type</option>
+            <option value="apartment">Apartment</option>
+            <option value="house">House</option>
+            <option value="condo">Condo</option>
+            <option value="townhouse">Townhouse</option>
+            <option value="villa">Villa</option>
+            <option value="studio">Studio</option>
+        </select>
       </div>
 
       <div className="input-wrapper">
@@ -159,7 +175,7 @@ setLocation(data.display_name);
       
 
 
-      <button type="submit" disabled={isFormValid} style={{marginTop:"10px",width:"100px",border:"1px solid grey",borderRadius:"5px",height:"35px",cursor:"pointer",fontFamily:"Playfair",width:"100px",fontWeight:"bold",color:"white",background:"black"}}>Add Property</button> 
+      <button type="submit"  disabled={isFormValid} style={{marginTop:"10px",width:"100px",border:"1px solid grey",borderRadius:"5px",height:"35px",cursor:"pointer",fontFamily:"Playfair",width:"100px",fontWeight:"bold",color:"white",background:"black"}}>Add Property</button> 
     </form>
     
 

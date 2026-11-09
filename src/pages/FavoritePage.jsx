@@ -12,7 +12,7 @@ export default function FavoritePage({
 }) {
 if (properties.length === 0) {
   return (
-    <div className="empty-favorites">
+ 
 
       <div className="back-link-box">
         <Link className="Link2" to="/home">
@@ -20,18 +20,16 @@ if (properties.length === 0) {
         </Link>
       </div>
 
-      <h2 className="empty-text">
-        No favorites added yet ❤️
-      </h2>
+      
 
-    </div>
+    
   );
 }
 
 
   return (
     <div>
-      <h1 style={{textAlign:"center"}}>Favorite Properties</h1>
+      <h1 style={{textAlign:"center"}}>All Listings</h1>
       <div className="link-card ">
       <Link style={{textDecoration:"none",padding:"10px"}} to="/home">Back to home   </Link> </div>
 <div style={{margin:"13px"}}>
