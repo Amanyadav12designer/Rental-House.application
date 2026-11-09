@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const propertyController = require("../controllers/propertyController");
-const ToggleFavorite = require("../controllers/propertyController").ToggleFavorite;
-const getMyProperties=require("../controllers/propertyController").getMyProperties;
-const deleteProperty = require("../controllers/propertyController").deleteProperty;
-const updateProperty = require("../controllers/propertyController").updateProperty;
-const createProperty = require("../controllers/propertyController").CreateProperty;
-const getAllProperties = require("../controllers/propertyController").GetAllProperties;
-const {protect,allowLandlord} = require("../middleware/authMiddleware");
-router.get("/",getAllProperties);
+const ToggleFavorite = require("../Controllers/propertyController").ToggleFavorite;
+const getMyProperties=require("../Controllers/propertyController").getMyProperties;
+const deleteProperty = require("../Controllers/propertyController").deleteProperty;
+const updateProperty = require("../Controllers/propertyController").updateProperty;
+const createProperty = require("../Controllers/propertyController").CreateProperty;
+const getAllProperties = require("../Controllers/propertyController").GetAllProperties;
+
 
 router.get("/my-properties",protect,getMyProperties);
 router.post("/",protect,allowLandlord,createProperty);
