@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const propertyController = require("../controllers/propertyController");
 const ToggleFavorite = require("../controllers/propertyController").ToggleFavorite;
 const getMyProperties=require("../controllers/propertyController").getMyProperties;
 const deleteProperty = require("../controllers/propertyController").deleteProperty;
