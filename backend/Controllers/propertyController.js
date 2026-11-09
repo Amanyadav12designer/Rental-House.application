@@ -1,4 +1,4 @@
-const property = require("../models/property");
+const property = require("../models/Property");
 
 exports.CreateProperty = async (req,res)=>{
 
