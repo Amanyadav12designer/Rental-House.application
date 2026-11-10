@@ -47,7 +47,7 @@ export default function App() {
       throw new Error("API did not return an array");
     }
 
-    setProperties(data);
+    setProperties(data.properties||[]);
 
   } catch (error) {
     console.error("Error loading properties:", error);

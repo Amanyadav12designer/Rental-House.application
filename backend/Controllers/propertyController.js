@@ -1,46 +1,70 @@
 const property = require("../models/Property");
 
-exports.CreateProperty = async (req,res)=>{
+const Property = require("../models/Property");
 
+exports.CreateProperty = async (req, res) => {
+  try {
+    const {
+      title,
+      city,
+      rent,
+      location,
+      image,
+      propertyType,
+      favorite
+    } = req.body;
 
-    try{
+    console.log("Received body:", req.body);
+    console.log("Authenticated user:", req.user);
 
-        console.log("Authenticated user:", req.user);
-
-const {title,city,rent,location,image,propertyType,favorite}= req.body;
-if(
-        typeof image !== "string" || image.trim() === ""||
-    typeof title !== "string" || title.trim() === "" ||
-    typeof city !== "string" || city.trim() === "" ||
-    typeof rent !== "number" || rent <= 0 ||
-    typeof location !== "string" || location.trim() === "" ||
-    typeof propertyType !== "string" || propertyType.trim() === "" ||
-
-   typeof favorite !== "boolean"
-) {
-    return res.status(400).json({error: "Invalid input data"});
-}
-
-const newProperty = await property.create({title,city,rent,location,image,propertyType,favorite, owner: req.user.userId});
-return res.status(201).json({message: "Property created successfully", property: newProperty});
+    if (
+      typeof title !== "string" || !title.trim() ||
+      typeof city !== "string" || !city.trim() ||
+      typeof rent !== "number" || rent <= 0 ||
+      typeof location !== "string" || !location.trim() ||
+      typeof image !== "string" || !image.trim() ||
+      typeof propertyType !== "string" || !propertyType.trim() ||
+      typeof favorite !== "boolean"
+    ) {
+      return res.status(400).json({
+        message: "Invalid input data"
+      });
     }
-    catch(error){
-        if(error.name === "ValidationError"){
-            return res.status(400).json({message: "Validation error", error: error.message});
-        }
-       
+
+    if (!req.user?.userId) {
+      return res.status(401).json({
+        message: "User authentication required"
+      });
     }
 
+    const newProperty = await Property.create({
+      title,
+      city,
+      rent,
+      location,
+      image,
+      propertyType,
+      favorite,
+      owner: req.user.userId
+    });
 
+    return res.status(201).json({
+      message: "Property created successfully",
+      property: newProperty
+    });
 
+  } catch (error) {
+    console.error("CREATE PROPERTY ERROR:", error);
 
-
-    return res.status(500).json({message: "Internal server error", error: error.message});
-
-
-
-
-}
+    return res.status(
+      error.name === "ValidationError" || error.name === "CastError"
+        ? 400
+        : 500
+    ).json({
+      message: error.message || "Internal server error"
+    });
+  }
+};
 exports.GetAllProperties = async (req,res)=>{
 
 try{
