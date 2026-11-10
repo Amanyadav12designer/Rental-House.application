@@ -3,9 +3,24 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const cors= require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+
+app.use(cors({
+
+origin:[
+
+
+      "http://localhost:5174",
+      "https://rental-house-application.vercel.app"
+], methods:["GET","POST","PATCH","PUT","DELETE"],
+allowedHeaders: ["Content-Type","Authorization"]
+
+
+}))
 
 
 app.use(express.json());

@@ -10,7 +10,7 @@ const {protect,allowLandlord} = require("../middlewares/authMiddleware");
 router.get("/",getAllProperties);
 
 router.get("/my-properties",protect,getMyProperties);
-router.post("/",protect,allowLandlord,createProperty);
+router.post("/",createProperty);
 
 router.patch("/:id",protect,allowLandlord,updateProperty);
 router.patch("/:id/favorite",protect,ToggleFavorite);
