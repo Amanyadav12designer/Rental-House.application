@@ -46,7 +46,7 @@ exports.GetAllProperties = async (req,res)=>{
 try{
 
 
-  const{city,search,rentRange,propertyType,page=1,limit=10,sortBy="Newest"}= req.query;
+  const{city,search,rentRange,propertyType,page=1,limit=10,sortBy="newest"}= req.query;
 
 const currentPage= parseInt(page) || 1;
 const pageLimit = parseInt(limit) || 10;
@@ -126,7 +126,7 @@ if(!sortOptions[sortBy]){
 
 const totalProperties = await property.countDocuments(filter);
 
-return res.status(200).json({message:"Properties retrieved successfully",currentPage:page,totalPages:Math.ceil(totalProperties/limit),totalProperties,properties});
+return res.status(200).json({message:"Properties retrieved successfully",currentPage:page,totalPages:Math.ceil(totalProperties/pageLimit),totalProperties,properties});
 
 }
 catch(error){
