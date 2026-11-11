@@ -19,7 +19,6 @@ origin:[
 ], methods:["GET","POST","PATCH","PUT","DELETE"],
 allowedHeaders: ["Content-Type","Authorization"]
 
-
 }))
 
 
