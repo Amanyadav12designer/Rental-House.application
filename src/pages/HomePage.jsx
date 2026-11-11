@@ -63,7 +63,7 @@ const isMissingSearchParams = !search && !rentRange && !searchLocation && !prope
 
 <li className="nav-link" >
 
-<span className="Link"  to ="/Login"  >Messages</span>
+<span className="Link"  to ="/LoginPage"  >Messages</span>
 </li>
 
 <li className="nav-link" >
