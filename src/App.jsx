@@ -62,10 +62,9 @@ export default function App() {
     if (savedRole) setRole(savedRole);
   }, []);
 
-  function handleLogin(userRole) {
-    setRole(userRole);
-    navigate("/home");
-  }
+  
+
+
 
   function handleLogout() {
     localStorage.removeItem("token");
@@ -199,7 +198,12 @@ if(propertyType){
   return (
     <Routes>
       {/* Public homepage */}
-      <Route path="/" element={<Navigate to="/SignupPage" />} />
+      <Route path="/" element={<Navigate to="/Signup" />} />
+
+
+      <Route path="/Signup"
+
+      element={<SignupPage/>}/>
 
       {/* Hidden admin login */}
       <Route
@@ -211,7 +215,7 @@ if(propertyType){
 
       <Route
       path="/HomePage"
-      element={token?<HomePage/>:<Navigate to ="/LoginPage"/>}/>
+      element={token?<HomePage/>:<Navigate to ="/Login"/>}/>
 
 
       <Route
@@ -281,7 +285,7 @@ if(propertyType){
         }
       />
 
-      <Route path="*" element={<Navigate to="/home" />} />
+    
     </Routes>
   );
 }
