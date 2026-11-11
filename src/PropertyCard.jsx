@@ -2,122 +2,79 @@
 import "./PropertyCard.css";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-
-
-
 export default function PropertyCard({
-  property={},
-  onToggle,
+  property = {},
   onDelete,
-  onFavorite,isLandlord,message={}
+  onFavorite,
+  message = {},
 }) {
+  if (!property._id) return null;
 
-  if (!property.id) return null;
-
-
-
-
+  const isVideo = property.image?.includes("video");
 
   return (
-    <div className="property-grid">
-   
     <div className="property-card">
-      
-      {property.image.includes("video")?(
+
+      {isVideo ? (
         <video
-        src={property.image}
-        controls
-        playsInline
-        
-
-        type="video/mp4"
-        style={{ width: "100%", height: "200px", objectFit: "cover" }}
-      />
-      ):(
-      <img
-        src={property.image}
-        alt={property.title}
-        style={{ width: "100%", height: "200px", objectFit: "cover" }}
-        
+          src={property.image}
+          controls
+          playsInline
+          style={{
+            width: "100%",
+            height: "200px",
+            objectFit: "cover",
+          }}
         />
-
+      ) : (
+        <img
+          src={property.image}
+          alt={property.title || "Property"}
+          style={{
+            width: "100px",
+            height: "200px",
+            objectFit: "cover",
+          }}
+        />
       )}
 
       <h2>{property.title}</h2>
-      
-      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Location: {property.location}</p>
-      <p style={{fontFamily:"playfair",fontSize:"18px"}}> Price: ₹{property.price}</p>
 
-    <div className="action-buttons">
-
-      <button className="switch-button" onClick={() => onToggle(property.id)}>
-        Switch Status
-      </button>
-
-      <button  onClick={()=>
-      
-        onDelete(property.id)
-      }  
-      className="delete-button"
-
-      >Delete
-      
-      
-        
-      </button>
-        </div>
-
-      
-      
-
-
-
-
-
-    
-
-
-         
-
-      <span
-        className="favorite-btn"
-        onClick={() => onFavorite(property.id)}
-      >
-        {property.favorite ? <MdFavorite color="gold" size={30} /> : <MdFavoriteBorder size={30} />}
-      </span>
-
-      {message?.id === property.id && (
-        <p style={{color:"green",fontFamily:"arial",fontWeight:"bold"}}>{message.text}</p>
-      )} 
-    
-    
-
-
-      
-
-      <p style={{textAlign:"right"}}>
-        Status:{" "}
-        <strong style={{fontWeight:"bold", color: property.available ? "Black" : "grey" }}>
-          {property.available ? "Available" : "Not Available"}
-        </strong>
+      <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
+        Location: {property.location}
       </p>
-     
 
-      <a href={`tel:${property.contactNumber}`}  style={{fontFamily: "Inter"}} className="contact-button"> 
-        Call Contact
-      </a>
+      <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
+        Price: ₹{property.rent}
+      </p>
 
-      <br /> <br /> <br /> 
+      <button
+        type="button"
+        onClick={() => onFavorite?.(property._id)}
+        aria-label="Toggle favorite"
+      >
+        {property.favorite ? (
+          <MdFavorite />
+        ) : (
+          <MdFavoriteBorder />
+        )}
+      </button>
 
-      
-      
+      <div className="action-buttons">
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => onDelete?.(property._id)}
+        >
+          Delete
+        </button>
+      </div>
 
+      {message?.id === property._id && (
+        <p>{message.text}</p>
+      )}
 
-      
-      
-
-      
-    </div></div>
+    </div>
   );
 }
 

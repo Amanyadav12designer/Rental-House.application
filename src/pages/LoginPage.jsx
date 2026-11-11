@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import { Link } from "react-router-dom";
-export default function LoginPage(){
+export default function LoginPage({onLogin}){
     const navigate= useNavigate();
 
 const [email,setEmail]= useState("");
@@ -32,6 +32,8 @@ setLoading(true);
 
 
 localStorage.setItem("token",data.token);
+
+onLogin(data)
 
 
 
