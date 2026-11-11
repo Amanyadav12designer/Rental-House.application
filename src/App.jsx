@@ -209,7 +209,7 @@ if(propertyType){
       <Route
         path="/LoginPage"
         element={
-          token ? <Navigate to="/HomePage" /> : <LoginPage onLogin={handleLogin} />
+          token ? <Navigate to="/HomePage" /> : <LoginPage  />
         }
       />
 
