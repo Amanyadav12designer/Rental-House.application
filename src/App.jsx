@@ -199,23 +199,21 @@ if(propertyType){
   return (
     <Routes>
       {/* Public homepage */}
-      <Route path="/" element={<Navigate to="/home" />} />
+      <Route path="/" element={<Navigate to="/SignupPage" />} />
 
       {/* Hidden admin login */}
       <Route
-        path="/landlord-login"
+        path="/LoginPage"
         element={
-          token ? <Navigate to="/home" /> : <LoginPage onLogin={handleLogin} />
+          token ? <Navigate to="/HomePage" /> : <LoginPage onLogin={handleLogin} />
         }
       />
 
-      {/* Optional hidden signup */}
       <Route
-        path="/signup"
-        element={<SignupPage setRole={setRole} />}
-      />
+      path="/HomePage"
+      element={token?<HomePage/>:<Navigate to ="/LoginPage"/>}/>
 
-      {/* Public Home */}
+
       <Route
         path="/home"
         element={

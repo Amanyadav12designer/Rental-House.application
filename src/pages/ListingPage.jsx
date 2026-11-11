@@ -24,8 +24,7 @@ function ListingPage({
   setSearchLocation,
   successFeedback,
   deletedMessage,
-  menuOpen,
-  setMenuOpen,
+ 
   loading
 }) {
   return (
