@@ -203,7 +203,7 @@ if(propertyType){
       <Route
         path="/login"
         element={
-          token ? <Navigate to="/HomePage" /> : <LoginPage  />
+          token ? <Navigate to="/Home" /> : <LoginPage  />
         }
       />
 

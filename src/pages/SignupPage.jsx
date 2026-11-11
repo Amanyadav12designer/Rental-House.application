@@ -7,6 +7,7 @@ export default function SignupPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[name,setName]= useState("");
  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -17,7 +18,7 @@ export default function SignupPage() {
   async function handleSignup(e) {
     e.preventDefault();
 
-    if (!email || !password) {
+    if (!name||!email || !password) {
       alert("Please fill all fields");
       return;
     }
@@ -31,7 +32,7 @@ export default function SignupPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
+         name, email,
           password,
        
         }),
@@ -68,6 +69,12 @@ export default function SignupPage() {
       <div className="signup-card">
       <form onSubmit={handleSignup}>
         <h2>SIGNUP PAGE</h2>
+
+              <input
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
         <input
           placeholder="email"
