@@ -6,13 +6,13 @@ const deleteProperty = require("../Controllers/propertyController").deleteProper
 const updateProperty = require("../Controllers/propertyController").updateProperty;
 const createProperty = require("../Controllers/propertyController").CreateProperty;
 const getAllProperties = require("../Controllers/propertyController").GetAllProperties;
-const {protect,allowLandlord} = require("../middlewares/authMiddleware");
+const {protect} = require("../middlewares/authMiddleware");
 router.get("/",getAllProperties);
 
 router.get("/my-properties",protect,getMyProperties);
-router.post("/",createProperty);
+router.post("/",protect,createProperty);
 
-router.patch("/:id",protect,allowLandlord,updateProperty);
+router.patch("/:id",protect,updateProperty);
 router.patch("/:id/favorite",protect,ToggleFavorite);
-router.delete("/:id",protect,allowLandlord,deleteProperty);
+router.delete("/:id",protect,deleteProperty);
 module.exports = router;

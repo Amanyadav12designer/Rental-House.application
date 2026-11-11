@@ -9,7 +9,7 @@ exports.signup= async (req,res)=>{
 try{
 
 
-const {name,email,password,role}= req.body;
+const {name,email,password}= req.body;
 
 
 if(
@@ -40,7 +40,7 @@ const user = await User.create({
     name:name.trim(),
     email:normalizedEmail,
     password:hashedPassword,
-    role: role ==="landlord"? "landlord":"tenant"
+ 
 });
 
 
@@ -51,8 +51,7 @@ return res.status(201).json({
     user:{
         id:user._id,
         name:user.name,
-        email:user.email,
-        role:user.role
+      
     }
 });
 

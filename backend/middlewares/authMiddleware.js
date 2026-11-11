@@ -16,7 +16,7 @@ return res.status(401).json({message:"Authentication failed, no token provided"}
 
     const decoded= jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user={userId:decoded.userId,role:decoded.role}
+    req.user={userId:decoded.userId}
 
 return next();
 
@@ -28,10 +28,3 @@ return next();
 }
 
 
-exports.allowLandlord= async(req,res,next)=>{
-
-    if(req.user.role!=="landlord"){
-        return res.status(403).json({message:"Access denied, only landlords are allowed"});
-    }
-    next();
-}
