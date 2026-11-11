@@ -13,8 +13,8 @@ app.use(cors({
 
 origin:[
     "http://localhost:5178",
-    " http://localhost:5175/",
-    " http://localhost:5173/",
+    " http://localhost:5175",
+    " http://localhost:5173",
 
       "http://localhost:5174",
       "https://rental-house-application.vercel.app"
