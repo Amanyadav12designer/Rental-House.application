@@ -32,16 +32,16 @@ setLoading(true);
 
 
 localStorage.setItem("token",data.token);
-localStorage.setItem("role",data.role);
 
 
 
 
 
 
-navigate(`/home?role=${data.role}`);
 
-onLogin(data.role);
+
+
+
 
 
 

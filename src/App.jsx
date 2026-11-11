@@ -20,14 +20,14 @@ export default function App() {
   const [searchLocation, setSearchLocation] = useState("");
   const [filter, setFilter] = useState("all");
   const [feedbackMessage, setFeedbackMessage] = useState({ id: null, text: "" });
-  const [role, setRole] = useState(null);
+
   const [successMessage, setSuccessMessage] = useState("");
   const [successDeleteMessage, setSuccessDeleteMessage] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  const isLandlord = role?.toLowerCase() === "landlord";
+
 
  async function loadProperties() {
   try {
@@ -57,20 +57,14 @@ export default function App() {
     setLoading(false);
   }
 }
-  useEffect(() => {
-    const savedRole = localStorage.getItem("role");
-    if (savedRole) setRole(savedRole);
-  }, []);
-
+  
   
 
 
 
   function handleLogout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    setRole(null);
-    navigate("/landlord-login");
+ 
   }
 
   async function addProperty(newProperty) {
@@ -95,7 +89,7 @@ export default function App() {
   }
 
   async function deleteProperty(id) {
-    if (!isLandlord) return alert("Only landlord can delete");
+    
 
     const confirmDelete = window.confirm("Delete property?");
     if (!confirmDelete) return;
@@ -207,7 +201,7 @@ if(propertyType){
 
       {/* Hidden admin login */}
       <Route
-        path="/LoginPage"
+        path="/login"
         element={
           token ? <Navigate to="/HomePage" /> : <LoginPage  />
         }
@@ -251,9 +245,9 @@ if(propertyType){
             onFavorite={toggleFavorite}
             onToggle={toggleAvailability}
             onDelete={deleteProperty}
-            isLandlord={isLandlord}
+        
             message={feedbackMessage}
-            role={role}
+          
             onLogout={handleLogout}
             search={search}
             setSearch={setSearch}

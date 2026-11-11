@@ -7,7 +7,7 @@ export default function SignupPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userRole, setUserRole] = useState("tenant");
+ 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const[existError,setExistError]= useState("");
@@ -24,14 +24,16 @@ export default function SignupPage() {
 
     try {
       setLoading(true);
+       setError("");
+    setExistError("");
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/signup`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
           password,
-          role: userRole,
+       
         }),
       });
 
@@ -50,22 +52,14 @@ export default function SignupPage() {
     } catch (error) {
       console.log(error);
       alert("Signup failed");
+
     } finally {
-      setError(data.message);
+   
       setLoading(false);
     }
   }
 
-  setTimeout(() => {
-    setLoading(false);
-  },7000);
 
-
- 
-
-setTimeout(()=>{
-  setExistError("");
-},7000);
 
   return (
 
@@ -88,14 +82,7 @@ setTimeout(()=>{
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <select
-         style={{marginLeft: "3.5%"}} 
-          value={userRole}
-          onChange={(e) => setUserRole(e.target.value)}
-        >
-          <option value="tenant">Tenant </option>
-          <option value="landlord">Landlord</option>
-        </select>
+       
 
         <button className="signup-btn2" type="submit" disabled={loading}>
           {loading ? <div className="loading-spinner"></div> : "Signup"}
