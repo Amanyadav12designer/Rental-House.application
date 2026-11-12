@@ -29,9 +29,7 @@ title:{
   type: Boolean,
   default: false
 },
-  contactNumber:{
-        type: String, required: true,match: [/^\+?[0-9\s-]{10,15}$/, "Enter a valid phone number"]
-    }
+
 
 
 

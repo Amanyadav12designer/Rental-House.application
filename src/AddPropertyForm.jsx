@@ -10,7 +10,7 @@ export default function AddPropertyForm({ onAdd }) {
   const [city, setCity] = useState("");
   const [location, setLocation] = useState("");
 
-  const [contactNumber, setContactNumber] = useState("");
+
  
 
 
@@ -26,8 +26,7 @@ export default function AddPropertyForm({ onAdd }) {
     !rent ||
     Number(rent) <= 0 ||
     !propertyType ||
-    !imageFile ||
-    !contactNumber.trim();
+    !imageFile 
 
 
   async function handleSubmit(e) {
@@ -82,7 +81,7 @@ export default function AddPropertyForm({ onAdd }) {
 
         favorite: false,
 
-        contactNumber: contactNumber.trim()
+  
 
       
 
@@ -102,7 +101,7 @@ export default function AddPropertyForm({ onAdd }) {
       setLocation("");
       setRent("");
       setImageFile(null);
-      setContactNumber("");
+   
    
      
       setPropertyType("");
@@ -219,17 +218,7 @@ export default function AddPropertyForm({ onAdd }) {
 
       {/* Contact number */}
 
-      <div className="input-wrapper">
-        <MdPhone className="input-icon" />
 
-        <input
-          type="tel"
-          placeholder="Contact Number"
-          value={contactNumber}
-          onChange={e => setContactNumber(e.target.value)}
-          required
-        />
-      </div>
 
 
 

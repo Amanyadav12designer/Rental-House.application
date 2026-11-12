@@ -24,8 +24,8 @@ exports.CreateProperty = async (req, res) => {
       typeof location !== "string" || !location.trim() ||
       typeof image !== "string" || !image.trim() ||
       typeof propertyType !== "string" || !propertyType.trim() ||
-      typeof favorite !== "boolean"||
-      typeof contactNumber !== "string" || contactNumber.trim()
+      typeof favorite !== "boolean"
+      
     ) {
       return res.status(400).json({
         message: "Invalid input data"
@@ -46,7 +46,7 @@ exports.CreateProperty = async (req, res) => {
       image,
       propertyType,
       favorite,
-      contactNumber,
+
       owner: req.user.userId
     });
 
