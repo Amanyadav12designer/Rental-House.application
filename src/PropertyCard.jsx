@@ -46,11 +46,8 @@ export default function PropertyCard({
       </p>
 
       <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
-        Rent
-        : ₹{property.rent}
+        Rent: ₹{property.rent}
       </p>
-
-      
 
       <button
         type="button"

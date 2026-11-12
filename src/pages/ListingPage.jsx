@@ -28,42 +28,24 @@ function ListingPage({
   loading
 }) {
   return (
+  
+  <div className="listing-container">
+    <h1 style={{ textAlign: "center" }}>List your properties here</h1>
+
+    <div className="link-card">
+      <Link style={{ textDecoration: "none", padding: "10px" }} to="/home">
+        Back to home
+      </Link>
+    </div>
+
     <div className="listing-page-container">
-
-      <h1 style={{ textAlign: "center" }}>
-        Property Listings
-      </h1>
-
-      <div className="link-card">
-        <Link
-          style={{ textDecoration: "none", padding: "10px" }}
-          to="/home"
-        >
-          Back to home
-        </Link>
-      </div>
-
-      <div style={{ margin: "13px" }}></div>
-
-      {successFeedback && (
-        <div className="success-message">
-          {successFeedback}
-        </div>
-      )}
-
-      {deletedMessage && (
-        <div className="deleted-message">
-          {deletedMessage}
-        </div>
-      )}
-
+      {successFeedback && <div className="success-message">{successFeedback}</div>}
+      {deletedMessage && <div className="deleted-message">{deletedMessage}</div>}
       {loading && <div className="loading-spinner"></div>}
 
-       <AddPropertyForm onAdd={onAdd} />
+      <AddPropertyForm onAdd={onAdd} />
 
-      {!loading && properties.length === 0 && (
-        <p>No properties available yet.</p>
-      )}
+      {!loading && properties.length === 0 && <p>No properties available yet.</p>}
 
       <PropertyList
         properties={properties}
@@ -84,9 +66,9 @@ function ListingPage({
         setMaxRent={setMaxRent}
         setSearch={setSearch}
       />
-
     </div>
-  );
+  </div>
+);
 }
 
 export default ListingPage;

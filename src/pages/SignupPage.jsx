@@ -50,6 +50,8 @@ export default function SignupPage() {
 
       setSignupSuccess("Signup successful 🎉");
       navigate("/login"); // ✅ go to login
+
+
     } catch (error) {
       console.log(error);
       alert("Signup failed");
@@ -58,6 +60,8 @@ export default function SignupPage() {
    
       setLoading(false);
     }
+
+    
   }
 
 
