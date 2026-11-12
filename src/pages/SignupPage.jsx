@@ -13,14 +13,14 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const[existError,setExistError]= useState("");
   const[signupSuccess,setSignupSuccess]= useState("");
-  const[blankError,setBlankError]= useState("");
+
   
 
   async function handleSignup(e) {
     e.preventDefault();
 
     if (!name||!email || !password) {
-       setBlankError("data.message");
+       alert("please fill all the field");
       return;
     }
 
