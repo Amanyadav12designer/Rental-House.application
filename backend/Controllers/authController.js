@@ -12,6 +12,13 @@ try{
 const {name,email,password}= req.body;
 
 
+
+    if (!name||!email || !password) {
+       alert("fill all inputs");
+      return;
+    }
+
+
 if(
 
 typeof name !=="string" || !name.trim()|| typeof email !=="string" || !email.trim() || typeof password !=="string" || password.length < 8
@@ -22,7 +29,7 @@ typeof name !=="string" || !name.trim()|| typeof email !=="string" || !email.tri
     return res.status(400).json({message: "invaild input data"});
 }
 
-const normalizedEmail =email.toLowerCase().trim();
+
 
 
 const existingUser = await User.findOne({
@@ -88,6 +95,9 @@ exports.login= async (req,res)=>{
 try{
 
 const {email, password}= req.body;
+
+
+
 
 if(typeof email !=="string"|| !email.trim()|| typeof password !=="string"|| !password){
 

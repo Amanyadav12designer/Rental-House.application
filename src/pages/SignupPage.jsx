@@ -13,13 +13,14 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const[existError,setExistError]= useState("");
   const[signupSuccess,setSignupSuccess]= useState("");
+  const[blankError,setBlankError]= useState("");
   
 
   async function handleSignup(e) {
     e.preventDefault();
 
     if (!name||!email || !password) {
-      alert("Please fill all fields");
+       setBlankError("data.message");
       return;
     }
 
@@ -27,6 +28,7 @@ export default function SignupPage() {
       setLoading(true);
        setError("");
     setExistError("");
+   
 
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         method: "POST",

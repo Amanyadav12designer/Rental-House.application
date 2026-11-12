@@ -14,6 +14,8 @@ exports.CreateProperty = async (req, res) => {
       favorite,contactNumber
     } = req.body;
 
+    
+
     console.log("Received body:", req.body);
     console.log("Authenticated user:", req.user);
 
