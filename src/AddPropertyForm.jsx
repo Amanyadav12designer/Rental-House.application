@@ -3,12 +3,6 @@ import { useState } from "react";
 
 import { MdHome, MdLocationOn, MdAttachMoney, MdImage, MdPhone } from "react-icons/md";
 
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMapEvents
-} from "react-leaflet";
 
 export default function AddPropertyForm({ onAdd }) {
 
@@ -19,8 +13,6 @@ export default function AddPropertyForm({ onAdd }) {
   const [contactNumber, setContactNumber] = useState("");
  
 
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
 
   const [propertyType, setPropertyType] = useState("");
 
@@ -90,13 +82,10 @@ export default function AddPropertyForm({ onAdd }) {
 
         favorite: false,
 
-        contactNumber: contactNumber.trim(),
+        contactNumber: contactNumber.trim()
 
       
 
-        lat: Number(lat),
-
-        lng: Number(lng)
 
       };
 
@@ -115,8 +104,7 @@ export default function AddPropertyForm({ onAdd }) {
       setImageFile(null);
       setContactNumber("");
    
-      setLat("");
-      setLng("");
+     
       setPropertyType("");
 
     }
@@ -130,53 +118,6 @@ export default function AddPropertyForm({ onAdd }) {
 
   // Map location picker
 
-  function LocationPicker() {
-
-    useMapEvents({
-
-      async click(e) {
-
-        const latitude = e.latlng.lat;
-        const longitude = e.latlng.lng;
-
-        setLat(latitude);
-        setLng(longitude);
-
-        try {
-
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-          );
-
-          const data = await res.json();
-
-          setLocation(data.display_name || "");
-
-          const address = data.address || {};
-
-          const detectedCity =
-            address.city ||
-            address.town ||
-            address.village ||
-            address.county ||
-            "";
-
-          if (detectedCity) {
-            setCity(detectedCity);
-          }
-
-        }
-
-        catch (error) {
-          console.error("Location lookup failed:", error);
-        }
-
-      }
-
-    });
-
-    return null;
-  }
 
 
   return (
@@ -291,42 +232,6 @@ export default function AddPropertyForm({ onAdd }) {
       </div>
 
 
-      {/* WhatsApp number */}
-
-      
-
-
-      {/* Map */}
-
-      <div style={{ marginTop: "20px" }}>
-
-        <p style={{ marginBottom: "10px" }}>
-          Click on the map to select property location:
-        </p>
-
-        <MapContainer
-          center={[28.4595, 77.0266]}
-          zoom={13}
-          style={{ height: "300px" }}
-        >
-
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-          />
-
-          <LocationPicker />
-
-          {lat !== "" && lng !== "" && (
-            <Marker position={[lat, lng]} />
-          )}
-
-        </MapContainer>
-
-      </div>
-
-
-      {/* Submit */}
 
       <button
         type="submit"

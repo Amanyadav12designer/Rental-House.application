@@ -50,6 +50,11 @@ export default function PropertyCard({
         : ₹{property.rent}
       </p>
 
+        <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
+        Contact
+        : {property.contactNumber}
+      </p>
+
       <button
         type="button"
         onClick={() => onFavorite?.(property._id)}
