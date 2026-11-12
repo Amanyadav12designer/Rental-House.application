@@ -154,7 +154,7 @@ export default function App() {
 
     try {
       const res = await fetch(`${API_URL}/api/properties/${id}`, {
-        method: "DELETE",
+        method: "Delete",
         headers: {
           Authorization: `Bearer ${token}`,
         },

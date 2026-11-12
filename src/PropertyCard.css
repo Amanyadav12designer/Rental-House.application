@@ -1,27 +1,18 @@
 /* =========================================================
-   Property cards — redesigned (separate file)
-   Same selectors as your original snippet. Self-contained:
-   no CSS variables, so it works without the main stylesheet.
+   Listing card (the card used on the Listings page)
+   Self-contained: no CSS variables, no dependence on the
+   home page's .property-card styles.
    ========================================================= */
 
-/* ---------- Grid ---------- */
-.property-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 30px;
-}
-
-/* ---------- Card ---------- */
-.property-card {
+.listing-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  height: max-content;
-  padding: 10px 10px 0;            /* white frame around the photo */
+  height: 100%;                    /* equal-height cards when placed in a grid */
+  padding: 12px 14px 0;   
+           /* photo + text share this inset, so they align */
   overflow: hidden;
   background: #fff;
-  border: none;
   border-radius: 20px;
   font-family: "Inter", sans-serif;
   box-shadow:
@@ -30,76 +21,157 @@
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
-.property-card:hover {
-  transform: translateY(-8px);
+.listing-card:hover {
+  transform: translateY(-6px);
   box-shadow: 0 24px 44px rgba(15, 23, 42, 0.16);
 }
 
-/* ---------- Photo / video ---------- */
-/* one rule instead of the two conflicting ones (220px vs 240px) */
-.property-card img,
-.property-card video {
+/* ---------- Media ---------- */
+.listing-card-media {
+  position: relative;
+  overflow: hidden;                /* clips the hover zoom to the rounded corners */
+  border-radius: 14px;
+  background: #e2e8f0;             /* placeholder colour while the image loads */
+}
+
+.listing-card-media img,
+.listing-card-media video {
   display: block;
   width: 100%;
-  height: 220px;
-  padding: 0;
+  height: 210px;
   object-fit: cover;
-  border-radius: 14px;
-  box-sizing: border-box;
   transition: transform .5s ease;
 }
 
-.property-card:hover img {
-  transform: scale(1.03);
+.listing-card:hover .listing-card-media img {
+  transform: scale(1.04);
 }
 
-/* ---------- Text ---------- */
-.property-card h2 {
+/* favorite heart floats on the photo */
+.listing-favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 20px;
+  color: #475569;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: transform .2s ease, color .2s ease;
+}
+
+.listing-favorite-btn:hover {
+  transform: scale(1.1);
+  color: #e11d48;
+}
+
+.listing-favorite-btn.is-active {
+  color: #e11d48;
+}
+
+/* ---------- Details ---------- */
+.listing-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 0 12px;
+}
+
+.listing-title {
   margin: 0;
-  padding: 16px 8px 0;
-  font-family: "Inter", sans-serif;
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.005em;
   color: #0f172a;
+  /* keep long titles to two lines so cards stay even */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.property-card p {
+.listing-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   margin: 0;
-  padding: 6px 8px 0;
-  font-family: "Inter", sans-serif;
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.4;
   color: #64748b;
 }
 
-/* ---------- Content wrapper ---------- */
-.property-content {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 14px 8px 16px;
+.listing-location-icon {
+  flex-shrink: 0;
+  font-size: 17px;
+  color: #6366f1;
 }
 
-/* ---------- Actions row ---------- */
-.card-actions {
+.listing-price {
+  margin: 4px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #0f172a;
+}
+
+.listing-price-unit {
+  margin-left: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+/* ---------- Actions ---------- */
+.listing-card-actions {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: auto;
-  padding: 12px 8px 16px;
+  justify-content: flex-end;
+  margin-top: auto;                /* pins the button row to the bottom of every card */
+  padding: 12px 0 14px;
   border-top: 1px solid #f1f5f9;
 }
 
-/* ---------- Small screens ---------- */
+.listing-delete-btn {
+  padding: 8px 18px;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e11d48;
+  background: #fff;
+  border: 1px solid #e11d48;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.listing-delete-btn:hover {
+  color: #fff;
+  background: #e11d48;
+}
+
+/* ---------- Status message ---------- */
+.listing-message {
+  margin: 0 -14px;                 /* spans the full card width */
+  padding: 10px 14px;
+  font-size: 13px;
+  text-align: center;
+  color: #15803d;
+  background: #ecfdf5;
+  border-top: 1px solid #bbf7d0;
+}
+
+/* ---------- Phones ---------- */
 @media (max-width: 600px) {
-  .property-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  .property-card img,
-  .property-card video {
-    height: 200px;
+  .listing-card-media img,
+  .listing-card-media video {
+    height: 190px;
   }
 }

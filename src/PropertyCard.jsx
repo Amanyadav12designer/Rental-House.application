@@ -13,7 +13,7 @@ export default function PropertyCard({
   const isVideo = property.image?.includes("video");
 
   return (
-    <div className="property-card">
+    <div className="listing-card">
 
       {isVideo ? (
         <video
@@ -22,8 +22,8 @@ export default function PropertyCard({
           playsInline
           style={{
             width: "100%",
-            height: "200px",
-            objectFit: "cover",
+            height: "300px",
+            
           }}
         />
       ) : (
@@ -39,13 +39,15 @@ export default function PropertyCard({
       )}
 
       <h2>{property.title}</h2>
+      <p1>{property.propertyType}</p1>
 
       <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
         Location: {property.location}
       </p>
 
       <p style={{ fontFamily: "playfair", fontSize: "18px" }}>
-        Price: ₹{property.rent}
+        Rent
+        : ₹{property.rent}
       </p>
 
       <button
@@ -60,10 +62,10 @@ export default function PropertyCard({
         )}
       </button>
 
-      <div className="action-buttons">
+      <div className="listing-card-actions">
         <button
           type="button"
-          className="delete-button"
+          className="listing-delete-btn"
           onClick={() => onDelete?.(property._id)}
         >
           Delete
