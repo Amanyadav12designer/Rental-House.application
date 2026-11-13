@@ -60,9 +60,12 @@ export default function SignupPage() {
 
       const data = await res.json();
 
+
+      
+
       if (!res.ok) {
         setExistError(data.message);
-
+setError(data.message);
          setTimeout(()=>{
 
       
@@ -71,6 +74,8 @@ export default function SignupPage() {
 
     
     )
+
+    
 
         
         return;
@@ -87,6 +92,9 @@ export default function SignupPage() {
       setLoading(false);
     }
   }
+
+
+  
 
 
 
