@@ -22,7 +22,7 @@ typeof name !=="string" || !name.trim()|| typeof email !=="string" || !email.tri
 ) {
 
     return res.status(400).json({message: "invaild input data"});
-}zz
+}
 
 
 
