@@ -13,22 +13,49 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const[existError,setExistError]= useState("");
   const[signupSuccess,setSignupSuccess]= useState("");
+  const[blankError,setBlankError]= useState("");
 
-  
+
+
 
   async function handleSignup(e) {
     e.preventDefault();
 
+
+
+
+
+
+
     if (!name||!email || !password) {
-       alert("please fill all the field");
+
+
+
+
+        
+      setBlankError("please fill all the field")
+     setTimeout(()=>{
+
+      
+      setBlankError("")
+    },2000
+
+    
+    );  
       return;
     }
+
+   
+
+
+
+
+  
 
     try {
       setLoading(true);
        setError("");
     setExistError("");
-   
 
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         method: "POST",
@@ -40,20 +67,33 @@ export default function SignupPage() {
         }),
       });
 
+
+
      
 
       const data = await res.json();
 
+
+  
+
       if (!res.ok) {
         setExistError(data.message);
+
+         setTimeout(()=>{
+
+      
+      setExistError("")
+    },2000
+
+    
+    )
+
+        
         return;
       }
      
 
-      setSignupSuccess("Signup successful 🎉");
       navigate("/login"); // ✅ go to login
-
-
     } catch (error) {
       console.log(error);
       alert("Signup failed");
@@ -62,8 +102,6 @@ export default function SignupPage() {
    
       setLoading(false);
     }
-
-    
   }
 
 
@@ -71,6 +109,10 @@ export default function SignupPage() {
   return (
 
     <div className="signup-page">
+      
+        {blankError && <div className="error-box">{blankError}</div>}
+
+
       {signupSuccess && <div className="success-box">{signupSuccess}</div>}
       <div className="signup-card">
       <form onSubmit={handleSignup}>
