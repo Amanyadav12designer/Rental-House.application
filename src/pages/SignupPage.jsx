@@ -14,22 +14,12 @@ export default function SignupPage() {
   const[existError,setExistError]= useState("");
   const[signupSuccess,setSignupSuccess]= useState("");
   const[blankError,setBlankError]= useState("");
-
-
-
+  
 
   async function handleSignup(e) {
     e.preventDefault();
 
-
-
-
-
-
-
     if (!name||!email || !password) {
-
-
 
 
         
@@ -45,7 +35,6 @@ export default function SignupPage() {
       return;
     }
 
-   
 
 
 
@@ -67,14 +56,9 @@ export default function SignupPage() {
         }),
       });
 
-
-
      
 
       const data = await res.json();
-
-
-  
 
       if (!res.ok) {
         setExistError(data.message);

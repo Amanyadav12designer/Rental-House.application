@@ -22,10 +22,7 @@ typeof name !=="string" || !name.trim()|| typeof email !=="string" || !email.tri
 ) {
 
     return res.status(400).json({message: "invaild input data"});
-}
-
-
-
+}zz
 
 
 
@@ -74,7 +71,7 @@ return res.status(201).json({
 
     if(error.name==="ValidationError"){
         return res.status(400).json({
-            message:"invalid email or password"
+            message:"validation error"
         });
 
     }
