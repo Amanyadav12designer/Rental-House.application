@@ -65,7 +65,7 @@ export default function SignupPage() {
 
       if (!res.ok) {
         setExistError(data.message);
-setError(data.message);
+
          setTimeout(()=>{
 
       

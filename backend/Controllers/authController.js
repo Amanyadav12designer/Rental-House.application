@@ -13,15 +13,14 @@ const {name,email,password}= req.body;
 
 
 
-
-if(
-
-typeof name !=="string" || !name.trim()|| typeof email !=="string" || !email.trim() || typeof password !=="string" || password.length < 8
-
-
-) {
-
-    return res.status(400).json({message: "invaild input data"});
+if (typeof name !== "string" || !name.trim()) {
+  return res.status(400).json({ message: "Name is required" });
+}
+if (typeof email !== "string" || !email.trim()) {
+  return res.status(400).json({ message: "Email is required" });
+}
+if (typeof password !== "string" || password.length < 8) {
+  return res.status(400).json({ message: "Password must be at least 8 characters" });
 }
 
 const normalizedEmail = email.toLowerCase().trim()
@@ -71,7 +70,7 @@ return res.status(201).json({
 
     if(error.name==="ValidationError"){
         return res.status(400).json({
-            message:"validation error"
+            message:"invalid email or password"
         });
 
     }
