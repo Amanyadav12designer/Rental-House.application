@@ -12,12 +12,18 @@ import FavoritePage from "./pages/FavoritePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ListingPage from "./pages/ListingPage";
+import AboutUs from "./pages/AboutUs";
+import {useNotifications} from "./NotificationContext"
+
+
 
 import "leaflet/dist/leaflet.css";
 import "./App.css";
 
 export default function App() {
   const navigate = useNavigate();
+
+  const {addNotifications}= useNotifications();
 
   // AUTHENTICATION
   const [token, setToken] = useState(
@@ -187,10 +193,7 @@ export default function App() {
   // TOGGLE FAVORITE
 
   async function toggleFavorite(id) {
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+   
 
     try {
       const res = await fetch(
@@ -198,7 +201,7 @@ export default function App() {
         {
           method: "PATCH",
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer`,
           },
         }
       );
@@ -215,6 +218,8 @@ export default function App() {
         throw new Error("Invalid favorite response");
       }
 
+   
+
       setProperties(prev =>
         prev.map(p =>
           String(p._id || p.id) === String(id)
@@ -222,7 +227,14 @@ export default function App() {
             : p
         )
       );
+   if (updatedProperty.favorite) { 
+    const property=properties.find(p=>String(p._id||p.id)===String(id));
 
+     const title = updatedProperty.title || property?.title || "Property";
+  addNotifications(`"${title}" was added to your favorites`);
+    // true only when it is being ADDED
+    
+  }
       setFeedbackMessage({
         id,
         text: updatedProperty.favorite
@@ -436,6 +448,8 @@ export default function App() {
           )
         }
       />
+
+      <Route path="/about" element={<AboutUs />} />
 
       {/* OLD URL REDIRECTS */}
 

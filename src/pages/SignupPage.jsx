@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import PasswordInput from "./PasswordInput";
+
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -122,11 +124,12 @@ export default function SignupPage() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
+        <PasswordInput
           type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          autoComplete="New Password"
         />
 
        

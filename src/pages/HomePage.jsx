@@ -5,6 +5,11 @@
 import { Link } from "react-router-dom";
 
 import {useNavigate} from "react-router-dom";
+import NotificationBell from "../NotificationBell"
+
+
+
+
 
 
 export default function HomePage({rentRange,setRentRange,search,searchLocation,setSearch,setSearchLocation,propertyType,setPropertyType})     {
@@ -48,7 +53,7 @@ const isMissingSearchParams = !search && !rentRange && !searchLocation && !prope
 
 <li className="nav-link">
 
-<Link className="Link" to="/">Home</Link>
+<Link className="Link" to="/Home">Home</Link>
 </li>
 
 <li className="nav-link">
@@ -61,14 +66,12 @@ const isMissingSearchParams = !search && !rentRange && !searchLocation && !prope
 <Link className="Link" to="/Listing">All Properties</Link>
 </li>
 
-<li className="nav-link" >
 
-<span className="Link" >Messages</span>
-</li>
 
 <li className="nav-link" >
+  <Link className="Link" to="/about">About Us</Link>
 
-<span className="Link">Contact</span>
+
 </li>
 
 </ul>
@@ -100,27 +103,7 @@ const isMissingSearchParams = !search && !rentRange && !searchLocation && !prope
 
 </div>
   
- <div className="notification-btn">
-
-    {/* Bell SVG */}
-
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="bell-icon"
-    >
-        <path d="M10.268 21a2 2 0 0 0 3.464 0"/>
-        <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .738-1.674C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>
-    </svg>
-
-</div>
+<NotificationBell/>
 
 
 <div  className="user-profile">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <p>Aman</p></div>
@@ -135,6 +118,10 @@ const isMissingSearchParams = !search && !rentRange && !searchLocation && !prope
   
  
   </header>
+  
+
+
+
 
 
 <div className="intro-box">
