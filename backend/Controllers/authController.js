@@ -121,14 +121,14 @@ const token = jwt.sign({
 
 
 
-    userId: user._id.toString(),role:user.role
+    userId: user._id.toString()
 }, process.env.JWT_SECRET,{expiresIn:"2h"});
 
 return res.status(201).json({
 
     message:"login successful",token,user:{
 
-        id:user._id,name:user.name,email:user.email,role:user.role
+        id:user._id,name:user.name,email:user.email
     }
 });
 
